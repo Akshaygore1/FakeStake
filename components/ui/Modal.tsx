@@ -1,4 +1,4 @@
-import { Bomb } from 'lucide-react';
+import { Bomb, Gem } from 'lucide-react';
 import React, { useEffect, useRef } from 'react';
 
 export interface ModalProps {
@@ -49,12 +49,14 @@ export default function Modal({
 					ref={modalRef}
 					className='modal relative p-6 bg-white shadow-lg rounded-lg'
 				>
-					<Bomb
-						size={48}
-						color='red'
-						className='flex justify-center items-center p-4'
-					/>
-					<div>Oops Try Again</div>
+					<div className='modal relative p-6 rounded-lg'>
+						<Gem
+							size={100}
+							color='green'
+							className='flex justify-center items-center'
+						/>
+						<div className='text-center text-black pt-6'>You Won {amount}</div>
+					</div>
 				</div>
 			);
 			break;

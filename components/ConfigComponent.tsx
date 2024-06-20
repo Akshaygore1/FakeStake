@@ -145,7 +145,7 @@ export default function ConfigComponent() {
 				isOpen={showModal}
 				closeModal={() => setShowModal(false)}
 				result='win'
-				amount={100}
+				amount={currentProfit!}
 			/>
 		</div>
 	);
