@@ -1,4 +1,4 @@
-import { Gem } from 'lucide-react';
+import { Gem, Rocket } from 'lucide-react';
 
 const games = [
 	{
@@ -6,7 +6,11 @@ const games = [
 		link: '/mines',
 		logo: <Gem size={48} color='#00ff62' />,
 	},
-	// Add more games as needed
+	{
+		name: "Rocket",
+		link: '/rocket',
+		logo: <Rocket size={48} color='#00ff62' />,
+	}
 ];
 
 export default function Home() {
