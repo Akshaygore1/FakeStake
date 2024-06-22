@@ -19,8 +19,8 @@ export const useCommonStore = create<CommonStore>()(
 			balance: 1000,
 			setProfitAmount: (profitAmount) => set({ profitAmount }),
 			setMultiplier: (multiplier) => set({ multiplier }),
-			setBalance: (balance) => set({ balance }),
-			clearCommonState: () => set({ profitAmount: 0, multiplier: 0 }),
+			setBalance: (balance) => set({ balance: balance < 0 ? 0 : balance }),
+			clearCommonState: () => set({ profitAmount: 0, multiplier: 0, balance: 1000 }), // reset balance to initial value
 		}),
 		{ name: 'config-storage' }
 	)
