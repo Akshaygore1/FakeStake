@@ -49,13 +49,13 @@ export default function Modal({
 					ref={modalRef}
 					className='modal relative p-6 bg-white shadow-lg rounded-lg'
 				>
-					<div className='modal relative p-6 rounded-lg'>
+					<div className='modal relative p-6 rounded-lg flex flex-col justify-center items-center'>
 						<Gem
 							size={100}
 							color='green'
-							className='flex justify-center items-center'
+							// className='flex justify-center items-center'
 						/>
-						<div className='text-center text-black pt-6'>You Won {amount}</div>
+						<div className='text-center text-black pt-6'>You Won {amount?.toFixed(3)}</div>
 					</div>
 				</div>
 			);
