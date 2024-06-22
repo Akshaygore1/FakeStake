@@ -7,8 +7,8 @@ const games = [
     logo: <Gem size={48} color="#00ff62" />,
   },
   {
-    name: "Rocket",
-    link: "/rocket",
+    name: "Comming Soon",
+    link: "/",
     logo: <Rocket size={48} color="#00ff62" />,
   },
 ];
