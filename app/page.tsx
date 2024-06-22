@@ -1,4 +1,5 @@
 import { Gem, Rocket } from "lucide-react";
+import Link from "next/link";
 
 const games = [
   {
@@ -33,7 +34,7 @@ export default function Home() {
       {/* Game Cards Section */}
       <section className="w-full flex flex-wrap justify-center gap-8">
         {games.map((game, index) => (
-          <a
+          <Link
             href={game.link}
             key={index}
             className="max-w-xs rounded overflow-hidden shadow-lg bg-gray-800 hover:scale-105 transition-transform duration-200"
@@ -45,7 +46,7 @@ export default function Home() {
               <div className="font-bold text-xl mb-2">{game.name}</div>
               <p className=" text-gray-300">Click to play {game.name}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </section>
     </main>
