@@ -40,10 +40,10 @@ export default function ConfigComponent() {
   console.log("firstbalance", balance, betAmount);
 
   const handleBet = () => {
-    if (betAmount > balance) {
-      alert("You don’t have enough balance");
-      return;
-    }
+      if (betAmount === null || betAmount > balance!) {
+    alert("You don’t have enough balance");
+    return;
+  }
 
     handleSetupGame();
     setGameStarted(true);
@@ -88,7 +88,7 @@ export default function ConfigComponent() {
   };
 
   const handleDisabledBetClick = () => {
-    if (betAmount > balance) {
+    if (betAmount === null || betAmount > balance) {
       alert("You don’t have enough balance");
     }
   };
@@ -111,7 +111,7 @@ export default function ConfigComponent() {
           className="w-full p-2 border border-gray-600 rounded-lg bg-gray-700 text-white focus:border-none focus:outline-none"
           disabled={gameStarted}
         />
-        {betAmount > balance ? (
+        {betAmount === null || betAmount > balance ? (
           <label
             htmlFor="betAmount"
             className="block mb-2 text-sm font-medium text-red-500"
