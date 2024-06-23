@@ -1,8 +1,5 @@
 "use client";
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { useConfigStore } from "@/store/configStore";
-import { calculateCurrentProfit, getMultiplier } from "@/lib/utils";
-import { useGridStore } from "@/store/gridStore";
+import React, { ChangeEvent, useState } from "react";
 import { useCommonStore } from "@/store/commonStore";
 import Modal from "./ui/Modal";
 import { useRockerConfig } from "@/store/rocketConfig";
@@ -19,7 +16,6 @@ export default function ConfigForRocket() {
   const { multiplier, setMultiplier, clearCommonState, setBalance, balance } =
     useCommonStore();
 
-  const [successfulClicks, setSuccessfulClicks] = useState(0);
   const [currentProfit, setCurrentProfit] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -30,18 +26,22 @@ export default function ConfigForRocket() {
   };
 
   const handleBet = () => {
-    handleSetupGame();
-    setGameStarted(true);
-    setMultiplier(0);
-    setCurrentProfit(betAmount);
-    setBalance(balance! - betAmount!);
+    if (betAmount !== null) {
+      handleSetupGame();
+      setGameStarted(true);
+      setMultiplier(1);
+      setCurrentProfit(betAmount);
+      setBalance(balance! - betAmount);
+    }
   };
 
   const handleCashOut = () => {
     setGameStarted(false);
     clearCommonState();
     setShowModal(true);
-    setBalance(balance! + currentProfit!);
+    setMultiplier(0);
+    setCurrentProfit(betAmount! * multiplier);
+    setBalance(balance! + betAmount! * multiplier);
   };
 
   return (

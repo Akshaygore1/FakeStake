@@ -11,22 +11,20 @@ type ConfigStore = {
   setGameStarted: (gameStarted: boolean) => void;
   clearConfigStore: () => void;
 };
-export const useRockerConfig = create<ConfigStore>()((set, get) => ({
-  numberOfMines: 1,
-  gameStarted: false,
+
+export const useRockerConfig = create<ConfigStore>((set) => ({
   betAmount: null,
   isGameSetup: false,
-  setGameStarted: (gameStarted) => set({ gameStarted }),
+  gameStarted: false,
   setIsGameSetup: (isGameSetup) => set({ isGameSetup }),
   setBetAmount: (betAmount) => set({ betAmount }),
-  handleSetupGame: () => {
-    set({ isGameSetup: true });
-  },
+  handleSetupGame: () => set({ isGameSetup: true }),
   resetGame: () =>
     set({
       isGameSetup: false,
       betAmount: null,
       gameStarted: false,
     }),
+  setGameStarted: (gameStarted) => set({ gameStarted }),
   clearConfigStore: () => set({ isGameSetup: false, betAmount: null }),
 }));
