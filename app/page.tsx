@@ -1,3 +1,4 @@
+import GameCard from "@/components/GameCard";
 import { Gem, Rocket } from "lucide-react";
 import Link from "next/link";
 
@@ -34,19 +35,7 @@ export default function Home() {
       {/* Game Cards Section */}
       <section className="w-full flex flex-wrap justify-center gap-8">
         {games.map((game, index) => (
-          <Link
-            href={game.link}
-            key={index}
-            className="max-w-xs rounded overflow-hidden shadow-lg bg-gray-800 hover:scale-105 transition-transform duration-200"
-          >
-            <div className="w-full flex justify-center items-center h-48 bg-gray-700">
-              {game.logo}
-            </div>
-            <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2">{game.name}</div>
-              <p className=" text-gray-300">Click to play {game.name}</p>
-            </div>
-          </Link>
+          <GameCard key={index} link={game.link} logo={game.logo} name={game.name}/>
         ))}
       </section>
     </main>
