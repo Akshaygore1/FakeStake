@@ -27,7 +27,7 @@ npm run dev
 ```
 ## Contributors ✨
 
-Thanks go to these wonderful people
+Thanks go to these wonderful people  😇
 
 <table>
   <tbody>
@@ -45,6 +45,14 @@ Thanks go to these wonderful people
           <br />
           <sub>
             <b>Lohit M Kudlannavar</b>
+          </sub>
+        <br />
+      </td>
+        <td align="center" valign="top" width="5%">
+          <img src="https://avatars.githubusercontent.com/u/121970162?v=4" width="50px;" alt="Lohit"/>
+          <br />
+          <sub>
+            <b>Surendra</b>
           </sub>
         <br />
       </td>
