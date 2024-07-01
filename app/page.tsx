@@ -1,4 +1,4 @@
-import GameCard from "@/components/GameCard";
+import GameCard from "@/app/_components/GameCard";
 import { Gem, Rocket } from "lucide-react";
 import Link from "next/link";
 

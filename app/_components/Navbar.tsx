@@ -1,5 +1,5 @@
 'use client';
-import { useCommonStore } from '@/store/commonStore';
+import { useCommonStore } from '@/app/_store/commonStore';
 import { Coins } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';

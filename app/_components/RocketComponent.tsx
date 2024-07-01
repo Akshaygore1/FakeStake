@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useCommonStore } from "@/store/commonStore";
-import { useRockerConfig } from "@/store/rocketConfig";
+import { useCommonStore } from "@/app/_store/commonStore";
+import { useRockerConfig } from "@/app/_store/rocketConfig";
 
 export default function RocketComponent() {
   const { multiplier, setMultiplier } = useCommonStore();
