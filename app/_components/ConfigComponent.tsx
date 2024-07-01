@@ -1,9 +1,9 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { useConfigStore } from "@/store/configStore";
-import { calculateCurrentProfit, getMultiplier } from "@/lib/utils";
-import { useGridStore } from "@/store/gridStore";
-import { useCommonStore } from "@/store/commonStore";
+import { useConfigStore } from "@/app/_store/configStore";
+import { calculateCurrentProfit, getMultiplier } from "@/app/_lib/utils";
+import { useGridStore } from "@/app/_store/gridStore";
+import { useCommonStore } from "@/app/_store/commonStore";
 import Modal from "./ui/Modal";
 
 export default function ConfigComponent() {

@@ -1,6 +1,6 @@
-import ConfigComponent from "@/components/ConfigComponent";
-import ConfigForRocket from "@/components/ConfigForRocket";
-import RocketComponent from "@/components/RocketComponent";
+import ConfigComponent from "@/app/_components/ConfigComponent";
+import ConfigForRocket from "@/app/_components/ConfigForRocket";
+import RocketComponent from "@/app/_components/RocketComponent";
 
 export default function page() {
   return (
