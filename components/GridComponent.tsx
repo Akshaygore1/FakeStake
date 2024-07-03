@@ -70,7 +70,7 @@ export default function GridComponent() {
 			{Array.from({ length: 25 }).map((_, index) => (
 				<div
 					key={index}
-					className={`h-16 w-16 sm:h-16 sm:w-16 md:h-22 md:w-22 lg:h-28 lg:w-28 flex justify-center items-center border transition-transform duration-200 ${
+					className={`h-16 w-16 sm:h-16 sm:w-16 md:h-22 md:w-22 lg:h-28 lg:w-28 flex justify-center items-center border transition-transform duration-200 cursor-pointer ${
 						selectedGrid[index]
 							? mines.includes(index)
 								? 'border-red-500 text-white animate-shake'

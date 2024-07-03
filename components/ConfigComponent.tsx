@@ -5,6 +5,8 @@ import { calculateCurrentProfit, getMultiplier } from "@/lib/utils";
 import { useGridStore } from "@/store/gridStore";
 import { useCommonStore } from "@/store/commonStore";
 import Modal from "./ui/Modal";
+import { motion } from "framer-motion";
+import { hoverScaleUp } from "framer-motion-variants";
 
 export default function ConfigComponent() {
   const {
@@ -124,8 +126,10 @@ export default function ConfigComponent() {
       </div>
       <div className="flex gap-2">
         {[1, 3, 5, 10].map((numMines) => (
-          <button
+          <motion.button
             key={numMines}
+			variants={hoverScaleUp}
+			whileHover="hover"
             onClick={() => handleNumMinesChange(numMines)}
             className={`w-full p-2 border border-gray-600 rounded-lg bg-gray-700 text-white focus:border-none focus:outline-none ${
               numberOfMines === numMines ? "bg-green-500 text-white" : ""
@@ -133,7 +137,7 @@ export default function ConfigComponent() {
             disabled={gameStarted}
           >
             {numMines}
-          </button>
+          </motion.button>
         ))}
       </div>
       <button

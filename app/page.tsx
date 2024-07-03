@@ -1,6 +1,8 @@
+"use client"
 import GameCard from "@/components/GameCard";
+import { motion } from "framer-motion";
+import { fadeIn, leftFadeIn, parentFadeIn } from "framer-motion-variants";
 import { Gem, Rocket } from "lucide-react";
-import Link from "next/link";
 
 const games = [
   {
@@ -17,14 +19,14 @@ const games = [
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-24 justify-center">
+    <motion.main variants={parentFadeIn} initial="initial" animate="animate" className="flex min-h-screen flex-col items-center p-24 justify-center">
       {/* Hero Section */}
-      <section className="w-full flex flex-col items-center text-center mb-12">
+      <motion.section variants={fadeIn} className="w-full flex flex-col items-center text-center mb-12">
         <h1 className="text-5xl font-bold mb-4">Welcome to Fake Stake</h1>
         <p className="text-xl text-gray-500">
           Your ultimate destination for playing games
         </p>
-      </section>
+      </motion.section>
 
       {/* Decorative Gradient Div */}
       <div className="relative flex place-items-center mb-12">
@@ -35,9 +37,11 @@ export default function Home() {
       {/* Game Cards Section */}
       <section className="w-full flex flex-wrap justify-center gap-8">
         {games.map((game, index) => (
-          <GameCard key={index} link={game.link} logo={game.logo} name={game.name}/>
+			<motion.div key={index} variants={leftFadeIn}>
+				<GameCard link={game.link} logo={game.logo} name={game.name}/>
+			</motion.div>
         ))}
       </section>
-    </main>
+    </motion.main>
   );
 }

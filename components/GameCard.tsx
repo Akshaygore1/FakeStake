@@ -9,11 +9,8 @@ type GameCardProps = {
 
 export default function GameCard({ link, logo, name }: GameCardProps) {
 	return (
-		<>
-			<Link
-				href={link}
-				className="max-w-xs rounded overflow-hidden shadow-lg bg-gray-800 hover:scale-105 transition-transform duration-200"
-			>
+		<div className="max-w-xs rounded overflow-hidden shadow-lg bg-gray-800 hover:scale-105 transition-transform duration-200">
+			<Link href={link}>
 				<div className="w-full flex justify-center items-center h-48 bg-gray-700">
 					{logo}
 				</div>
@@ -22,6 +19,6 @@ export default function GameCard({ link, logo, name }: GameCardProps) {
 					<p className=" text-gray-300">Click to play {name}</p>
 				</div>
 			</Link>
-		</>
+		</div>
 	);
 }
