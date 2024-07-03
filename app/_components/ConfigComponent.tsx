@@ -33,6 +33,13 @@ export default function ConfigComponent() {
     setBetAmount(amount);
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const charCode = e.charCode;
+    if (charCode < 48 || charCode > 57) {
+      e.preventDefault();   // I'm allowing numbers and control keys (like backspace) only.
+    }
+  };
+
   const handleNumMinesChange = (numMines: number) => {
     setNumberOfMines(numMines);
   };
@@ -108,10 +115,11 @@ export default function ConfigComponent() {
           value={betAmount !== null ? betAmount : ""}
           min={10}
           onChange={handleBetAmountChange}
+          onKeyPress={handleKeyPress}
           className="w-full p-2 border border-gray-600 rounded-lg bg-gray-700 text-white focus:border-none focus:outline-none"
           disabled={gameStarted}
         />
-        {betAmount! > balance ? (
+        {betAmount! > balance && !gameStarted ? (
           <label
             htmlFor="betAmount"
             className="block mb-2 text-sm font-medium text-red-500"
