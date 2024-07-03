@@ -1,8 +1,9 @@
 "use client"
-import ConfigComponent from '@/components/ConfigComponent';
-import GridComponent from '@/components/GridComponent';
 import { motion } from 'framer-motion';
 import {parentFadeIn, leftFadeIn, fadeIn } from 'framer-motion-variants';
+import ConfigComponent from '@/app/_components/ConfigComponent';
+import GridComponent from '@/app/_components/GridComponent';
+import Navbar from '@/app/_components/Navbar';
 
 export default function Mines() {
 	return (

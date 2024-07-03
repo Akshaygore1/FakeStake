@@ -1,7 +1,7 @@
 "use client"
-import GameCard from "@/components/GameCard";
 import { motion } from "framer-motion";
 import { fadeIn, leftFadeIn, parentFadeIn } from "framer-motion-variants";
+import GameCard from "@/app/_components/GameCard";
 import { Gem, Rocket } from "lucide-react";
 
 const games = [

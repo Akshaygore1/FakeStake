@@ -25,3 +25,37 @@ cd fakestake
 npm install
 npm run dev
 ```
+## Contributors ✨
+
+Thanks go to these wonderful people  😇
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="5%">
+          <img src="https://avatars.githubusercontent.com/u/92959398?v=4" width="50px;" alt="Akshay"/>
+          <br />
+          <sub>
+            <b>Akshay Gore</b>
+          </sub>
+        <br />
+      </td>
+            <td align="center" valign="top" width="5%">
+          <img src="https://avatars.githubusercontent.com/u/83768627?v=4" width="50px;" alt="Lohit"/>
+          <br />
+          <sub>
+            <b>Lohit M Kudlannavar</b>
+          </sub>
+        <br />
+      </td>
+        <td align="center" valign="top" width="5%">
+          <img src="https://avatars.githubusercontent.com/u/121970162?v=4" width="50px;" alt="Lohit"/>
+          <br />
+          <sub>
+            <b>Surendra</b>
+          </sub>
+        <br />
+      </td>
+    </tr>
+  </tbody>
+</table>

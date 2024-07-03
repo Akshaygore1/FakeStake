@@ -1,11 +1,11 @@
 'use client';
 
-import { useConfigStore } from '@/store/configStore';
-import { useGridStore } from '@/store/gridStore';
+import { useConfigStore } from '@/app/_store/configStore';
+import { useGridStore } from '@/app/_store/gridStore';
 import { useEffect, useState } from 'react';
 import Modal from './ui/Modal';
 import { Bomb, Gem } from 'lucide-react';
-import { useCommonStore } from '@/store/commonStore';
+import { useCommonStore } from '@/app/_store/commonStore';
 
 export default function GridComponent() {
 	const {
