@@ -1,9 +1,9 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { useConfigStore } from "@/store/configStore";
-import { calculateCurrentProfit, getMultiplier } from "@/lib/utils";
-import { useGridStore } from "@/store/gridStore";
-import { useCommonStore } from "@/store/commonStore";
+import { useConfigStore } from "@/app/_store/configStore";
+import { calculateCurrentProfit, getMultiplier } from "@/app/_lib/utils";
+import { useGridStore } from "@/app/_store/gridStore";
+import { useCommonStore } from "@/app/_store/commonStore";
 import Modal from "./ui/Modal";
 
 export default function ConfigComponent() {
@@ -31,6 +31,13 @@ export default function ConfigComponent() {
     const value = e.target.value;
     const amount = value === "" ? null : Number(value);
     setBetAmount(amount);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const charCode = e.charCode;
+    if (charCode < 48 || charCode > 57) {
+      e.preventDefault();   // I'm allowing numbers and control keys (like backspace) only.
+    }
   };
 
   const handleNumMinesChange = (numMines: number) => {
@@ -108,10 +115,11 @@ export default function ConfigComponent() {
           value={betAmount !== null ? betAmount : ""}
           min={10}
           onChange={handleBetAmountChange}
+          onKeyPress={handleKeyPress}
           className="w-full p-2 border border-gray-600 rounded-lg bg-gray-700 text-white focus:border-none focus:outline-none"
           disabled={gameStarted}
         />
-        {betAmount! > balance ? (
+        {betAmount! > balance && !gameStarted ? (
           <label
             htmlFor="betAmount"
             className="block mb-2 text-sm font-medium text-red-500"

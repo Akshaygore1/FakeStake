@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useCommonStore } from "@/store/commonStore";
-import { useRockerConfig } from "@/store/rocketConfig";
+import { useCommonStore } from "@/app/_store/commonStore";
+import { useRockerConfig } from "@/app/_store/rocketConfig";
 import { RocketChart } from "./RocketChart";
 
 export default function RocketComponent() {

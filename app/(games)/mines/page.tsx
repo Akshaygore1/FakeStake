@@ -1,6 +1,6 @@
-import ConfigComponent from '@/components/ConfigComponent';
-import GridComponent from '@/components/GridComponent';
-import Navbar from '@/components/Navbar';
+import ConfigComponent from '@/app/_components/ConfigComponent';
+import GridComponent from '@/app/_components/GridComponent';
+import Navbar from '@/app/_components/Navbar';
 
 export default function Mines() {
 	return (
