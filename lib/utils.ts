@@ -1,3 +1,6 @@
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export function calculateWinningAmount(
 	betAmount: number,
 	numberOfMines: number
@@ -124,4 +127,8 @@ export function getMultiplier(selectedTiles: number, mines: number) {
 	} else {
 		throw new Error('Invalid number of selected tiles or mines');
 	}
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
