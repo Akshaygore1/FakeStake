@@ -21,10 +21,10 @@ export default function GameCard({ link, logo, name }: GameCardProps) {
   return (
     <Link
       href={link}
-      className={`max-w-xs rounded overflow-hidden shadow-lg min-w-52 bg-gray-800 ${
+      className={`max-w-xs rounded overflow-hidden shadow-lg min-w-52 bg-gray-800 hover:scale-105 transition-transform duration-200 ${
         name === "Coming Soon"
           ? {}
-          : "hover:text-[#00ff62] hover:scale-105 transition-transform duration-200"
+          : "hover:text-[#00ff62]"
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
