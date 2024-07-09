@@ -59,3 +59,7 @@ Thanks go to these wonderful people  😇
     </tr>
   </tbody>
 </table>
+
+Support
+### If you like this project, please consider giving it a ⭐️ on GitHub!
+### Would you like me to explain or elaborate on any part of this README?
