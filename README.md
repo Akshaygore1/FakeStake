@@ -19,15 +19,20 @@ Feel free to explore the code, contribute, and raise any issues you encounter.
 
 To get started with the project, clone the repository and follow the instructions in the README to set up your development environment.
 
+## Clone the repo
 ```bash
 git clone https://github.com/yourusername/fakestake.git
+```
+
+## Run the app
+```bash
 cd fakestake
 npm install
 npm run dev
 ```
 ## Contributors ✨
 
-Thanks go to these wonderful people  😇
+Thanks go to these wonderful people 😇
 
 <table>
   <tbody>
@@ -49,7 +54,7 @@ Thanks go to these wonderful people  😇
         <br />
       </td>
         <td align="center" valign="top" width="5%">
-          <img src="https://avatars.githubusercontent.com/u/121970162?v=4" width="50px;" alt="Lohit"/>
+          <img src="https://avatars.githubusercontent.com/u/121970162?v=4" width="50px;" alt="Surendra"/>
           <br />
           <sub>
             <b>Surendra</b>

@@ -36,7 +36,7 @@ export default function ConfigComponent() {
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const charCode = e.charCode;
     if (charCode < 48 || charCode > 57) {
-      e.preventDefault();   // I'm allowing numbers and control keys (like backspace) only.
+      e.preventDefault(); // I'm allowing numbers and control keys (like backspace) only.
     }
   };
 
