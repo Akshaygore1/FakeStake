@@ -1,5 +1,5 @@
 import GameCard from "@/components/GameCard";
-import { Gem, Rocket } from "lucide-react";
+import { Dice1, Dice5, Gem, Rocket } from "lucide-react";
 import Link from "next/link";
 
 const games = [
@@ -12,6 +12,11 @@ const games = [
     name: "Comming Soon",
     link: "/",
     logo: <Rocket size={48} color="#00ff62" />,
+  },
+  {
+    name: "Dice",
+    link: "/dice",
+    logo: <Dice5 size={48} color="#00ff62" />,
   },
 ];
 
@@ -35,7 +40,12 @@ export default function Home() {
       {/* Game Cards Section */}
       <section className="w-full flex flex-wrap justify-center gap-8">
         {games.map((game, index) => (
-          <GameCard key={index} link={game.link} logo={game.logo} name={game.name}/>
+          <GameCard
+            key={index}
+            link={game.link}
+            logo={game.logo}
+            name={game.name}
+          />
         ))}
       </section>
     </main>
