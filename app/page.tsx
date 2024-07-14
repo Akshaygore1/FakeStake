@@ -19,9 +19,9 @@ const games = [
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      <img src="/assets/logo-no-background.svg" className="w-[75%] sm:w-[45%] mb-2 z-10" />
-      <section className="flex flex-col w-[70%] text-center mb-5">
-        <p className="text-xl sm:text-2xl font-extralight text-[#a4a7a5]">
+      <section className="w-full flex flex-col items-center text-center mb-12">
+        <h1 className="text-5xl font-bold mb-4">Welcome to Fake Stake</h1>
+        <p className="text-xl text-gray-500">
           Your ultimate destination for playing games
         </p>
       </section>
