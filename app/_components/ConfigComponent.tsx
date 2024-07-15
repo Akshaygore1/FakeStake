@@ -6,7 +6,6 @@ import { useGridStore } from "@/app/_store/gridStore";
 import { useCommonStore } from "@/app/_store/commonStore";
 import Modal from "./ui/Modal";
 import { addGameResult } from "@/app/_constants/data";
-import { Gem } from "lucide-react";
 
 export default function ConfigComponent() {
   const {
@@ -89,15 +88,7 @@ export default function ConfigComponent() {
 
     const finalBalance = balance! + currentProfit!;
     setBalance(finalBalance);
-    addGameResult(
-      <div className="flex items-center justify-center gap-1">
-        <Gem size={20} />
-        Mines
-      </div>,
-      "Win",
-      currentProfit!,
-      finalBalance
-    );
+    addGameResult("Mines", "Win", currentProfit!, finalBalance);
   };
 
   const handleDisabledBetClick = () => {

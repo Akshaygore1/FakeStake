@@ -4,7 +4,7 @@ import { useConfigStore } from "@/app/_store/configStore";
 import { useGridStore } from "@/app/_store/gridStore";
 import { useEffect, useState } from "react";
 import Modal from "./ui/Modal";
-import { Bomb, Gem } from "lucide-react";
+import { Bomb } from "lucide-react";
 import { useCommonStore } from "@/app/_store/commonStore";
 import { addGameResult } from "@/app/_constants/data";
 
@@ -61,10 +61,7 @@ export default function GridComponent() {
         resetGame();
 
         addGameResult(
-          <div className="flex items-center justify-center gap-1">
-            <Gem size={20} />
-            Mines
-          </div>,
+          "Mines",
           "Loss",
           -betAmount!,
           balance! < 100 ? (
