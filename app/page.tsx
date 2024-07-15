@@ -18,6 +18,13 @@ const games = [
   },
 ];
 
+interface GameHistory {
+  gameName: string;
+  result: string;
+  amount: number;
+  finalBalance: number;
+}
+
 export default function Home() {
   const [displayHistory, setDisplayHistory] = useState(false);
   const [gameHistory, setGameHistory] = useState([]);
@@ -73,7 +80,7 @@ export default function Home() {
 
       {/* History Table */}
       <section className="flex flex-col text-center mt-28 mb-24 w-[80%] lg:w-[50%] mx-auto">
-        {displayHistory ? (
+        {displayHistory && (
           <>
             <h2 className="text-2xl font-semibold mb-4">Game History</h2>
             <div className="overflow-x-auto shadow-lg rounded-lg">
@@ -91,7 +98,7 @@ export default function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  {gameHistory?.map((entry, index) => (
+                  {gameHistory?.map((entry: GameHistory, index) => (
                     <tr key={index} className="text-center bg-transparent ">
                       <td
                         className={`px-4 py-2 border border-gray-300 ${
@@ -140,7 +147,9 @@ export default function Home() {
               </table>
             </div>
           </>
-        ) : (
+        )}
+
+        {!displayHistory && (
           <h2 className="text-2xl font-semibold mb-4">No History to Show</h2>
         )}
       </section>
