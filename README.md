@@ -65,6 +65,6 @@ Thanks go to these wonderful people 😇
   </tbody>
 </table>
 
-Support
-### If you like this project, please consider giving it a ⭐️ on GitHub!
-### Would you like me to explain or elaborate on any part of this README?
+## Support 🙌🏻
+# If you like this project, please consider giving it a ⭐️ on GitHub!
+# Would you like me to explain or elaborate on any part of this README?

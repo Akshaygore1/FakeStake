@@ -5,6 +5,8 @@ import { calculateCurrentProfit, getMultiplier } from "@/app/_lib/utils";
 import { useGridStore } from "@/app/_store/gridStore";
 import { useCommonStore } from "@/app/_store/commonStore";
 import Modal from "./ui/Modal";
+import { addGameResult } from "@/app/_constants/data";
+import { Gem } from "lucide-react";
 
 export default function ConfigComponent() {
   const {
@@ -31,13 +33,6 @@ export default function ConfigComponent() {
     const value = e.target.value;
     const amount = value === "" ? null : Number(value);
     setBetAmount(amount);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const charCode = e.charCode;
-    if (charCode < 48 || charCode > 57) {
-      e.preventDefault(); // I'm allowing numbers and control keys (like backspace) only.
-    }
   };
 
   const handleNumMinesChange = (numMines: number) => {
@@ -91,7 +86,18 @@ export default function ConfigComponent() {
     resetGame();
     resetGrid();
     setShowModal(true);
-    setBalance(balance! + currentProfit!);
+
+    const finalBalance = balance! + currentProfit!;
+    setBalance(finalBalance);
+    addGameResult(
+      <div className="flex items-center justify-center gap-1">
+        <Gem size={20} />
+        Mines
+      </div>,
+      "Win",
+      currentProfit!,
+      finalBalance
+    );
   };
 
   const handleDisabledBetClick = () => {
@@ -115,7 +121,6 @@ export default function ConfigComponent() {
           value={betAmount !== null ? betAmount : ""}
           min={10}
           onChange={handleBetAmountChange}
-          onKeyPress={handleKeyPress}
           className="w-full p-2 border border-gray-600 rounded-lg bg-gray-700 text-white focus:border-none focus:outline-none"
           disabled={gameStarted}
         />
