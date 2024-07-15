@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Modal from "./ui/Modal";
 import { Bomb, Gem } from "lucide-react";
 import { useCommonStore } from "@/app/_store/commonStore";
+import { addGameResult } from "@/app/_constants/data";
 
 export default function GridComponent() {
   const {
@@ -21,11 +22,13 @@ export default function GridComponent() {
     isGameSetup,
     setIsGameSetup,
     setNumberOfMines,
+    betAmount,
     setBetAmount,
     resetGame,
     clearConfigStore,
   } = useConfigStore();
-  const { multiplier, setMultiplier, clearCommonState } = useCommonStore();
+  const { multiplier, setMultiplier, clearCommonState, balance, setBalance } =
+    useCommonStore();
 
   const [mines, setMines] = useState<number[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -56,6 +59,20 @@ export default function GridComponent() {
         clearCommonState();
         clearConfigStore();
         resetGame();
+
+        addGameResult(
+          <div className="flex items-center justify-center gap-1">
+            <Gem size={20} />
+            Mines
+          </div>,
+          "Loss",
+          -betAmount!,
+          balance! < 100 ? (
+            <div className="text-green-500">1000 (Restored)</div>
+          ) : (
+            balance!
+          )
+        );
       } else {
         if (!selectedGrid[index]) {
           handleSelectGrid(index);
