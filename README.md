@@ -30,6 +30,16 @@ cd fakestake
 npm install
 npm run dev
 ```
+
+## contributing 🙌🏻
+ 
+1. Fork the repository!
+2. Clone your fork: git clone `https://github.com/<your-username>/FakeStake.git`
+3. Create your feature/fix branch: `git checkout -b my-new-feature`
+4. Commit your changes: `git commit -am 'Add some feature'`
+5. Push to the branch: `git push origin my-new-feature`
+6. Submit a pull request :D
+
 ## Contributors ✨
 
 Thanks go to these wonderful people 😇
@@ -65,6 +75,7 @@ Thanks go to these wonderful people 😇
   </tbody>
 </table>
 
-## Support 🙌🏻
-# If you like this project, please consider giving it a ⭐️ on GitHub!
-# Would you like me to explain or elaborate on any part of this README?
+## Support ❤
+
+ If you like this project, please consider giving it a ⭐️ on GitHub!
+ Would you like me to explain or elaborate on any part of this README?
