@@ -8,10 +8,10 @@ This is an open-source project, and we appreciate contributions and issue report
 
 Fake Stake is built using:
 
-- **Next.js**: A powerful React framework for building web applications.
-- **TypeScript**: Ensuring type safety and better development experience.
-- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
-- **Zustand**: A small, fast state-management library.
+✅ **Next.js**: A powerful React framework for building web applications.
+✅ **TypeScript**: Ensuring type safety and better development experience.
+✅ **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
+✅ **Zustand**: A small, fast state-management library.
 
 Feel free to explore the code, contribute, and raise any issues you encounter.
 
