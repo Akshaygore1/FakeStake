@@ -3,6 +3,7 @@
 import GameCard from "@/app/_components/GameCard";
 import { Gem, Rocket } from "lucide-react";
 import { gameHistory } from "@/app/_constants/data";
+import Footer from "./_components/Footer";
 
 const games = [
   {
@@ -19,7 +20,7 @@ const games = [
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
+    <main className="flex min-h-screen flex-col items-center justify-center"  id={"Top".toLowerCase()}>
       <section className="w-full flex flex-col items-center text-center mt-28 mb-24">
         <h1 className="text-5xl font-bold mb-4">Welcome to Fake Stake</h1>
         <p className="text-xl text-gray-500">
@@ -78,6 +79,7 @@ export default function Home() {
           </table>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }
