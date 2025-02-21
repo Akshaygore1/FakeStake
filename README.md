@@ -1,40 +1,65 @@
-# Welcome to Fake Stake
+# FakeStake
 
-Presenting you **Fake Stake**, where you can play stakes games for free without giving any money to anyone.
+## 📝 Description
+ Built with React, Next.js. Written in TypeScript, CSS, JavaScript.
 
-This is an open-source project, and we appreciate contributions and issue reporting from the community.
+## ✨ Features
+List your project's features here.
 
-## About the Project
+## 🔧 Technologies Used
+- TypeScript
+- CSS
+- JavaScript
+- React
+- Next.js
 
-Fake Stake is built using:
-
-✅  **Next.js**: A powerful React framework for building web applications.
-
-✅  **TypeScript**: Ensuring type safety and better development experience.
-
-✅  **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
-
-✅  **Zustand**: A small, fast state-management library.
-
-Feel free to explore the code, contribute, and raise any issues you encounter.
-
-## Getting Started
-
-To get started with the project, clone the repository and follow the instructions in the README to set up your development environment.
-
-## Clone the repo
-```bash
-git clone https://github.com/yourusername/fakestake.git
-```
-
-## Run the app
-```bash
-cd fakestake
+## 📦 Installation
+```sh
+git clone https://github.com/Akshaygore1/FakeStake.git
+cd FakeStake
 npm install
-npm run dev
+```
+## 📂 Project Structure
+```
+├── app
+│   ├── (games)
+│   │   ├── layout.tsx
+│   │   ├── mines
+│   │   │   ├── page.tsx
+│   │   ├── rocket
+│   │   │   ├── page.tsx
+│   ├── _components
+│   │   ├── ConfigComponent.tsx
+│   │   ├── ConfigForRocket.tsx
+│   │   ├── Footer.tsx
+│   │   ├── GameCard.tsx
+│   │   ├── GridComponent.tsx
+│   │   ├── Navbar.tsx
+│   │   ├── RocketComponent.tsx
+│   │   ├── ui
+│   │   │   ├── Modal.tsx
+│   ├── _constants
+│   │   ├── data.js
+│   ├── _lib
+│   │   ├── utils.ts
+│   ├── _store
+│   │   ├── commonStore.ts
+│   │   ├── configStore.ts
+│   │   ├── gridStore.ts
+│   │   ├── rocketConfig.ts
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+├── package.json
+├── public
+│   ├── assets
+
 ```
 
-## contributing 🙌🏻
+## 🚀 How to Use
+Instructions on how to use the project.
+
+## 🤝 Contribution
  
 1. Fork the repository!
 2. Clone your fork: git clone `https://github.com/<your-username>/FakeStake.git`
