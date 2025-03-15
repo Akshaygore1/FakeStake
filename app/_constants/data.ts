@@ -1,17 +1,17 @@
 export interface GameResult {
-  gameName: string;
+  gameName: string | React.ReactNode; // Updated to allow ReactNode
   result: string;
   amount: number;
-  finalBalance: number;
+  finalBalance: number | React.ReactNode; // Updated to allow ReactNode
 }
 
 export const gameHistory: GameResult[] = [];
 
 export const addGameResult = (
-  gameName: string,
+  gameName: React.ReactNode | string,
   result: string,
   amount: number,
-  finalBalance: number
+  finalBalance: React.ReactNode | number
 ): GameResult => {
   if (typeof amount !== "number" || isNaN(amount)) {
     throw new Error("Amount isn't a valid number");
