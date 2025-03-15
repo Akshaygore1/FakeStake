@@ -6,17 +6,16 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
-  --font-sans: var(--font-geist-sans);
 }
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 input[type="number"] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,7 +29,6 @@ input[type="number"] {
 body {
   color: rgb(var(--foreground-rgb));
   background: black;
-  font-family: var(--font-sans);
 }
 
 @layer utilities {
