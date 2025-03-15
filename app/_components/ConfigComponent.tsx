@@ -89,15 +89,7 @@ export default function ConfigComponent() {
 
     const finalBalance = balance! + currentProfit!;
     setBalance(finalBalance);
-    addGameResult(
-      <div className="flex items-center justify-center gap-1">
-        <Gem size={20} />
-        Mines
-      </div>,
-      "Win",
-      currentProfit!,
-      finalBalance
-    );
+    addGameResult("Mines", "Win", currentProfit!, finalBalance);
   };
 
   const handleDisabledBetClick = () => {

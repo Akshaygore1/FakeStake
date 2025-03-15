@@ -25,7 +25,7 @@ export default function RocketComponent() {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [gameStarted, localMultiplier]);
+  }, [gameStarted, localMultiplier, setGameStarted]);
 
   useEffect(() => {
     setMultiplier(localMultiplier);
