@@ -65,6 +65,25 @@ export default function Modal({
         </div>
       );
       break;
+    case "lose":
+      modalContent = (
+        <div
+          ref={modalRef}
+          className="modal relative bg-gradient-to-br from-red-900 to-black p-8 border-2 border-red-500 shadow-2xl rounded-2xl transform transition-all duration-300 hover:scale-105"
+        >
+          <div className="modal relative rounded-lg flex flex-col justify-center items-center space-y-4">
+            <div className="animate-bounce">
+              <Bomb className="w-12 h-12 text-red-400" />
+            </div>
+            <div className="text-center">
+              <span className="text-red-300 text-sm uppercase tracking-wider font-medium">
+                You Lost!
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+      break;
     default:
       modalContent = null;
       break;
