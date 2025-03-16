@@ -1,4 +1,4 @@
-import { Bomb, Gem } from "lucide-react";
+import { Bomb, Coins, Gem } from "lucide-react";
 import React, { useEffect, useRef } from "react";
 
 export interface ModalProps {
@@ -47,34 +47,20 @@ export default function Modal({
       modalContent = (
         <div
           ref={modalRef}
-          className="modal relative p-6 bg-white shadow-lg rounded-lg"
+          className="modal relative bg-gradient-to-br from-green-900 to-black p-8 border-2 border-green-500 shadow-2xl rounded-2xl transform transition-all duration-300 hover:scale-105"
         >
-          <div className="modal relative p-6 rounded-lg flex flex-col justify-center items-center">
-            <Gem
-              size={100}
-              color="green"
-              // className='flex justify-center items-center'
-            />
-            <div className="text-center text-black pt-6">
-              You Won {amount?.toFixed(3)}
+          <div className="modal relative rounded-lg flex flex-col justify-center items-center space-y-4">
+            <div className="animate-bounce">
+              <Coins className="w-12 h-12 text-green-400" />
             </div>
-          </div>
-        </div>
-      );
-      break;
-    case "lose":
-      modalContent = (
-        <div
-          ref={modalRef}
-          className="modal relative p-6 bg-white shadow-lg rounded-lg"
-        >
-          <div className="modal relative p-6 rounded-lg">
-            <Bomb
-              size={100}
-              color="red"
-              className="flex justify-center items-center"
-            />
-            <div className="text-center text-black pt-6">Oops!</div>
+            <div className="text-center">
+              <span className="block text-4xl font-extrabold text-green-400 tracking-tight mb-1">
+                ${amount ? amount.toFixed(2) : "0.00"}
+              </span>
+              <span className="text-green-300 text-sm uppercase tracking-wider font-medium">
+                You Won!
+              </span>
+            </div>
           </div>
         </div>
       );

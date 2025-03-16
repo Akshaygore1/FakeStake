@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useConfigStore } from "@/app/_store/configStore";
@@ -87,31 +88,28 @@ export default function GridComponent() {
       {Array.from({ length: 25 }).map((_, index) => (
         <div
           key={index}
-          className={`h-16 w-16 sm:h-16 sm:w-16 md:h-22 md:w-22 lg:h-28 lg:w-28 flex justify-center items-center border transition-transform duration-200 ${
+          className={`h-16 w-16 sm:h-16 sm:w-16 md:h-22 md:w-22 lg:h-28 lg:w-28 flex justify-center items-center  transition-transform rounded-md duration-200 ${
             selectedGrid[index]
               ? mines.includes(index)
                 ? "border-red-500 text-white animate-shake"
                 : "border-green-500 text-white animate-pop"
-              : "border-gray-300 hover:scale-105"
+              : " bg-[#2f4553] hover:scale-105"
           }`}
           onClick={() => handleGridClick(index)}
         >
           {/* Conditional rendering of icons */}
-          {selectedGrid[index] && (
+          {(selectedGrid[index] || showModal) && (
             <>
               {mines.includes(index) ? (
-                <Bomb
-                  size={48}
-                  color="red"
-                  className="flex justify-center items-center"
-                />
+                <img src="/assets/mine.svg" alt="bomb" className="w-16 h-16" />
               ) : (
-                multiplier > 0 && (
-                  <div className="relative flex items-center justify-center w-full h-full text-2xl text-white font-bold">
-                    <div className="absolute inset-0 bg-green-500 opacity-75 blur-sm animate-pulse"></div>
-                    <div className="relative animate-glow">{multiplier}</div>
-                  </div>
-                )
+                <div className="relative flex items-center justify-center w-full h-full text-2xl text-white font-bold">
+                  <img
+                    src="/assets/diamond.svg"
+                    alt="coins"
+                    className="w-16 h-16"
+                  />
+                </div>
               )}
             </>
           )}
