@@ -1,85 +1,68 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import GameCard from "@/app/_components/GameCard";
 import { Gem, Rocket } from "lucide-react";
-import { gameHistory } from "@/app/_constants/data";
-import Footer from "./_components/Footer";
+import Link from "next/link";
+import Navbar from "./_components/Navbar";
 
 const games = [
   {
-    name: "Mines",
+    name: "MINES",
     link: "/mines",
     logo: <Gem size={48} />,
+    img: "/assets/mines.png",
   },
   {
-    name: "Coming Soon",
+    name: "coming soon",
     link: "/",
     logo: <Rocket size={48} />,
+    img: "/assets/dice.png",
   },
 ];
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center"  id={"Top".toLowerCase()}>
-      <section className="w-full flex flex-col items-center text-center mt-28 mb-24">
-        <h1 className="text-5xl font-bold mb-4">Welcome to Fake Stake</h1>
-        <p className="text-xl text-gray-500">
-          Your ultimate destination for playing games
-        </p>
-      </section>
-
-      <div className="-z-20 fixed flex place-items-center mb-52">
-        <div className="absolute h-[300px] w-[480px] -translate-x-1/2 rounded-full blur-2xl bg-gradient-to-br from-transparent to-green-700 opacity-10 lg:h-[360px]"></div>
-        <div className="absolute h-[180px] w-[240px] translate-x-1/3 bg-gradient-conic from-green-400 via-green-200 blur-2xl opacity-40"></div>
-        <div className="absolute h-[200px] w-[400px] translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 opacity-20 lg:h-[280px]"></div>
-        <div className="absolute h-[100px] w-[200px] -translate-x-1/4 translate-y-1/4 rounded-full blur-2xl bg-gradient-to-t from-yellow-400 via-red-400 to-pink-500 opacity-30 lg:h-[140px]"></div>
-        <div className="absolute h-[150px] w-[300px] translate-x-[-75%] translate-y-[75%] rounded-full blur-2xl bg-gradient-to-b from-blue-400 via-indigo-500 to-purple-600 opacity-20 lg:h-[200px]"></div>
-        <div className="absolute h-[120px] w-[240px] translate-x-[50%] translate-y-[-75%] rounded-full blur-2xl bg-gradient-to-l from-teal-400 via-cyan-500 to-blue-600 opacity-20 lg:h-[180px]"></div>
-      </div>
-
-      <p className="text-xl text-center sm:text-xl font-[40%] mb-3 text-[#a4a7a5]">
-        Choose a game to play
-      </p>
-
-      {/* Game Card Section */}
-      <section className="w-full flex flex-wrap justify-center gap-8">
-        {games.map((game, index) => (
-          <GameCard
-            key={index}
-            link={game.link}
-            logo={game.logo}
-            name={game.name}
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      <section className="w-full flex flex-col items-center text-center pb-28">
+        <h1 className="text-6xl font-bold mb-4 flex items-center justify-center gap-3">
+          Welcome to <span className="text-[#00ff62] mr-1">Fake</span>
+          <img
+            src="/assets/stake-logo.svg"
+            alt="Logo"
+            width={128}
+            height={32}
+            className="w-32 inline-block"
           />
-        ))}
+        </h1>
+        <p className="text-xl text-gray-500">Play Real Games with Fake Money</p>
       </section>
-
-      {/* History Table */}
-      <section className="flex flex-col text-center mt-28 mb-24 w-[80%] lg:w-[50%] mx-auto">
-        <h2 className="text-2xl font-semibold mb-4">Game History</h2>
-        <div className="overflow-x-auto shadow-lg rounded-lg">
-          <table className="w-full border-collapse bg-opacity-50 bg-[#080b0999] backdrop-blur-[2px]">
-            <thead className="bg-transparent">
-              <tr>
-                <th className="px-4 py-2 border border-gray-300 rounded-tl-lg">Game</th>
-                <th className="px-4 py-2 border border-gray-300">Result</th>
-                <th className="px-4 py-2 border border-gray-300">Profit</th>
-                <th className="px-4 py-2 border border-gray-300 rounded-tr-lg">Balance</th>
-              </tr>
-            </thead>
-            <tbody>
-              {gameHistory.map((entry, index) => (
-                <tr key={index} className="text-center bg-transparent ">
-                  <td className={`px-4 py-2 border border-gray-300 ${entry.result === "Win" ? `text-green-500` : `text-red-500`}`}>{entry.gameName}</td>
-                  <td className={`px-4 py-2 border border-gray-300 ${entry.result === "Win" ? `text-green-500` : `text-red-500`}`}>{entry.result}</td>
-                  <td className={`px-4 py-2 border border-gray-300 ${entry.result === "Win" ? `text-green-500` : `text-red-500`}`}>{entry.amount}</td>
-                  <td className={`px-4 py-2 border border-gray-300 ${entry.result === "Win" ? `text-green-500` : `text-red-500`}`}>{typeof entry.finalBalance !== "number" ? entry.finalBalance : entry.finalBalance.toFixed(2)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <section>
+        <h2 className="text-4xl p-4 font-bold mb-8">Play Now</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+          {games.map((game, index) => (
+            <Link
+              key={index}
+              href={game.link}
+              className="group relative flex flex-col items-center justify-center rounded-xl bg-gray-800/30 backdrop-blur-sm border border-gray-700 hover:border-[#00ff62]/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,98,0.1)] overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 group-hover:to-black/60 transition-all duration-300" />
+              <img
+                src={game.img || "/assets/coming-soon.png"}
+                alt={game.name}
+                width={200}
+                height={200}
+                className="w-full h-64 object-cover rounded-lg transform group-hover:scale-105 transition-transform duration-300 brightness-50"
+              />
+              <div className="absolute bottom-0 left-0 w-full p-4 text-center">
+                <h2 className="text-4xl font-bold text-white drop-shadow-lg group-hover:text-[#00ff62] transition-colors duration-300">
+                  {game.name}
+                </h2>
+              </div>
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-[#00ff62]/0 group-hover:bg-[#00ff62]/20 transition-all duration-300" />
+            </Link>
+          ))}
         </div>
       </section>
-      <Footer />
     </main>
   );
 }
