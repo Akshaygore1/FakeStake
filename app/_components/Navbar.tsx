@@ -1,7 +1,7 @@
 "use client";
 
 import { useCommonStore } from "@/app/_store/commonStore";
-import { Coins } from "lucide-react";
+import { Coffee, Coins } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -22,12 +22,22 @@ export default function Navbar() {
               priority
             />
           </Link>
-
-          <div className="flex items-center gap-2 bg-gray-800/50 px-4 py-2 rounded-full border border-gray-700">
-            <span className="text-lg font-medium">
-              {balance?.toFixed(2) || "0.00"}
-            </span>
-            <Coins className="w-5 h-5 text-[#00ff62]" />
+          <div className="flex gap-2">
+            <div className="flex items-center gap-2 bg-gray-800/50 px-4 py-2 rounded-full border border-gray-700">
+              <span className="text-lg font-medium">
+                {balance?.toFixed(2) || "0.00"}
+              </span>
+              <Coins className="w-5 h-5 text-[#00ff62]" />
+            </div>
+            <a
+              href="https://www.buymeacoffee.com/akshaygore"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-success p-4 rounded-full inline-flex items-center justify-center hover:bg-success/80 transition-colors"
+            >
+              <Coffee color="black" />
+              <span className="text-black ml-2">Buy Me Coffee</span>
+            </a>
           </div>
         </div>
       </div>
