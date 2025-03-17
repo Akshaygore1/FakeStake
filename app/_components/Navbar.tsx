@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useCommonStore } from "@/app/_store/commonStore";
@@ -8,35 +9,38 @@ import Image from "next/image";
 export default function Navbar() {
   const { balance } = useCommonStore();
   return (
-    <nav className="backdrop-blur-md bg-black/30 ">
-      <div className="max-w-7xl mx-auto p-4">
-        <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold text-[#00ff62]">Fake</span>
-            <Image
+    <nav className="backdrop-blur-md bg-black/30">
+      <div className="max-w-7xl mx-auto px-4 py-2 sm:p-4">
+        <div className="flex justify-between items-center h-12 sm:h-16">
+          <Link href="/" className="flex items-center space-x-1 sm:space-x-2">
+            <span className="text-lg sm:text-xl font-bold text-[#00ff62]">
+              Fake
+            </span>
+            <img
               src="/assets/stake-logo.svg"
               alt="Logo"
               width={96}
               height={24}
-              className="h-6 w-auto"
-              priority
+              className="h-5 sm:h-6 w-auto"
             />
           </Link>
-          <div className="flex gap-2">
-            <div className="flex items-center gap-2 bg-gray-800/50 px-4 py-2 rounded-full border border-gray-700">
-              <span className="text-lg font-medium">
+          <div className="flex gap-1 sm:gap-2">
+            <div className="flex items-center gap-1 sm:gap-2 bg-gray-800/50 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full border border-gray-700">
+              <span className="text-base sm:text-lg font-medium">
                 {balance?.toFixed(2) || "0.00"}
               </span>
-              <Coins className="w-5 h-5 text-[#00ff62]" />
+              <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-[#00ff62]" />
             </div>
             <a
               href="https://www.buymeacoffee.com/akshaygore"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-success p-4 rounded-full inline-flex items-center justify-center hover:bg-success/80 transition-colors"
+              className="bg-success p-2 sm:p-4 rounded-full inline-flex items-center justify-center hover:bg-success/80 transition-colors"
             >
-              <Coffee color="black" />
-              <span className="text-black ml-2">Buy Me Coffee</span>
+              <Coffee color="black" className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="hidden sm:inline text-black ml-2">
+                Buy Me Coffee
+              </span>
             </a>
           </div>
         </div>
