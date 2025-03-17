@@ -3,7 +3,6 @@
 
 import { Gem, Rocket } from "lucide-react";
 import Link from "next/link";
-import Navbar from "./_components/Navbar";
 
 const games = [
   {
@@ -23,15 +22,17 @@ const games = [
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      <section className="w-full flex flex-col items-center text-center pb-28">
-        <h1 className="text-6xl font-bold mb-4 flex items-center justify-center gap-3">
-          Welcome to <span className="text-[#00ff62] mr-1">Fake</span>
+      <section className="w-full flex flex-col items-center text-center p-12">
+        <h1 className="text-4xl sm:text-6xl font-bold mb-4 flex flex-col items-center justify-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2">
+            Welcome to <span className="text-[#00ff62]">Fake</span>
+          </div>
           <img
             src="/assets/stake-logo.svg"
             alt="Logo"
             width={128}
             height={32}
-            className="w-32 inline-block"
+            className="w-28 sm:w-32 inline-block"
           />
         </h1>
         <p className="text-xl text-gray-500">Play Real Games with Fake Money</p>
