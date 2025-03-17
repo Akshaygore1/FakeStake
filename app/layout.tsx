@@ -21,11 +21,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8518620720580379"
-          crossOrigin="anonymous"
-        />
         <Navbar />
         {children}
         <Analytics />
