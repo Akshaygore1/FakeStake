@@ -54,6 +54,8 @@ export default function GridComponent() {
     if (isGameSetup) {
       if (mines.includes(index)) {
         handleSelectGrid(index);
+        const audio = new Audio("/assets/audio/mine-audio.mp3");
+        audio.play();
         setShowModal(true);
         setNumberOfMines(1);
         setNumberOfSuccessfulClicks(0);
@@ -78,6 +80,8 @@ export default function GridComponent() {
         if (!selectedGrid[index]) {
           handleSelectGrid(index);
           setNumberOfSuccessfulClicks(numberOfSuccessfulClicks + 1);
+          const audio = new Audio("/assets/audio/win-audio.mp3");
+          audio.play();
         }
       }
     }
@@ -88,12 +92,12 @@ export default function GridComponent() {
       {Array.from({ length: 25 }).map((_, index) => (
         <div
           key={index}
-          className={`h-16 w-16 sm:h-16 sm:w-16 md:h-22 md:w-22 lg:h-28 lg:w-28 flex justify-center items-center  transition-transform rounded-md duration-200 ${
+          className={`h-16 w-16 sm:h-16 sm:w-16 md:h-22 md:w-22 lg:h-28 lg:w-28 flex justify-center items-center transition-all rounded-md duration-500 ${
             selectedGrid[index]
               ? mines.includes(index)
-                ? "border-red-500 text-white animate-shake"
-                : "border-green-500 text-white animate-pop"
-              : " bg-[#2f4553] hover:scale-105"
+                ? "border-red-500 text-white animate-shake bg-[#071924] scale-95"
+                : "border-green-500 text-white animate-pop bg-[#071924] scale-95"
+              : "bg-[#2f4553] hover:scale-105 active:scale-95 active:bg-[#071924]"
           }`}
           onClick={() => handleGridClick(index)}
         >
@@ -101,13 +105,17 @@ export default function GridComponent() {
           {(selectedGrid[index] || showModal) && (
             <>
               {mines.includes(index) ? (
-                <img src="/assets/mine.svg" alt="bomb" className="w-16 h-16" />
+                <img
+                  src="/assets/mine.svg"
+                  alt="bomb"
+                  className="w-16 h-16 animate-fade-in"
+                />
               ) : (
                 <div className="relative flex items-center justify-center w-full h-full text-2xl bg-[#071924] text-white font-bold">
                   <img
                     src="/assets/diamond.svg"
                     alt="coins"
-                    className="w-16 h-16"
+                    className="w-16 h-16 animate-fade-in"
                   />
                 </div>
               )}
