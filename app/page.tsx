@@ -24,7 +24,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center">
       <section className="w-full flex flex-col items-center text-center">
         <h1 className="text-4xl sm:text-6xl font-bold mb-4 flex flex-col items-center justify-center gap-2 sm:gap-3">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-white">
             Welcome to <span className="text-success">Fake</span>
           </div>
           <img

@@ -24,7 +24,7 @@ export default function Navbar() {
             />
           </Link>
           <div className="flex gap-1 sm:gap-2">
-            <div className="flex items-center gap-1 sm:gap-2 bg-gray-800/50 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full border border-gray-700">
+            <div className="flex items-center gap-1 sm:gap-2 bg-gray-800/50 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full border border-gray-700 text-white">
               <span className="text-base sm:text-lg font-medium">
                 {balance?.toFixed(2) || "0.00"}
               </span>
