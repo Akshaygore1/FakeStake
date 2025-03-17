@@ -103,7 +103,7 @@ export default function GridComponent() {
               {mines.includes(index) ? (
                 <img src="/assets/mine.svg" alt="bomb" className="w-16 h-16" />
               ) : (
-                <div className="relative flex items-center justify-center w-full h-full text-2xl text-white font-bold">
+                <div className="relative flex items-center justify-center w-full h-full text-2xl bg-[#071924] text-white font-bold">
                   <img
                     src="/assets/diamond.svg"
                     alt="coins"

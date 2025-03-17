@@ -4,7 +4,6 @@
 import { useCommonStore } from "@/app/_store/commonStore";
 import { Coffee, Coins } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Navbar() {
   const { balance } = useCommonStore();
@@ -13,7 +12,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 py-2 sm:p-4">
         <div className="flex justify-between items-center h-12 sm:h-16">
           <Link href="/" className="flex items-center space-x-1 sm:space-x-2">
-            <span className="text-lg sm:text-xl font-bold text-[#00ff62]">
+            <span className="text-lg sm:text-xl font-bold text-success">
               Fake
             </span>
             <img
@@ -29,7 +28,7 @@ export default function Navbar() {
               <span className="text-base sm:text-lg font-medium">
                 {balance?.toFixed(2) || "0.00"}
               </span>
-              <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-[#00ff62]" />
+              <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-success" />
             </div>
             <a
               href="https://www.buymeacoffee.com/akshaygore"
