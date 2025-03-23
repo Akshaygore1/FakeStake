@@ -26,6 +26,10 @@ interface DiceComponentProps {
   setMultiplier: (value: number) => void;
   targetNumber: number;
   gameStarted: boolean;
+  value: number[];
+  setValue: React.Dispatch<React.SetStateAction<number[]>>;
+  winChance: number;
+  setWinChance: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function DiceComponent({
@@ -33,10 +37,11 @@ export default function DiceComponent({
   setMultiplier,
   targetNumber,
   gameStarted,
+  value,
+  setValue,
+  winChance,
+  setWinChance,
 }: DiceComponentProps) {
-  const [value, setValue] = useState([50]);
-  const [winChance, setWinChance] = useState(50);
-
   const handleValueChange = (newValue: number[]) => {
     setValue(newValue);
     const currentValue = newValue[0];
@@ -49,23 +54,35 @@ export default function DiceComponent({
   };
 
   return (
-    <div className="w-full aspect-square bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl p-8 flex flex-col items-center justify-between">
-      <div className="w-full h-24 flex justify-between items-center px-8 py-4 bg-gray-800 rounded-lg">
-        <div className="flex flex-col items-center w-28">
-          <span className="text-gray-400 text-sm mb-2">Multiplier</span>
-          <span className="text-white text-xl font-bold">{multiplier}X</span>
+    <div className="w-full aspect-square bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl p-3 md:p-6 lg:p-8 flex flex-col items-center justify-between">
+      <div className="w-full min-h-[120px] md:h-24 flex flex-row justify-between items-center text-center p-3 md:px-6 lg:px-8 py-4 bg-gray-800 rounded-lg gap-3 md:gap-4">
+        <div className="flex flex-col items-center w-28 p-2">
+          <span className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">
+            Multiplier
+          </span>
+          <span className="text-white text-lg md:text-xl font-bold">
+            {multiplier}X
+          </span>
         </div>
-        <div className="flex flex-col items-center w-28">
-          <span className="text-gray-400 text-sm mb-2">Roll Over</span>
-          <span className="text-white text-xl font-bold">{value[0]}</span>
+        <div className="flex flex-col items-center w-28 p-2">
+          <span className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">
+            Roll Over
+          </span>
+          <span className="text-white text-lg md:text-xl font-bold">
+            {value[0]}
+          </span>
         </div>
-        <div className="flex flex-col items-center w-28">
-          <span className="text-gray-400 text-sm mb-2">Win Chance</span>
-          <span className="text-white text-xl font-bold">{winChance}%</span>
+        <div className="flex flex-col items-center w-28 p-2">
+          <span className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">
+            Win Chance
+          </span>
+          <span className="text-white text-lg md:text-xl font-bold">
+            {winChance}%
+          </span>
         </div>
       </div>
-      <div className="w-full p-4 bg-gray-600 rounded-3xl">
-        <div className="p-4 w-96 bg-gray-900 rounded-lg relative">
+      <div className="w-full p-2 md:p-4 bg-gray-600 rounded-xl">
+        <div className="p-2 md:p-4 w-full bg-gray-900 rounded-lg relative">
           {gameStarted && (
             <div
               className="absolute -top-10 flex flex-col items-center transition-all duration-300 ease-in-out"

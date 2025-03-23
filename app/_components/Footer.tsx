@@ -55,7 +55,7 @@ export default function Footer() {
       </div>
 
       {/* Copyright Section */}
-      <div className="text-center">
+      <div className="text-center pt-6">
         <p className="text-gray-400 text-sm">
           © {new Date().getFullYear()} FakeStake. All rights reserved.
         </p>

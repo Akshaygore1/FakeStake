@@ -54,22 +54,6 @@ export default function ConfigComponent() {
     setBalance(balance! - betAmount!);
   };
 
-  const handleTileClick = (isMine: boolean) => {
-    if (isMine) {
-      setCurrentProfit(0);
-      setGameStarted(false);
-    } else {
-      const newSuccessfulClicks = successfulClicks + 1;
-      setSuccessfulClicks(newSuccessfulClicks);
-      const newProfit = calculateCurrentProfit(
-        betAmount!,
-        numberOfMines!,
-        newSuccessfulClicks
-      );
-      setCurrentProfit(newProfit);
-    }
-  };
-
   useEffect(() => {
     if (numberOfSuccessfulClicks && betAmount && numberOfMines) {
       const newProfit = getMultiplier(numberOfSuccessfulClicks, numberOfMines!);
