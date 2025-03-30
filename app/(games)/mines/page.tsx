@@ -1,5 +1,5 @@
-import ConfigComponent from "@/app/_components/ConfigComponent";
-import GridComponent from "@/app/_components/GridComponent";
+import ConfigComponent from "@/app/_components/mines/ConfigComponent";
+import GridComponent from "@/app/_components/mines/GridComponent";
 
 export default function Mines() {
   return (

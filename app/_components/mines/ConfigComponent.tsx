@@ -4,7 +4,7 @@ import { useConfigStore } from "@/app/_store/configStore";
 import { calculateCurrentProfit, getMultiplier } from "@/app/_lib/utils";
 import { useGridStore } from "@/app/_store/gridStore";
 import { useCommonStore } from "@/app/_store/commonStore";
-import Modal from "./ui/Modal";
+import Modal from "../ui/Modal";
 import { addGameResult } from "@/app/_constants/data";
 import { Gem } from "lucide-react";
 

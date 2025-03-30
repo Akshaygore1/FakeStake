@@ -4,10 +4,10 @@
 import { useConfigStore } from "@/app/_store/configStore";
 import { useGridStore } from "@/app/_store/gridStore";
 import { useEffect, useState } from "react";
-import Modal from "./ui/Modal";
 import { Bomb, Gem } from "lucide-react";
 import { useCommonStore } from "@/app/_store/commonStore";
 import { addGameResult } from "@/app/_constants/data";
+import Modal from "../ui/Modal";
 
 export default function GridComponent() {
   const {
