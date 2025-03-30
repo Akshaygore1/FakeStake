@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { Gem, Rocket } from "lucide-react";
+import { Gamepad2, Gem, Rocket } from "lucide-react";
 import Link from "next/link";
 
 const games = [
@@ -11,8 +11,8 @@ const games = [
     img: "/assets/mines.png",
   },
   {
-    name: "coming soon",
-    link: "/",
+    name: "DICE",
+    link: "/dice",
     logo: <Rocket size={48} />,
     img: "/assets/dice.png",
   },
@@ -21,7 +21,7 @@ const games = [
 export default function Home() {
   return (
     <main
-      className="flex min-h-screen flex-col items-center justify-center"
+      className="flex min-h-screen flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8"
       role="main"
       aria-label="Home page content"
     >
@@ -47,14 +47,14 @@ export default function Home() {
         <p className="text-xl text-gray-500">Play Real Games with Fake Money</p>
       </section>
       <section className="p-6" aria-labelledby="games-heading">
-        <h2
+        <h3
           id="games-heading"
-          className="text-4xl text-white p-4 font-bold mb-8"
+          className="text-xl text-white p-4 font-bold flex gap-4 items-center"
         >
-          Play Now
-        </h2>
+          <Gamepad2 /> Play Now
+        </h3>
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-4 w-full max-w-7xl mx-auto"
           role="list"
         >
           {games.map((game, index) => (
@@ -62,14 +62,15 @@ export default function Home() {
               key={index}
               role="listitem"
               aria-label={`${game.name} game card`}
+              className="w-full"
             >
               <Link
                 href={game.link}
-                className="group relative flex flex-col items-center justify-center rounded-xl bg-gray-800/30 backdrop-blur-sm border border-gray-700 hover:border-success/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,98,0.1)] overflow-hidden"
+                className="group relative flex flex-col items-center justify-center rounded-xl border border-gray-700 hover:border-success/50 transition-all duration-300 overflow-hidden h-48 sm:h-56 lg:h-64 w-full"
                 aria-label={`Play ${game.name}`}
               >
                 <div
-                  className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 group-hover:to-black/60 transition-all duration-300"
+                  className="absolute inset-0 transition-all duration-300"
                   aria-hidden="true"
                 />
                 <img
@@ -77,13 +78,8 @@ export default function Home() {
                   alt={`${game.name} game preview image`}
                   width={200}
                   height={200}
-                  className="w-full h-64 object-cover rounded-lg transform group-hover:scale-105 transition-transform duration-300 brightness-50"
+                  className="w-full h-full object-cover rounded-lg transform group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute bottom-0 left-0 w-full p-4 text-center">
-                  <h3 className="text-4xl font-bold text-white drop-shadow-lg group-hover:text-success transition-colors duration-300">
-                    {game.name}
-                  </h3>
-                </div>
                 <div
                   className="absolute bottom-0 left-0 w-full h-1 bg-success/0 group-hover:bg-success/20 transition-all duration-300"
                   aria-hidden="true"
