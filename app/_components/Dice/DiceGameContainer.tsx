@@ -10,7 +10,7 @@ function DiceGameContainer() {
   const [targetNumber, setTargetNumber] = React.useState<number>(0);
   const [value, setValue] = React.useState([50]);
   const [winChance, setWinChance] = React.useState(50);
-  const { clearCommonState, setBalance, balance } = useCommonStore();
+  const { setBalance, balance } = useCommonStore();
   const handleBet = (betAmount: number) => {
     const randomNumber = Math.floor(Math.random() * 100) + 1;
     setTargetNumber(randomNumber);

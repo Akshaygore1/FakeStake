@@ -47,7 +47,10 @@ export default function Home() {
         <p className="text-xl text-gray-500">Play Real Games with Fake Money</p>
       </section>
       <section className="p-6" aria-labelledby="games-heading">
-        <h2 id="games-heading" className="text-4xl p-4 font-bold mb-8">
+        <h2
+          id="games-heading"
+          className="text-4xl text-white p-4 font-bold mb-8"
+        >
           Play Now
         </h2>
         <div

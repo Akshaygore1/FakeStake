@@ -16,8 +16,7 @@ export default function ConfigForRocket() {
     setGameStarted,
   } = useRockerConfig();
 
-  const { multiplier, setMultiplier, clearCommonState, setBalance, balance } =
-    useCommonStore();
+  const { multiplier, setMultiplier, setBalance, balance } = useCommonStore();
 
   const [successfulClicks, setSuccessfulClicks] = useState(0);
   const [currentProfit, setCurrentProfit] = useState<number | null>(null);
@@ -39,7 +38,6 @@ export default function ConfigForRocket() {
 
   const handleCashOut = () => {
     setGameStarted(false);
-    clearCommonState();
     setShowModal(true);
     setBalance(balance! + currentProfit!);
   };

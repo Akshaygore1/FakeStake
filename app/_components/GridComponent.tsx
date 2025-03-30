@@ -28,8 +28,7 @@ export default function GridComponent() {
     resetGame,
     clearConfigStore,
   } = useConfigStore();
-  const { multiplier, setMultiplier, clearCommonState, balance, setBalance } =
-    useCommonStore();
+  const { balance } = useCommonStore();
 
   const [mines, setMines] = useState<number[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -59,7 +58,6 @@ export default function GridComponent() {
         setShowModal(true);
         setNumberOfMines(1);
         setNumberOfSuccessfulClicks(0);
-        clearCommonState();
         clearConfigStore();
         resetGame();
 

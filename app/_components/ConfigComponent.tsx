@@ -22,8 +22,7 @@ export default function ConfigComponent() {
   } = useConfigStore();
 
   const { numberOfSuccessfulClicks, resetGrid } = useGridStore();
-  const { multiplier, setMultiplier, clearCommonState, setBalance, balance } =
-    useCommonStore();
+  const { multiplier, setMultiplier, setBalance, balance } = useCommonStore();
 
   const [successfulClicks, setSuccessfulClicks] = useState(0);
   const [currentProfit, setCurrentProfit] = useState<number | null>(null);
@@ -65,7 +64,6 @@ export default function ConfigComponent() {
 
   const handleCashOut = () => {
     setGameStarted(false);
-    clearCommonState();
     clearConfigStore();
     resetGame();
     resetGrid();
