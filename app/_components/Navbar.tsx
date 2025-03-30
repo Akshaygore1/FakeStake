@@ -6,7 +6,7 @@ import { Coffee, Coins } from "lucide-react";
 import Link from "next/link";
 
 export default function Navbar() {
-  const { balance } = useCommonStore();
+  const { balance, clearCommonState } = useCommonStore();
   return (
     <nav className="backdrop-blur-md bg-black/30">
       <div className="max-w-7xl mx-auto px-4 py-2 sm:p-4">
@@ -24,6 +24,15 @@ export default function Navbar() {
             />
           </Link>
           <div className="flex gap-1 sm:gap-2">
+            {balance <= 0 && (
+              <div
+                className="flex justify-center px-4 items-center underline cursor-pointer text-white"
+                onClick={() => clearCommonState()}
+              >
+                Reset Credit ?
+              </div>
+            )}
+
             <div className="flex items-center gap-1 sm:gap-2 bg-gray-800/50 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full border border-gray-700 text-white">
               <span className="text-base sm:text-lg font-medium">
                 {balance?.toFixed(2) || "0.00"}
