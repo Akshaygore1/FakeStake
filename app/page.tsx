@@ -87,6 +87,7 @@ export default function Home() {
               </Link>
             </article>
           ))}
+          <div className="text-white">More games coming soon...</div>
         </div>
       </section>
     </main>
