@@ -33,7 +33,7 @@ export default function GridComponent() {
   const [mines, setMines] = useState<number[]>([]);
   const [showModal, setShowModal] = useState(false);
 
-  console.log("MINES: ", mines);
+  // console.log("MINES: ", mines);
 
   useEffect(() => {
     if (isGameSetup) {
