@@ -38,7 +38,6 @@ export default function ConfigComponent() {
     setNumberOfMines(numMines);
   };
 
-  // console.log("firstbalance", balance, betAmount);
 
   const handleBet = () => {
     if (betAmount === null || betAmount > balance!) {
@@ -60,7 +59,6 @@ export default function ConfigComponent() {
       setCurrentProfit(newProfit * betAmount);
     }
   }, [betAmount, numberOfMines, numberOfSuccessfulClicks, setMultiplier]);
-  // console.log(currentProfit, balance);
 
   const handleCashOut = () => {
     setGameStarted(false);
