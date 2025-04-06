@@ -4,7 +4,7 @@
 import { useConfigStore } from "@/app/_store/configStore";
 import { useGridStore } from "@/app/_store/gridStore";
 import { useEffect, useState } from "react";
-import { Bomb, Gem } from "lucide-react";
+import { Gem } from "lucide-react";
 import { useCommonStore } from "@/app/_store/commonStore";
 import { addGameResult } from "@/app/_constants/data";
 import Modal from "../ui/Modal";
@@ -16,15 +16,12 @@ export default function GridComponent() {
     setSelectedGrid,
     numberOfSuccessfulClicks,
     setNumberOfSuccessfulClicks,
-    resetGrid,
   } = useGridStore();
   const {
     numberOfMines,
     isGameSetup,
-    setIsGameSetup,
     setNumberOfMines,
     betAmount,
-    setBetAmount,
     resetGame,
     clearConfigStore,
   } = useConfigStore();
