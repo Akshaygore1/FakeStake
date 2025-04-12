@@ -1,5 +1,5 @@
-import PlinkoComponent from "@/app/_components/plinko/PlinkoComponent";
-import PlinkoConfig from "@/app/_components/plinko/PlinkoConfig";
+import PlinkoComponent from "@/app/_components/Plinko/PlinkoComponent";
+import PlinkoConfig from "@/app/_components/Plinko/PlinkoConfig";
 
 export default function Page() {
   return (
