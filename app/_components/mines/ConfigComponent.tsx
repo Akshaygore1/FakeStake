@@ -38,7 +38,6 @@ export default function ConfigComponent() {
     setNumberOfMines(numMines);
   };
 
-
   const handleBet = () => {
     if (betAmount === null || betAmount > balance!) {
       alert("You don’t have enough balance");
@@ -79,23 +78,42 @@ export default function ConfigComponent() {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 bg-gray-800 text-white max-w-sm mx-auto rounded-lg">
+    <div className="flex flex-col gap-4 p-4 text-white max-w-sm mx-auto rounded-lg">
       <div>
-        <label
-          htmlFor="betAmount"
-          className="block mb-2 text-sm font-medium text-gray-300"
-        >
-          Bet Amount
-        </label>
-        <input
-          type="number"
-          id="betAmount"
-          value={betAmount !== null ? betAmount : ""}
-          min={10}
-          onChange={handleBetAmountChange}
-          className="w-full p-2 border border-gray-600 rounded-lg bg-gray-700 text-white focus:border-none focus:outline-none"
-          disabled={gameStarted}
-        />
+        <div className="flex justify-between mb-2">
+          <span className="text-gray-400">Bet Amount</span>
+        </div>
+        <div className="flex p-1 bg-[#1e2a36]">
+          <div className="flex-1 flex items-center">
+            <input
+              type="number"
+              id="betAmount"
+              value={betAmount !== null ? betAmount : ""}
+              min={10}
+              onChange={handleBetAmountChange}
+              className="w-full bg-black px-3 py-3 outline-none"
+              disabled={gameStarted}
+            />
+          </div>
+          <button
+            className="bg-[#1e2a36] px-4 border-gray-700"
+            onClick={() =>
+              betAmount && betAmount > 0 && setBetAmount(betAmount / 2)
+            }
+          >
+            ½
+          </button>
+          <button
+            className="bg-[#1e2a36] px-4  border-gray-700"
+            onClick={() =>
+              betAmount && betAmount > 0 && setBetAmount(betAmount * 2)
+            }
+          >
+            2×
+          </button>
+        </div>
+      </div>
+      <div>
         {betAmount! > balance && !gameStarted ? (
           <label
             htmlFor="betAmount"
@@ -107,19 +125,27 @@ export default function ConfigComponent() {
           ""
         )}
       </div>
-      <div className="flex gap-2">
-        {[1, 3, 5, 10].map((numMines) => (
-          <button
-            key={numMines}
-            onClick={() => handleNumMinesChange(numMines)}
-            className={`w-full p-2 border border-gray-600 rounded-lg bg-gray-700 text-white focus:border-none focus:outline-none ${
-              numberOfMines === numMines ? "bg-green-500 text-white" : ""
-            }`}
-            disabled={gameStarted}
-          >
-            {numMines}
-          </button>
-        ))}
+      <div>
+        <div className="flex justify-between">
+          <span className="text-gray-400">Number of Mines</span>
+        </div>
+      </div>
+      <div className="w-full">
+        <select
+          value={numberOfMines || ""}
+          onChange={(e) => handleNumMinesChange(Number(e.target.value))}
+          disabled={gameStarted}
+          className="w-full p-2 border border-gray-600 bg-black text-white focus:border-none focus:outline-none"
+        >
+          <option value="" disabled>
+            Select number of mines
+          </option>
+          {[1, 3, 5, 10].map((numMines) => (
+            <option key={numMines} value={numMines}>
+              {numMines} {numMines === 1 ? "Mine" : "Mines"}
+            </option>
+          ))}
+        </select>
       </div>
       <button
         onClick={
@@ -138,7 +164,7 @@ export default function ConfigComponent() {
           gameStarted ||
           betAmount > balance
         }
-        className="w-full p-2 mt-4 border border-gray-600 rounded-lg bg-green-500 text-white hover:bg-green-700 disabled:bg-gray-600 disabled:text-gray-400 disabled:hover:cursor-not-allowed"
+        className="w-full bg-[#5cdb5c] hover:bg-[#4bc74b] disabled:bg-gray-600 disabled:text-gray-400 text-black font-medium py-4 rounded-md transition-colors"
       >
         Bet
       </button>

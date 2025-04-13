@@ -30,7 +30,6 @@ export default function GridComponent() {
   const [mines, setMines] = useState<number[]>([]);
   const [showModal, setShowModal] = useState(false);
 
-
   useEffect(() => {
     if (isGameSetup) {
       setSelectedGrid({});
@@ -82,11 +81,11 @@ export default function GridComponent() {
   };
 
   return (
-    <div className="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2">
+    <div className="grid grid-cols-5 gap-3 w-full max-w-xl mx-auto">
       {Array.from({ length: 25 }).map((_, index) => (
         <div
           key={index}
-          className={`h-16 w-16 sm:h-16 sm:w-16 md:h-22 md:w-22 lg:h-28 lg:w-28 flex justify-center items-center transition-all rounded-md duration-500 ${
+          className={`aspect-square w-full min-h-18 flex justify-center items-center transition-all rounded-md duration-500 ${
             selectedGrid[index]
               ? mines.includes(index)
                 ? "border-red-500 text-white animate-shake bg-[#071924] scale-95"
@@ -102,14 +101,14 @@ export default function GridComponent() {
                 <img
                   src="/assets/mine.svg"
                   alt="bomb"
-                  className="w-16 h-16 animate-fade-in"
+                  className="w-4/5 h-4/5 animate-fade-in"
                 />
               ) : (
-                <div className="relative flex items-center justify-center w-full h-full text-2xl bg-[#071924] text-white font-bold">
+                <div className="relative flex items-center justify-center w-full h-full bg-[#071924] text-white font-bold">
                   <img
                     src="/assets/diamond.svg"
                     alt="coins"
-                    className="w-16 h-16 animate-fade-in"
+                    className="w-4/5 h-4/5 animate-fade-in"
                   />
                 </div>
               )}
