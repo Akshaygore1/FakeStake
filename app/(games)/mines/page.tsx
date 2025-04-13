@@ -1,15 +1,11 @@
-import ConfigComponent from "@/app/_components/mines/ConfigComponent";
-import GridComponent from "@/app/_components/mines/GridComponent";
+import MineContainer from "@/app/_components/mines/MineContainer";
 
-export default function Mines() {
+export default function Dice() {
   return (
-    <main className="flex flex-col md:flex-row gap-4 md:gap-8 p-4 w-full max-w-6xl mx-auto">
-      <div className="flex flex-col lg:flex-row w-full p-4 lg:p-8">
-        <div className="flex justify-center w-full lg:w-1/3 p-4">
-          <ConfigComponent />
-        </div>
-        <div className="flex justify-center items-center w-full lg:w-2/3 p-4">
-          <GridComponent />
+    <main className="flex flex-col h-full">
+      <div className="flex flex-col lg:flex-row w-full p-4 lg:p-8 flex-1">
+        <div className="flex justify-center items-center w-full p-4">
+          <MineContainer />
         </div>
       </div>
     </main>
