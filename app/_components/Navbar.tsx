@@ -24,7 +24,7 @@ export default function Navbar() {
             />
           </Link>
           <div className="flex gap-1 sm:gap-2">
-            {balance <= 0 && (
+            {balance <= 1 && (
               <div
                 className="flex justify-center px-4 items-center underline cursor-pointer text-white"
                 onClick={() => clearCommonState()}

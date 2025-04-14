@@ -93,6 +93,7 @@ export default function ConfigComponent() {
               onChange={handleBetAmountChange}
               className="w-full bg-black px-3 py-3 outline-none"
               disabled={gameStarted}
+              onClick={(e) => e.currentTarget.select()}
             />
           </div>
           <button
@@ -164,7 +165,7 @@ export default function ConfigComponent() {
           gameStarted ||
           betAmount > balance
         }
-        className="w-full bg-[#5cdb5c] hover:bg-[#4bc74b] disabled:bg-gray-600 disabled:text-gray-400 text-black font-medium py-4 rounded-md transition-colors"
+        className="w-full bg-success hover:bg-[#4bc74b] disabled:bg-gray-600 disabled:text-gray-400 text-black font-medium py-4 rounded-md transition-colors"
       >
         Bet
       </button>
@@ -173,11 +174,11 @@ export default function ConfigComponent() {
           <p className="text-sm text-gray-400">
             {betAmount &&
               multiplier > 0 &&
-              `Current Profit: ${(betAmount * multiplier).toFixed(2)}`}
+              `Current Profit: ${currentProfit?.toFixed(2)}`}
           </p>
           <button
             onClick={handleCashOut}
-            className="w-full p-2 mt-4 border border-gray-600 rounded-lg bg-green-500 text-white hover:bg-green-700 disabled:bg-gray-600"
+            className="w-full p-2 mt-4 border border-gray-600 rounded-lg bg-success text-black hover:bg-green-700 disabled:bg-gray-600"
           >
             Cash-Out
           </button>
@@ -188,6 +189,7 @@ export default function ConfigComponent() {
         closeModal={() => setShowModal(false)}
         result="win"
         amount={currentProfit!}
+        multiplier={multiplier}
       />
     </div>
   );
