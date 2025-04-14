@@ -98,7 +98,7 @@ export default function GridComponent() {
           {(selectedGrid[index] || showModal) && (
             <>
               {mines.includes(index) ? (
-                <div className="relative flex items-center justify-center w-full h-full bg-black text-white font-bold rounded-md">
+                <div className="relative flex p-2 items-center justify-center w-full h-full bg-primary text-white font-bold rounded-md">
                   <img
                     src="/assets/mine.svg"
                     alt="bomb"
@@ -106,7 +106,7 @@ export default function GridComponent() {
                   />
                 </div>
               ) : (
-                <div className="relative flex items-center justify-center w-full h-full bg-black text-white font-bold rounded-md">
+                <div className="relative flex p-2 items-center justify-center w-full h-full bg-primary text-white font-bold rounded-md">
                   <img
                     src="/assets/diamond.svg"
                     alt="coins"
