@@ -1,4 +1,4 @@
-import { Bomb, Coins, Gem } from "lucide-react";
+import { Bomb, Coins, Divide, Gem } from "lucide-react";
 import React, { useEffect, useRef } from "react";
 
 export interface ModalProps {
@@ -6,6 +6,7 @@ export interface ModalProps {
   closeModal: () => void;
   result: "win" | "lose" | null; // Indicates if the user won or lost
   amount?: number; // Amount of money won or lost (optional)
+  multiplier?: number;
 }
 
 export default function Modal({
@@ -13,6 +14,7 @@ export default function Modal({
   closeModal,
   result,
   amount,
+  multiplier,
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -47,20 +49,20 @@ export default function Modal({
       modalContent = (
         <div
           ref={modalRef}
-          className="modal relative bg-gradient-to-br from-green-900 to-black p-8 border-2 border-green-500 shadow-2xl rounded-2xl transform transition-all duration-300 hover:scale-105"
+          className="modal relative bg-[#1e2a30] p-6 border-4 border-success shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-105 w-48"
         >
-          <div className="modal relative rounded-lg flex flex-col justify-center items-center space-y-4">
-            <div className="animate-bounce">
-              <Coins className="w-12 h-12 text-green-400" />
-            </div>
-            <div className="text-center">
-              <span className="block text-4xl font-extrabold text-green-400 tracking-tight mb-1">
-                ${amount ? amount.toFixed(2) : "0.00"}
-              </span>
-              <span className="text-green-300 text-sm uppercase tracking-wider font-medium">
-                You Won!
-              </span>
-            </div>
+          <div className="flex justify-center">
+            <span className="text-success text-3xl font-bold">
+              {multiplier}x
+            </span>
+          </div>
+
+          <div className="h-0.5 w-24 bg-gray-500 mx-auto my-2"></div>
+
+          <div className="flex justify-center items-center gap-1">
+            <span className="text-success text-xl font-semibold flex flex-row gap-2">
+              <Coins className="w-6 h-6" /> {amount?.toFixed(2)}
+            </span>
           </div>
         </div>
       );

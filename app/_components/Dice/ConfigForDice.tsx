@@ -1,4 +1,5 @@
 import { useCommonStore } from "@/app/_store/commonStore";
+import { Coins } from "lucide-react";
 import React from "react";
 
 function ConfigForDice({ onBet }: { onBet: (amount: number) => void }) {
@@ -9,7 +10,7 @@ function ConfigForDice({ onBet }: { onBet: (amount: number) => void }) {
 
   const handleBetAmountChange = (newValue: string) => {
     setInputValue(newValue);
-    const parsedValue = parseInt(newValue);
+    const parsedValue = parseFloat(newValue);
     if (!isNaN(parsedValue)) {
       setBetAmount(parsedValue);
       if (parsedValue > balance) {
@@ -17,26 +18,78 @@ function ConfigForDice({ onBet }: { onBet: (amount: number) => void }) {
       } else {
         setError("");
       }
+    } else {
+      setBetAmount(0);
+    }
+  };
+
+  const handleHalfAmount = () => {
+    if (betAmount > 0) {
+      const newAmount = (betAmount / 2).toFixed(2);
+      setInputValue(newAmount);
+      setBetAmount(parseFloat(newAmount));
+    }
+  };
+
+  const handleDoubleAmount = () => {
+    if (betAmount > 0) {
+      const newAmount = (betAmount * 2).toFixed(2);
+      if (parseFloat(newAmount) <= balance) {
+        setInputValue(newAmount);
+        setBetAmount(parseFloat(newAmount));
+        setError("");
+      } else {
+        setError("Bet amount cannot exceed your balance");
+      }
     }
   };
 
   return (
-    <div className="text-white bg-slate-900 p-4 md:p-6 rounded-md w-full">
-      <label htmlFor="betAmount" className="block mb-2 text-sm font-medium">
-        Bet Amount
-      </label>
-      <input
-        type="number"
-        id="betAmount"
-        value={inputValue}
-        className="w-full p-2 border border-gray-600 rounded-lg bg-gray-700 text-white focus:border-none focus:outline-none"
-        onChange={(e) => handleBetAmountChange(e.target.value)}
-      />
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+    <div className="flex flex-col gap-6 p-4  text-white max-w-md mx-auto rounded-lg">
+      <div>
+        <div className="flex justify-between mb-2">
+          <span className="text-[#b0b9d2]">Bet Amount</span>
+          <span className="text-white">
+            ${balance ? balance.toFixed(2) : "0.00"}
+          </span>
+        </div>
+      </div>
+      <div className="flex bg-[#1e2a36] rounded-md overflow-hidden">
+        <div className="flex-1 flex items-center relative">
+          <input
+            type="number"
+            id="betAmount"
+            value={inputValue}
+            min={0.01}
+            step={0.01}
+            onChange={(e) => handleBetAmountChange(e.target.value)}
+            className="w-full bg-[#1e2a36] px-3 py-3 outline-none text-white"
+            onClick={(e) => e.currentTarget.select()}
+          />
+          <div className="absolute right-3 pointer-events-none">
+            <Coins className="w-4 h-4 text-success" />
+          </div>
+        </div>
+        <button
+          className="bg-[#1e2a36] px-6 border-l border-[#2c3a47] hover:bg-[#2c3a47] transition-colors text-white"
+          onClick={handleHalfAmount}
+          disabled={!betAmount || betAmount <= 0}
+        >
+          ½
+        </button>
+        <button
+          className="bg-[#1e2a36] px-6 border-l border-[#2c3a47] hover:bg-[#2c3a47] transition-colors text-white"
+          onClick={handleDoubleAmount}
+          disabled={!betAmount || betAmount <= 0 || betAmount * 2 > balance}
+        >
+          2×
+        </button>
+      </div>
+      {error && <p className="text-red-500 text-sm">{error}</p>}
       <button
         onClick={() => onBet(betAmount)}
-        className="w-full p-2 mt-4 border border-gray-600 rounded-lg bg-green-500 text-black hover:bg-green-700 disabled:bg-gray-600 disabled:text-gray-400 disabled:hover:cursor-not-allowed"
-        disabled={!betAmount || betAmount > balance}
+        className="w-full py-3 rounded-md bg-success text-black hover:bg-green-700 disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
+        disabled={!betAmount || betAmount <= 0 || betAmount > balance}
       >
         Bet
       </button>

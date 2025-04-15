@@ -22,7 +22,7 @@ export const useConfigStore = create<ConfigStore>()(
 	(set, get) => ({
 		numberOfMines: 1,
 		gameStarted: false,
-		betAmount: null,
+		betAmount: 0,
 		isGameSetup: false,
 		setGameStarted: (gameStarted) => set({ gameStarted }),
 		setIsGameSetup: (isGameSetup) => set({ isGameSetup }),
@@ -35,7 +35,7 @@ export const useConfigStore = create<ConfigStore>()(
 		resetGame: () =>
 			set({
 				isGameSetup: false,
-				betAmount: null,
+				betAmount: 0,
 				numberOfMines: 1,
 				gameStarted: false,
 			}),
