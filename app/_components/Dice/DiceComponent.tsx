@@ -68,11 +68,13 @@ export default function DiceComponent({
               ) => (
                 <div key={index} className="flex-shrink-0">
                   <div
-                    className={`w-8 h-4 px-6 py-4 rounded-full flex items-center justify-center ${
-                      item.isWin ? "bg-neutral-500" : "bg-red-500"
+                    className={`w-8 h-4 px-6  py-4 rounded-full flex items-center justify-center ${
+                      item.isWin
+                        ? "bg-success text-black"
+                        : "bg-neutral-700 text-white"
                     }`}
                   >
-                    <span className="text-white text-xs font-bold">
+                    <span className="text-xs font-bold">
                       {item.randomNumber}
                     </span>
                   </div>
