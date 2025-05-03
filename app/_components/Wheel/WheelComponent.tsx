@@ -39,34 +39,6 @@ const WheelComponent = ({ size = 500, radius = 190, strokeWidth = 20 }) => {
   const center = size / 2;
   const segmentAngle = 360 / SEGMENTS.length;
 
-  const describeArc = (x, y, radius, startAngle, endAngle) => {
-    const polarToCartesian = (cx, cy, r, angle) => {
-      const rad = (angle - 90) * (Math.PI / 180);
-      return {
-        x: cx + r * Math.cos(rad),
-        y: cy + r * Math.sin(rad),
-      };
-    };
-
-    const start = polarToCartesian(x, y, radius, endAngle);
-    const end = polarToCartesian(x, y, radius, startAngle);
-    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-
-    return [
-      "M",
-      start.x,
-      start.y,
-      "A",
-      radius,
-      radius,
-      0,
-      largeArcFlag,
-      0,
-      end.x,
-      end.y,
-    ].join(" ");
-  };
-
   return (
     <div className="relative" style={{ width: size, height: size }}>
       <svg width={size} height={size}>
