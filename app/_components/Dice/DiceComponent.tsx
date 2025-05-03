@@ -30,6 +30,7 @@ interface DiceComponentProps {
   setValue: React.Dispatch<React.SetStateAction<number[]>>;
   winChance: number;
   setWinChance: React.Dispatch<React.SetStateAction<number>>;
+  result: { isWin: boolean; randomNumber: number }[];
 }
 
 export default function DiceComponent({
@@ -41,6 +42,7 @@ export default function DiceComponent({
   setValue,
   winChance,
   setWinChance,
+  result,
 }: DiceComponentProps) {
   const handleValueChange = (newValue: number[]) => {
     setValue(newValue);
@@ -55,30 +57,54 @@ export default function DiceComponent({
 
   return (
     <div className="w-full aspect-square bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl p-3 md:p-6 lg:p-8 flex flex-col items-center justify-between">
-      <div className="w-full min-h-[120px] md:h-24 flex flex-row justify-between items-center text-center p-3 md:px-6 lg:px-8 py-4 bg-gray-800 rounded-lg gap-3 md:gap-4">
-        <div className="flex flex-col items-center w-28 p-2">
-          <span className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">
-            Multiplier
-          </span>
-          <span className="text-white text-lg md:text-xl font-bold">
-            {multiplier}X
-          </span>
+      <div className="w-full flex gap-4 flex-col">
+        <div className="flex flex-row-reverse items-center w-full justify-end gap-2 overflow-x-auto no-scrollbar">
+          {result
+            .slice(-17)
+            .map(
+              (
+                item: { isWin: boolean; randomNumber: number },
+                index: number
+              ) => (
+                <div key={index} className="flex-shrink-0">
+                  <div
+                    className={`w-8 h-4 px-6 py-4 rounded-full flex items-center justify-center ${
+                      item.isWin ? "bg-neutral-500" : "bg-red-500"
+                    }`}
+                  >
+                    <span className="text-white text-xs font-bold">
+                      {item.randomNumber}
+                    </span>
+                  </div>
+                </div>
+              )
+            )}
         </div>
-        <div className="flex flex-col items-center w-28 p-2">
-          <span className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">
-            Roll Over
-          </span>
-          <span className="text-white text-lg md:text-xl font-bold">
-            {value[0]}
-          </span>
-        </div>
-        <div className="flex flex-col items-center w-28 p-2">
-          <span className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">
-            Win Chance
-          </span>
-          <span className="text-white text-lg md:text-xl font-bold">
-            {winChance}%
-          </span>
+        <div className=" min-h-[120px] md:h-24 flex flex-row justify-between items-center text-center p-3 md:px-6 lg:px-8 py-4 bg-gray-800 rounded-lg gap-3 md:gap-4">
+          <div className="flex flex-col items-center w-28 p-2">
+            <span className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">
+              Multiplier
+            </span>
+            <span className="text-white text-lg md:text-xl font-bold">
+              {multiplier}X
+            </span>
+          </div>
+          <div className="flex flex-col items-center w-28 p-2">
+            <span className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">
+              Roll Over
+            </span>
+            <span className="text-white text-lg md:text-xl font-bold">
+              {value[0]}
+            </span>
+          </div>
+          <div className="flex flex-col items-center w-28 p-2">
+            <span className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">
+              Win Chance
+            </span>
+            <span className="text-white text-lg md:text-xl font-bold">
+              {winChance}%
+            </span>
+          </div>
         </div>
       </div>
       <div className="w-full p-2 md:p-4 bg-gray-600 rounded-xl">

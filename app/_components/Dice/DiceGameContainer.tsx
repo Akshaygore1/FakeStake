@@ -10,6 +10,12 @@ function DiceGameContainer() {
   const [targetNumber, setTargetNumber] = React.useState<number>(0);
   const [value, setValue] = React.useState([50]);
   const [winChance, setWinChance] = React.useState(50);
+  const [result, setResult] = React.useState<
+    | {
+        isWin: boolean;
+        randomNumber: number;
+      }[]
+  >([]);
   const { setBalance, balance } = useCommonStore();
 
   const handleBet = (betAmount: number) => {
@@ -25,9 +31,11 @@ function DiceGameContainer() {
     if (isWin) {
       // Player wins - apply the multiplier
       newBalance = balance + betAmount * (multiplier - 1);
+      setResult([...result, { isWin: true, randomNumber }]);
     } else {
       // Player loses - subtract the bet amount
       newBalance = balance - betAmount;
+      setResult([...result, { isWin: false, randomNumber }]);
     }
 
     setBalance(newBalance);
@@ -48,6 +56,7 @@ function DiceGameContainer() {
           setMultiplier={setMultiplier}
           targetNumber={targetNumber}
           gameStarted={gameStarted}
+          result={result}
         />
       </div>
     </div>
