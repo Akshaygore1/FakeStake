@@ -18,7 +18,7 @@ export const useLimboStore = create<LimboStore>()((set) => ({
   setIsRolling: (value) => set({ isRolling: value }),
   displayMultiplier: 1,
   setDisplayMultiplier: (value) => set({ displayMultiplier: value }),
-  multiplier: 1,
+  multiplier: 2,
   setMultiplier: (value) => set({ multiplier: value }),
   recentWins: [],
   setRecentWins: (value) => set({ recentWins: value }),

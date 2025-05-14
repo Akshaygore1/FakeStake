@@ -49,7 +49,7 @@ function LimboConfig({ onBet }: { onBet: (amount: number) => void }) {
 
   const handleMultiplierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    if (parseFloat(newValue) > 99 || parseFloat(newValue) < 1) {
+    if (parseFloat(newValue) >= 99 || parseFloat(newValue) <= 1) {
       setError("Multiplier should be between 1 and 100");
     } else {
       setError("");
