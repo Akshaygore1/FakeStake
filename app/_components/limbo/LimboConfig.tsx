@@ -5,12 +5,10 @@ import React from "react";
 
 function LimboConfig({
   onBet,
-  handleHalfAmount,
-  handleDoubleAmount,
+  isRolling,
 }: {
   onBet: (amount: number) => void;
-  handleHalfAmount: () => void;
-  handleDoubleAmount: () => void;
+  isRolling: boolean;
 }) {
   const { balance } = useCommonStore();
   const [betAmount, setBetAmount] = React.useState<number>(0);
@@ -31,6 +29,28 @@ function LimboConfig({
       setBetAmount(0);
     }
   };
+
+  const handleHalfAmount = () => {
+    if (betAmount > 0) {
+      const newAmount = (betAmount / 2).toFixed(2);
+      setInputValue(newAmount);
+      setBetAmount(parseFloat(newAmount));
+    }
+  };
+
+  const handleDoubleAmount = () => {
+    if (betAmount > 0) {
+      const newAmount = (betAmount * 2).toFixed(2);
+      if (parseFloat(newAmount) <= balance) {
+        setInputValue(newAmount);
+        setBetAmount(parseFloat(newAmount));
+        setError("");
+      } else {
+        setError("Bet amount cannot exceed your balance");
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6 p-4  text-white max-w-md mx-auto rounded-lg">
       <div>
@@ -76,9 +96,11 @@ function LimboConfig({
       <button
         onClick={() => onBet(betAmount)}
         className="w-full py-3 rounded-md bg-success text-black hover:bg-green-700 disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
-        disabled={!betAmount || betAmount <= 0 || betAmount > balance}
+        disabled={
+          !betAmount || betAmount <= 0 || betAmount > balance || isRolling
+        }
       >
-        Bet
+        {isRolling ? "Rolling..." : "Bet"}
       </button>
     </div>
   );

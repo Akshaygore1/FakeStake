@@ -1,39 +1,49 @@
 "use client";
 import { useState, useEffect } from "react";
 
-function LimboComponent() {
-  const [multiplier, setMultiplier] = useState(1.04);
-  const [isRolling, setIsRolling] = useState(false);
-  const [displayMultiplier, setDisplayMultiplier] = useState(1.04);
-
-  const handleRoll = () => {
-    setIsRolling(true);
-    // Generate random number between 1.00 and 10.00
-    const randomMultiplier = (Math.random() * 9 + 1).toFixed(2);
-    setMultiplier(Number(randomMultiplier));
-  };
+function LimboComponent({
+  isRolling,
+  displayMultiplier,
+  setIsRolling,
+  setDisplayMultiplier,
+}: {
+  isRolling: boolean;
+  displayMultiplier: number;
+  setIsRolling: (value: boolean) => void;
+  setDisplayMultiplier: (value: number) => void;
+}) {
+  // We'll use a separate state for the animated value
+  const [animatedMultiplier, setAnimatedMultiplier] = useState(0);
 
   useEffect(() => {
+    let intervalId: NodeJS.Timeout;
     if (isRolling) {
-      const interval = setInterval(() => {
-        setDisplayMultiplier((prev) => {
-          const randomChange = (Math.random() * 0.5 - 0.25).toFixed(2);
-          return Number((prev + Number(randomChange)).toFixed(2));
+      // Reset the animated value when rolling starts
+      setAnimatedMultiplier(0);
+
+      // Define how quickly the number animates
+      const animationSpeed = 50; // milliseconds
+      const incrementAmount = 1.05; // How much to add each interval
+
+      intervalId = setInterval(() => {
+        setAnimatedMultiplier((prevMultiplier) => {
+          const nextMultiplier = prevMultiplier + incrementAmount;
+
+          if (nextMultiplier >= displayMultiplier) {
+            clearInterval(intervalId);
+            setIsRolling(false);
+            return displayMultiplier;
+          }
+
+          return nextMultiplier;
         });
-      }, 100);
-
-      const timeout = setTimeout(() => {
-        clearInterval(interval);
-        setDisplayMultiplier(multiplier);
-        setIsRolling(false);
-      }, 1000);
-
-      return () => {
-        clearInterval(interval);
-        clearTimeout(timeout);
-      };
+      }, animationSpeed);
     }
-  }, [isRolling, multiplier]);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [isRolling, displayMultiplier, setIsRolling]);
 
   return (
     <div className="w-full aspect-square bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl p-3 md:p-6 lg:p-8 flex flex-col">
@@ -46,7 +56,10 @@ function LimboComponent() {
             isRolling ? "animate-pulse" : ""
           }`}
         >
-          {displayMultiplier}x
+          {isRolling
+            ? animatedMultiplier.toFixed(2)
+            : displayMultiplier.toFixed(2)}
+          X
         </span>
       </div>
     </div>
