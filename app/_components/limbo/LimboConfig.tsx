@@ -2,21 +2,17 @@
 import { useCommonStore } from "@/app/_store/commonStore";
 import { Coins } from "lucide-react";
 import React from "react";
+import { useLimboStore } from "@/app/_store/limboStore";
 
-function LimboConfig({
-  onBet,
-  isRolling,
-}: {
-  onBet: (amount: number) => void;
-  isRolling: boolean;
-}) {
+function LimboConfig({ onBet }: { onBet: (amount: number) => void }) {
+  const { isRolling, setBetAmount, betAmount, multiplier, setMultiplier } =
+    useLimboStore();
   const { balance } = useCommonStore();
-  const [betAmount, setBetAmount] = React.useState<number>(0);
-  const [inputValue, setInputValue] = React.useState<string>("");
+  const [inputValue, setInputValue] = React.useState<number>(0);
   const [error, setError] = React.useState<string>("");
 
   const handleBetAmountChange = (newValue: string) => {
-    setInputValue(newValue);
+    setInputValue(parseFloat(newValue));
     const parsedValue = parseFloat(newValue);
     if (!isNaN(parsedValue)) {
       setBetAmount(parsedValue);
@@ -33,7 +29,7 @@ function LimboConfig({
   const handleHalfAmount = () => {
     if (betAmount > 0) {
       const newAmount = (betAmount / 2).toFixed(2);
-      setInputValue(newAmount);
+      setInputValue(parseFloat(newAmount));
       setBetAmount(parseFloat(newAmount));
     }
   };
@@ -42,13 +38,23 @@ function LimboConfig({
     if (betAmount > 0) {
       const newAmount = (betAmount * 2).toFixed(2);
       if (parseFloat(newAmount) <= balance) {
-        setInputValue(newAmount);
+        setInputValue(parseFloat(newAmount));
         setBetAmount(parseFloat(newAmount));
         setError("");
       } else {
         setError("Bet amount cannot exceed your balance");
       }
     }
+  };
+
+  const handleMultiplierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    if (parseFloat(newValue) > 99 || parseFloat(newValue) < 1) {
+      setError("Multiplier should be between 1 and 100");
+    } else {
+      setError("");
+    }
+    setMultiplier(parseFloat(newValue));
   };
 
   return (
@@ -92,12 +98,32 @@ function LimboConfig({
           2×
         </button>
       </div>
+      <div className="flex bg-[#1e2a36] rounded-md overflow-hidden">
+        <div className="flex-1 flex items-center relative">
+          <input
+            type="number"
+            id="multiplier"
+            value={multiplier}
+            min={1}
+            step={1}
+            max={100}
+            maxLength={3}
+            onChange={handleMultiplierChange}
+            className="w-full bg-[#1e2a36] px-3 py-3 outline-none text-white"
+            onClick={(e) => e.currentTarget.select()}
+          />
+        </div>
+      </div>
       {error && <p className="text-red-500 text-sm">{error}</p>}
       <button
         onClick={() => onBet(betAmount)}
         className="w-full py-3 rounded-md bg-success text-black hover:bg-green-700 disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
         disabled={
-          !betAmount || betAmount <= 0 || betAmount > balance || isRolling
+          !betAmount ||
+          betAmount <= 0 ||
+          betAmount > balance ||
+          isRolling ||
+          error !== ""
         }
       >
         {isRolling ? "Rolling..." : "Bet"}

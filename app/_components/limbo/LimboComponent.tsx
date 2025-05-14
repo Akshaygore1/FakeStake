@@ -1,54 +1,76 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useLimboStore } from "@/app/_store/limboStore";
 
-function LimboComponent({
-  isRolling,
-  displayMultiplier,
-  setIsRolling,
-  setDisplayMultiplier,
-}: {
-  isRolling: boolean;
-  displayMultiplier: number;
-  setIsRolling: (value: boolean) => void;
-  setDisplayMultiplier: (value: number) => void;
-}) {
-  // We'll use a separate state for the animated value
+function LimboComponent() {
+  const { isRolling, setIsRolling, displayMultiplier, recentWins } =
+    useLimboStore();
   const [animatedMultiplier, setAnimatedMultiplier] = useState(0);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
+
     if (isRolling) {
-      // Reset the animated value when rolling starts
       setAnimatedMultiplier(0);
 
-      // Define how quickly the number animates
-      const animationSpeed = 50; // milliseconds
-      const incrementAmount = 1.05; // How much to add each interval
+      const animationSpeed = 100;
+      const incrementAmount = 0.1;
+      const minDuration = 1000;
+
+      let startTime = Date.now();
 
       intervalId = setInterval(() => {
-        setAnimatedMultiplier((prevMultiplier) => {
-          const nextMultiplier = prevMultiplier + incrementAmount;
+        const elapsedTime = Date.now() - startTime;
 
-          if (nextMultiplier >= displayMultiplier) {
-            clearInterval(intervalId);
-            setIsRolling(false);
-            return displayMultiplier;
-          }
+        const progress = Math.min(elapsedTime / minDuration, 1);
 
-          return nextMultiplier;
-        });
+        const easedProgress = progress < 1 ? Math.pow(progress, 2) : progress;
+
+        const nextMultiplier = easedProgress * displayMultiplier;
+
+        if (
+          progress >= 1 &&
+          nextMultiplier >= displayMultiplier - incrementAmount
+        ) {
+          clearInterval(intervalId);
+          setAnimatedMultiplier(displayMultiplier);
+          setIsRolling(false);
+        } else {
+          setAnimatedMultiplier(nextMultiplier);
+        }
       }, animationSpeed);
     }
 
     return () => {
-      clearInterval(intervalId);
+      if (intervalId) clearInterval(intervalId);
     };
   }, [isRolling, displayMultiplier, setIsRolling]);
 
+  const formattedMultiplier = isRolling
+    ? animatedMultiplier.toFixed(2)
+    : displayMultiplier.toFixed(2);
   return (
     <div className="w-full aspect-square bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl p-3 md:p-6 lg:p-8 flex flex-col">
-      <div className="text-gray-400 text-sm md:text-base lg:text-lg">
-        This is result
+      <div className="flex flex-row-reverse items-center w-full justify-end gap-2 overflow-x-auto no-scrollbar">
+        {recentWins
+          .slice(-17)
+          .map(
+            (item: { isWin: boolean; randomNumber: number }, index: number) => (
+              <div key={index} className="flex-shrink-0">
+                <div
+                  className={`w-8 h-4 px-6  py-4 rounded-full flex items-center justify-center ${
+                    item.isWin
+                      ? "bg-success text-black"
+                      : "bg-neutral-700 text-white"
+                  }`}
+                >
+                  <span className="text-xs font-bold">
+                    {item.randomNumber.toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            )
+          )}
       </div>
       <div className="flex-1 w-full flex items-center justify-center">
         <span
@@ -56,10 +78,7 @@ function LimboComponent({
             isRolling ? "animate-pulse" : ""
           }`}
         >
-          {isRolling
-            ? animatedMultiplier.toFixed(2)
-            : displayMultiplier.toFixed(2)}
-          X
+          {formattedMultiplier}X
         </span>
       </div>
     </div>
