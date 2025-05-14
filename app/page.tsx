@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import createFeedback from "@/action/action";
 import { Gamepad2, Gem, Rocket } from "lucide-react";
 import Link from "next/link";
 
@@ -96,6 +97,39 @@ export default function Home() {
           <div className="text-white">More games coming soon...</div>
         </div>
       </section>
+      <div className="max-w-md mx-auto pt-56 rounded-lg shadow-xl">
+        <h2 className="text-2xl font-bold text-white mb-4">
+          Leave Feedback / Request Features
+        </h2>
+        <form
+          action={async (formData) => {
+            "use server";
+            createFeedback(formData.get("feedback") as string);
+          }}
+          className="space-y-4"
+        >
+          <label
+            htmlFor="feedback"
+            className="block text-sm font-medium text-gray-300"
+          >
+            Your Feedback:
+          </label>
+          <textarea
+            id="feedback"
+            name="feedback"
+            maxLength={100}
+            placeholder="Enter your feedback here..."
+            className="w-full px-4 py-2 border border-gray-600 rounded-md  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-success text-black font-semibold py-2 rounded-md hover:bg-green-600 transition-colors duration-200"
+          >
+            Submit Feedback
+          </button>
+        </form>
+      </div>
     </main>
   );
 }
