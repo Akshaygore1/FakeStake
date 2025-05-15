@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "./_components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "./_components/Footer";
-import Script from "next/script";
 
 const inter = Geist({ subsets: ["latin"] });
 
