@@ -18,9 +18,9 @@
     "lucide-react": "^0.395.0",
     "matter-js": "^0.20.0",
     "motion": "^12.11.3",
-    "next": "^14.2.4",
-    "react": "^18",
-    "react-dom": "^18",
+    "next": "^15.3.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "zustand": "^4.5.2"
