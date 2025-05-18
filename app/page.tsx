@@ -82,6 +82,13 @@ export default function Home() {
                 />
                 <img
                   src={game.img || "/assets/coming-soon.png"}
+                  srcSet={`${game.img || "/assets/coming-soon.png"} 200w,
+                    ${game.img || "/assets/coming-soon.png"} 400w,
+                    ${game.img || "/assets/coming-soon.png"} 600w`}
+                  sizes="(max-width: 640px) 100vw,
+                    (max-width: 768px) 50vw,
+                    (max-width: 1024px) 33vw,
+                    200px"
                   alt={`${game.name} game preview image`}
                   width={200}
                   height={200}
@@ -94,9 +101,9 @@ export default function Home() {
               </Link>
             </article>
           ))}
-          <div className="text-white">More games coming soon...</div>
         </div>
       </section>
+      <div className="text-white text-3xl">Plinko Coming Soon...</div>
       <div className="max-w-md mx-auto pt-56 rounded-lg shadow-xl">
         <h2 className="text-2xl font-bold text-white mb-4">
           Leave Feedback / Request Features
