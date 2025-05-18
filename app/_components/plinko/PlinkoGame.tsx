@@ -13,6 +13,7 @@ export default function PlinkoGame() {
   const engineRef = useRef<Matter.Engine | null>(null);
   const renderRef = useRef<Matter.Render | null>(null);
   const [score, setScore] = useState(0);
+  const [multipliers, setMultipliers] = useState<number[]>([]);
   const isMobile = useMediaQuery("(max-width: 640px)");
 
   const MULTIPLIERS = [
@@ -22,6 +23,7 @@ export default function PlinkoGame() {
     "1.4x",
     "1.1x",
     "1x",
+    "0.5x",
     "0.5x",
     "1x",
     "1.1x",
@@ -36,11 +38,11 @@ export default function PlinkoGame() {
   const BASE_HEIGHT = 450;
   const [canvasWidth, setCanvasWidth] = useState(BASE_WIDTH);
   const [canvasHeight, setCanvasHeight] = useState(BASE_HEIGHT);
-  const PEG_RADIUS = isMobile ? 3 : 4;
+  const PEG_RADIUS = isMobile ? 3 : 3;
   const BALL_RADIUS = isMobile ? 5 : 6;
-  const BUCKET_WIDTH = canvasWidth / MULTIPLIERS.length;
-  const BUCKET_HEIGHT = 50;
+  const BUCKET_HEIGHT = 30;
   const ROWS = 15;
+  const BUCKET_WIDTH = (14 * canvasWidth) / (ROWS + 1) / 14;
   const BALL_COLOR = "#f43f5e"; // Rose color for the ball
   const PEG_COLOR = "#ffffff"; // White color for pegs
   const BUCKET_COLORS = [
@@ -50,6 +52,7 @@ export default function PlinkoGame() {
     "#ff8717", // Orange-yellow - 1.4x
     "#ffa009", // Gold - 1.1x
     "#ffc000", // Yellow - 1x
+    "#ffdc00", // Light yellow - 0.5x
     "#ffdc00", // Light yellow - 0.5x
     "#ffc000", // Yellow - 1x
     "#ffa009", // Gold - 1.1x
@@ -126,7 +129,6 @@ export default function PlinkoGame() {
     // Create the pegs in a triangle pattern
     // Calculate peg spacing based on canvas width
     const pegSpacing = canvasWidth / (ROWS + 1);
-
     // Create the pegs in a triangle pattern
     const pegs = [];
     const pegRows = ROWS - 2; // Adjust number of peg rows
@@ -155,9 +157,10 @@ export default function PlinkoGame() {
     // Create bucket sensors - one for each multiplier
     const bucketSensors = [];
     const bucketY = canvasHeight - BUCKET_HEIGHT / 2;
-
+    const rowWidth = (MULTIPLIERS.length - 1) * BUCKET_WIDTH;
+    const startX = (canvasWidth - rowWidth) / 4;
     for (let i = 0; i < MULTIPLIERS.length; i++) {
-      const x = i * BUCKET_WIDTH + BUCKET_WIDTH / 2;
+      const x = startX + i * BUCKET_WIDTH + BUCKET_WIDTH / 1.4;
       const sensor = Matter.Bodies.rectangle(
         x,
         bucketY,
@@ -168,7 +171,6 @@ export default function PlinkoGame() {
           isSensor: true,
           render: {
             fillStyle: BUCKET_COLORS[i],
-            opacity: 0.3,
           },
           label: `bucket-${i}`,
         }
@@ -177,26 +179,30 @@ export default function PlinkoGame() {
     }
 
     // Add walls to keep the ball in bounds
-    const walls = [
-      // Bottom
-      Matter.Bodies.rectangle(canvasWidth / 2, canvasHeight, canvasWidth, 10, {
-        isStatic: true,
-        render: { fillStyle: "#475569" },
-      }),
-      // Left
-      Matter.Bodies.rectangle(0, canvasHeight / 2, 10, canvasHeight, {
-        isStatic: true,
-        render: { fillStyle: "#475569" },
-      }),
-      // Right
-      Matter.Bodies.rectangle(canvasWidth, canvasHeight / 2, 10, canvasHeight, {
-        isStatic: true,
-        render: { fillStyle: "#475569" },
-      }),
-    ];
+    // const walls = [
+    //   // Bottom
+    //   Matter.Bodies.rectangle(canvasWidth / 2, canvasHeight, canvasWidth, 10, {
+    //     isStatic: true,
+    //     render: { fillStyle: "#475569" },
+    //   }),
+    //   // Left
+    //   Matter.Bodies.rectangle(0, canvasHeight / 2, 10, canvasHeight, {
+    //     isStatic: true,
+    //     render: { fillStyle: "#475569" },
+    //   }),
+    //   // Right
+    //   Matter.Bodies.rectangle(canvasWidth, canvasHeight / 2, 10, canvasHeight, {
+    //     isStatic: true,
+    //     render: { fillStyle: "#475569" },
+    //   }),
+    // ];
 
     // Add all bodies to the world
-    Matter.Composite.add(engine.world, [...walls, ...pegs, ...bucketSensors]);
+    Matter.Composite.add(engine.world, [
+      // ...walls,
+      ...pegs,
+      ...bucketSensors,
+    ]);
 
     // Start the renderer
     Matter.Render.run(render);
@@ -230,7 +236,7 @@ export default function PlinkoGame() {
           // Get multiplier value
           const multiplierText = MULTIPLIERS[bucketIndex];
           const multiplier = Number.parseFloat(multiplierText.replace("x", ""));
-
+          setMultipliers((prev) => [...prev, multiplier]);
           // Base points (adjust as needed)
           const basePoints = 10;
           const points = Math.round(basePoints * multiplier);
@@ -307,6 +313,14 @@ export default function PlinkoGame() {
       </div>
 
       <div className="mb-4 text-xl font-bold text-white">Score: {score}</div>
+      <div className="mb-4 text-xl flex flex-wrap flex-row gap-2 font-bold text-white">
+        Multiplier:{" "}
+        {multipliers.map((multiplier) => (
+          <div key={multiplier} className="px-2 py-1 bg-rose-500 rounded">
+            {multiplier}
+          </div>
+        ))}
+      </div>
 
       <div className="relative w-full max-w-[550px]">
         <canvas
@@ -317,16 +331,19 @@ export default function PlinkoGame() {
         />
 
         {/* Bucket point values */}
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center w-full">
-          <div className="flex justify-between px-8 mx-1 w-full">
+        <div className="absolute bottom-0 left-0 right-0 flex justify-center w-full">
+          <div
+            className={`flex justify-center px-8 w-[${
+              (14 * canvasWidth) / (ROWS + 1)
+            }px]`}
+          >
             {MULTIPLIERS.map((multiplier, index) => (
               <div
                 key={index}
-                className="flex items-center justify-center text-white font-bold text-[8px] sm:text-xs rounded"
+                className="flex borde items-center h-8 justify-center text-black font-bold text-[8px] sm:text-xs rounded"
                 style={{
-                  backgroundColor: BUCKET_COLORS[index],
-                  width: `32px`,
-                  height: isMobile ? "32px" : "32px",
+                  // backgroundColor: BUCKET_COLORS[index],
+                  width: `${(14 * canvasWidth) / (ROWS + 1) / 14}px`,
                 }}
               >
                 {multiplier}
