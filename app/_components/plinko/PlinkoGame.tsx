@@ -165,7 +165,7 @@ export default function PlinkoGame() {
         x,
         bucketY,
         BUCKET_WIDTH - 2,
-        BUCKET_HEIGHT - 5,
+        BUCKET_HEIGHT,
         {
           isStatic: true,
           isSensor: true,
@@ -340,7 +340,7 @@ export default function PlinkoGame() {
             {MULTIPLIERS.map((multiplier, index) => (
               <div
                 key={index}
-                className="flex borde items-center h-8 justify-center text-black font-bold text-[8px] sm:text-xs rounded"
+                className="flex items-center h-8 justify-center text-black font-bold text-[8px] sm:text-xs rounded"
                 style={{
                   // backgroundColor: BUCKET_COLORS[index],
                   width: `${(14 * canvasWidth) / (ROWS + 1) / 14}px`,
