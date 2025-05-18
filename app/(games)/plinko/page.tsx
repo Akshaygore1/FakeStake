@@ -1,5 +1,4 @@
-import MineContainer from "@/app/_components/mines/MineContainer";
-import PlinkoGame from "@/app/_components/plinko/PlinkoContainer";
+import PlinkoGame from "@/app/_components/plinko/PlinkoGame";
 
 export default function Dice() {
   return (

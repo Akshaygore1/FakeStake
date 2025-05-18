@@ -2,25 +2,20 @@
 
 import { useEffect, useState } from "react";
 
-const MOBILE_BREAKPOINT = 768;
-
-export function useMobile() {
-  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
+export function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(false);
 
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    };
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
 
-    // Initial check
-    checkIfMobile();
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
 
-    // Add event listener
-    window.addEventListener("resize", checkIfMobile);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
 
-    // Clean up
-    return () => window.removeEventListener("resize", checkIfMobile);
-  }, []);
-
-  return !!isMobile;
+  return matches;
 }

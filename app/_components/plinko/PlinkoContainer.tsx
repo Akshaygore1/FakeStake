@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import Matter from "matter-js";
 import { useMobile } from "@/hooks/use-mobile";
 
-export default function PlinkoGame() {
+export default function PlinkoContainer() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Matter.Engine | null>(null);
@@ -21,22 +21,42 @@ export default function PlinkoGame() {
     width: 400,
     height: 400,
   });
-  const PEG_RADIUS = dimensions.width * 0.01; // Responsive peg size
-  const BALL_RADIUS = dimensions.width * 0.015; // Responsive ball size
-  const ROWS = 10;
+  const PEG_RADIUS = dimensions.width * 0.007; // Responsive peg size
+  const BALL_RADIUS = dimensions.width * 0.009; // Responsive ball size
+  const ROWS = 15;
   const BALL_COLOR = "#f43f5e"; // Rose color for the ball
   const PEG_COLOR = "#ffffff"; // White color for pegs
-  // Enhanced bucket colors with gradient-like appearance
+
+  // Define multipliers and colors to match the image
+  const MULTIPLIERS = [
+    "10x",
+    "3x",
+    "1.6x",
+    "1.4x",
+    "1.1x",
+    "1x",
+    "0.5x",
+    "1x",
+    "1.1x",
+    "1.4x",
+    "1.6x",
+    "3x",
+    "10x",
+  ];
   const BUCKET_COLORS = [
-    "#ff023f", // Red
-    "#ff402a", // Orange
-    "#ffc000", // Yellow
-    "#ffa009", // Gold
-    "#ffa009", // Gold
-    "#ffa009", // Gold
-    "#ffc000", // Yellow
-    "#ff402a", // Orange
-    "#ff023f", // Red
+    "#ff023f", // Red - 10x
+    "#ff402a", // Orange - 3x
+    "#ff6b21", // Light orange - 1.6x
+    "#ff8717", // Orange-yellow - 1.4x
+    "#ffa009", // Gold - 1.1x
+    "#ffc000", // Yellow - 1x
+    "#ffdc00", // Light yellow - 0.5x
+    "#ffc000", // Yellow - 1x
+    "#ffa009", // Gold - 1.1x
+    "#ff8717", // Orange-yellow - 1.4x
+    "#ff6b21", // Light orange - 1.6x
+    "#ff402a", // Orange - 3x
+    "#ff023f", // Red - 10x
   ];
 
   // Function to calculate responsive dimensions
@@ -82,7 +102,7 @@ export default function PlinkoGame() {
 
     // Create engine and renderer
     const engine = Matter.Engine.create({
-      gravity: { x: 0, y: 0.5 },
+      gravity: { x: 0, y: 0.4 },
     });
     const render = Matter.Render.create({
       canvas: canvasRef.current,
@@ -119,23 +139,22 @@ export default function PlinkoGame() {
         const peg = Matter.Bodies.circle(x, y, PEG_RADIUS, {
           isStatic: true,
           render: { fillStyle: PEG_COLOR },
-          friction: 0.001,
-          restitution: 0.5,
+          friction: 0.0001,
+          restitution: 0.7,
         });
         pegs.push(peg);
       }
     }
 
     // Calculate bucket dimensions and position
-    const BUCKET_COUNT = 9;
+    const BUCKET_COUNT = MULTIPLIERS.length;
     const BUCKET_WIDTH = dimensions.width / BUCKET_COUNT;
     const BUCKET_HEIGHT = dimensions.height * 0.04;
     const BUCKET_GAP = 0; // No gap between buckets
 
     // Position buckets right below the lowest peg with some spacing
-    const bucketY = lowestPegY + pegSpacing * 1.5;
+    const bucketY = lowestPegY + pegSpacing * 0.8;
 
-    // Add bucket sensors with improved styling
     const bucketSensors = [];
     for (let i = 0; i < BUCKET_COUNT; i++) {
       const x = i * BUCKET_WIDTH + BUCKET_WIDTH / 2;
@@ -155,7 +174,7 @@ export default function PlinkoGame() {
             strokeStyle: "#ffffff",
           },
           chamfer: { radius: 5 }, // Rounded corners
-          label: `bucket-${i}`,
+          label: `bucket-${i}-${MULTIPLIERS[i]}`, // Add multiplier to label
         }
       );
       bucketSensors.push(sensor);
@@ -214,8 +233,17 @@ export default function PlinkoGame() {
           const ballBody =
             pair.bodyA.label === "ball" ? pair.bodyA : pair.bodyB;
 
-          const bucketIndex = Number.parseInt(bucketBody.label.split("-")[1]);
-          const points = [10, 20, 30, 50, 100, 50, 30, 20, 10][bucketIndex];
+          // Parse the bucket label to get the index and multiplier
+          const bucketLabelParts = bucketBody.label.split("-");
+          const bucketIndex = parseInt(bucketLabelParts[1]);
+          const multiplier = bucketLabelParts[2];
+
+          // Calculate points based on multiplier
+          let points = 10; // Base points
+          if (multiplier) {
+            const multiplierValue = parseFloat(multiplier.replace("x", ""));
+            points = Math.round(points * multiplierValue);
+          }
 
           // Update score
           setScore((prevScore) => prevScore + points);
@@ -263,13 +291,16 @@ export default function PlinkoGame() {
     setIsRunning(true);
 
     // Start from a random position near the center
-    const randomOffset = Math.random() * 20 - 10; // Random offset between -10 and 10
+    const randomOffset = 0; // Random offset between -10 and 10
     const x = dimensions.width / 2 + randomOffset;
 
+    // Calculate y position based on container height (top 15% of the container)
+    const y = dimensions.height * 0.1;
+
     // Create a ball
-    const ball = Matter.Bodies.circle(x, 20, BALL_RADIUS, {
+    const ball = Matter.Bodies.circle(x, y, BALL_RADIUS, {
       restitution: 0.5, // Bounciness
-      friction: 0.001,
+      friction: 0.002,
       density: 0.001,
       render: { fillStyle: BALL_COLOR },
       label: "ball",
@@ -316,6 +347,23 @@ export default function PlinkoGame() {
           height={dimensions.height}
           className="border border-gray-700 rounded-lg w-full"
         />
+      </div>
+
+      {/* Multiplier Buckets - Visible representation matching the image */}
+      <div className="flex justify-center w-full mt-2">
+        {MULTIPLIERS.map((multiplier, index) => (
+          <div
+            key={index}
+            className="flex items-center justify-center text-white font-bold text-sm rounded"
+            style={{
+              backgroundColor: BUCKET_COLORS[index],
+              width: `${100 / MULTIPLIERS.length}%`,
+              height: "2rem",
+            }}
+          >
+            {multiplier}
+          </div>
+        ))}
       </div>
     </div>
   );
