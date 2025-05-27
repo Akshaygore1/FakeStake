@@ -2,7 +2,7 @@
 "use client";
 
 import { useCommonStore } from "@/app/_store/commonStore";
-import { Coffee, Coins } from "lucide-react";
+import { Coins, HandCoins } from "lucide-react";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -36,7 +36,7 @@ export default function Navbar() {
               </button>
             )}
 
-            <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/10 text-white">
+            <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/10 text-white">
               <Coins className="w-5 h-5 text-success" />
               <span className="text-base font-medium">
                 {balance?.toFixed(2) || "0.00"}
@@ -48,9 +48,9 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="group bg-success hover:bg-success/90 transition-colors p-2.5 sm:p-3 rounded-xl inline-flex items-center justify-center"
             >
-              <Coffee className="w-5 h-5 text-black" />
+              <HandCoins className="w-5 h-5 text-black" />
               <span className="hidden sm:inline text-black ml-2 font-medium">
-                Buy Me Coffee
+                Tip the Dealer
               </span>
             </a>
           </div>
