@@ -61,7 +61,7 @@ export default function Home() {
           <Gamepad2 /> Play Now
         </h3>
         <div
-          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-4 w-full max-w-7xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-6 lg:gap-8 px-2 sm:px-4 w-full max-w-7xl mx-auto"
           role="list"
         >
           {games.map((game, index) => (
@@ -73,7 +73,7 @@ export default function Home() {
             >
               <Link
                 href={game.link}
-                className="group relative flex flex-col items-center justify-center overflow-hidden h-48 sm:h-56 lg:h-64 w-full"
+                className="group relative flex flex-col items-center justify-center overflow-hidden h-64 sm:h-56 lg:h-64 w-full transition-transform duration-200 hover:scale-105"
                 aria-label={`Play ${game.name}`}
               >
                 <div aria-hidden="true" />
@@ -85,10 +85,8 @@ export default function Home() {
                   sizes="(max-width: 640px) 100vw,
                     (max-width: 768px) 50vw,
                     (max-width: 1024px) 33vw,
-                    200px"
+                    300px"
                   alt={`${game.name} game preview image`}
-                  width={200}
-                  height={200}
                   className="w-full h-full"
                 />
               </Link>
