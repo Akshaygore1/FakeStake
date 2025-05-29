@@ -9,19 +9,19 @@ const games = [
     name: "MINES",
     link: "/mines",
     logo: <Gem size={48} />,
-    img: "/assets/minesgame.svg",
+    img: "/assets/mines.svg",
   },
   {
     name: "DICE",
     link: "/dice",
     logo: <Rocket size={48} />,
-    img: "/assets/dicegame.svg",
+    img: "/assets/dice.svg",
   },
   {
     name: "LIMBO",
     link: "/limbo",
     logo: <Rocket size={48} />,
-    img: "/assets/limbogame.svg",
+    img: "/assets/limbo.svg",
   },
 ];
 
