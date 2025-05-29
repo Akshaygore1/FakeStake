@@ -9,19 +9,19 @@ const games = [
     name: "MINES",
     link: "/mines",
     logo: <Gem size={48} />,
-    img: "/assets/mines.svg",
+    img: "/assets/mines.png",
   },
   {
     name: "DICE",
     link: "/dice",
     logo: <Rocket size={48} />,
-    img: "/assets/dice.svg",
+    img: "/assets/dice.png",
   },
   {
     name: "LIMBO",
     link: "/limbo",
     logo: <Rocket size={48} />,
-    img: "/assets/limbo.svg",
+    img: "/assets/limbo.avif",
   },
 ];
 
@@ -73,10 +73,13 @@ export default function Home() {
             >
               <Link
                 href={game.link}
-                className="group relative flex flex-col items-center justify-center overflow-hidden h-48 sm:h-56 lg:h-64 w-full"
+                className="group relative flex flex-col items-center justify-center rounded-xl border border-gray-700 hover:border-success/50 transition-all duration-300 overflow-hidden h-48 sm:h-56 lg:h-64 w-full"
                 aria-label={`Play ${game.name}`}
               >
-                <div aria-hidden="true" />
+                <div
+                  className="absolute inset-0 transition-all duration-300"
+                  aria-hidden="true"
+                />
                 <img
                   src={game.img || "/assets/coming-soon.png"}
                   srcSet={`${game.img || "/assets/coming-soon.png"} 200w,
@@ -89,7 +92,11 @@ export default function Home() {
                   alt={`${game.name} game preview image`}
                   width={200}
                   height={200}
-                  className="w-full h-full"
+                  className="w-full h-full object-cover rounded-lg transform group-hover:scale-105 transition-transform duration-300"
+                />
+                <div
+                  className="absolute bottom-0 left-0 w-full h-1 bg-success/0 group-hover:bg-success/20 transition-all duration-300"
+                  aria-hidden="true"
                 />
               </Link>
             </article>
