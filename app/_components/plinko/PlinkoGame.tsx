@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-
-// We'll use Matter.js for physics
 import Matter from "matter-js";
-import { useMediaQuery } from "@/hooks/use-mobile";
+// import { useMediaQuery } from "@/hooks/use-media-query"
+import { getRandomBetween } from "./utils";
+import BinsRow from "./BinsRow";
 
 export default function PlinkoGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -14,7 +14,8 @@ export default function PlinkoGame() {
   const renderRef = useRef<Matter.Render | null>(null);
   const [score, setScore] = useState(0);
   const [multipliers, setMultipliers] = useState<number[]>([]);
-  const isMobile = useMediaQuery("(max-width: 640px)");
+  const [bucketWidth, setBucketWidth] = useState(0);
+  // const isMobile = useMediaQuery("(max-width: 640px)")
 
   const MULTIPLIERS = [
     "10x",
@@ -34,69 +35,88 @@ export default function PlinkoGame() {
   ];
 
   // Constants for the game
-  const BASE_WIDTH = 550;
-  const BASE_HEIGHT = 450;
+  const BASE_WIDTH = 760;
+  const BASE_HEIGHT = 570;
   const [canvasWidth, setCanvasWidth] = useState(BASE_WIDTH);
   const [canvasHeight, setCanvasHeight] = useState(BASE_HEIGHT);
-  const PEG_RADIUS = isMobile ? 3 : 3;
-  const BALL_RADIUS = isMobile ? 5 : 6;
+  const ROWS = 8;
   const BUCKET_HEIGHT = 30;
-  const ROWS = 15;
-  const BUCKET_WIDTH = (14 * canvasWidth) / (ROWS + 1) / 14;
-  const BALL_COLOR = "#f43f5e"; // Rose color for the ball
-  const PEG_COLOR = "#ffffff"; // White color for pegs
+  const PADDING_X = 52;
+  const PADDING_TOP = 36;
+  const PADDING_BOTTOM = 28;
+  const PIN_CATEGORY = 0x0001;
+  const BALL_CATEGORY = 0x0002;
+  const BUCKET_CATEGORY = 0x0004;
+
   const BUCKET_COLORS = [
-    "#ff023f", // Red - 10x
-    "#ff402a", // Orange - 3x
-    "#ff6b21", // Light orange - 1.6x
-    "#ff8717", // Orange-yellow - 1.4x
-    "#ffa009", // Gold - 1.1x
-    "#ffc000", // Yellow - 1x
-    "#ffdc00", // Light yellow - 0.5x
-    "#ffdc00", // Light yellow - 0.5x
-    "#ffc000", // Yellow - 1x
-    "#ffa009", // Gold - 1.1x
-    "#ff8717", // Orange-yellow - 1.4x
-    "#ff6b21", // Light orange - 1.6x
-    "#ff402a", // Orange - 3x
-    "#ff023f", // Red - 10x
+    "#ff023f",
+    "#ff402a",
+    "#ff6b21",
+    "#ff8717",
+    "#ffa009",
+    "#ffc000",
+    "#ffdc00",
+    "#ffdc00",
+    "#ffc000",
+    "#ffa009",
+    "#ff8717",
+    "#ff6b21",
+    "#ff402a",
+    "#ff023f",
   ];
 
+  const frictionAirByRowCount = {
+    8: 0.0395,
+    9: 0.041,
+    10: 0.038,
+    11: 0.0355,
+    12: 0.0414,
+    13: 0.0437,
+    14: 0.0401,
+    15: 0.0418,
+    16: 0.0364,
+  };
+
+  const pinDistanceX = (): number => {
+    const lastRowPinCount = 3 + ROWS - 1;
+    return (canvasWidth - PADDING_X * 2) / (lastRowPinCount - 1);
+  };
+
   // Handle resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (!containerRef.current) return;
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     if (!containerRef.current) return
 
-      const containerWidth = containerRef.current.clientWidth;
-      const newWidth = Math.min(containerWidth, BASE_WIDTH);
-      const newHeight = (newWidth / BASE_WIDTH) * BASE_HEIGHT;
+  //     const containerWidth = containerRef.current.clientWidth
+  //     const newWidth = Math.min(containerWidth, BASE_WIDTH)
+  //     const newHeight = (newWidth / BASE_WIDTH) * BASE_HEIGHT
 
-      setCanvasWidth(newWidth);
-      setCanvasHeight(newHeight);
+  //     setCanvasWidth(newWidth)
+  //     setCanvasHeight(newHeight)
 
-      // Update the renderer if it exists
-      if (renderRef.current) {
-        renderRef.current.options.width = newWidth;
-        renderRef.current.options.height = newHeight;
-        renderRef.current.canvas.width = newWidth;
-        renderRef.current.canvas.height = newHeight;
-        Matter.Render.setPixelRatio(renderRef.current, window.devicePixelRatio);
-      }
+  //     // Update the renderer if it exists
+  //     if (renderRef.current) {
+  //       renderRef.current.options.width = newWidth
+  //       renderRef.current.options.height = newHeight
+  //       renderRef.current.canvas.width = newWidth
+  //       renderRef.current.canvas.height = newHeight
+  //       Matter.Render.setPixelRatio(renderRef.current, window.devicePixelRatio)
+  //     }
 
-      // Recreate the physics world with new dimensions
-      if (engineRef.current && renderRef.current) {
-        resetGame();
-        setupPhysicsWorld();
-      }
-    };
+  //     // Recreate the physics world with new dimensions
+  //     if (engineRef.current && renderRef.current) {
+  //       resetGame()
+  //       setupPhysicsWorld()
+  //     }
+  //   }
 
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Initial setup
+  //   window.addEventListener("resize", handleResize)
+  //   handleResize() // Initial setup
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isMobile]);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize)
+  //   }
+  // }, [isMobile])
 
   // Initialize the physics engine and renderer
   const setupPhysicsWorld = () => {
@@ -109,16 +129,21 @@ export default function PlinkoGame() {
 
     // Create engine and renderer
     const engine = Matter.Engine.create({
-      gravity: { x: 0, y: 0.5 },
+      timing: {
+        timeScale: 1,
+      },
     });
+
+    engine.world.gravity.y = 0.8;
+
     const render = Matter.Render.create({
       canvas: canvasRef.current,
       engine: engine,
       options: {
         width: canvasWidth,
         height: canvasHeight,
+        background: "#0f1728",
         wireframes: false,
-        background: "#1e293b", // Slate background
         pixelRatio: window.devicePixelRatio,
       },
     });
@@ -127,82 +152,103 @@ export default function PlinkoGame() {
     renderRef.current = render;
 
     // Create the pegs in a triangle pattern
-    // Calculate peg spacing based on canvas width
-    const pegSpacing = canvasWidth / (ROWS + 1);
-    // Create the pegs in a triangle pattern
-    const pegs = [];
-    const pegRows = ROWS - 2; // Adjust number of peg rows
-    let lowestPegY = 5;
+    const pins = [];
+    const walls = [];
+    const pinsLastRowXCoords = [];
+    const pinRadius = Math.max(2, (24 - ROWS) / 2);
 
-    for (let row = 0; row < pegRows; row++) {
-      const pegCount = row + 3; // Start with at least 3 pegs in first row
-      const rowWidth = (pegCount - 1) * pegSpacing;
-      const startX = (canvasWidth - rowWidth) / 2;
-      const y = canvasHeight * 0.15 + row * pegSpacing * 0.8; // Start pegs lower down
+    for (let row = 0; row < ROWS; ++row) {
+      const rowY =
+        PADDING_TOP +
+        ((canvasHeight - PADDING_TOP - PADDING_BOTTOM) / (ROWS - 1)) * row;
 
-      lowestPegY = Math.max(lowestPegY, y); // Track the lowest peg position
+      const rowPaddingX = PADDING_X + ((ROWS - 1 - row) * pinDistanceX()) / 2;
 
-      for (let i = 0; i < pegCount; i++) {
-        const x = startX + i * pegSpacing;
-        const peg = Matter.Bodies.circle(x, y, PEG_RADIUS, {
+      for (let col = 0; col < 3 + row; ++col) {
+        const colX =
+          rowPaddingX + ((canvasWidth - rowPaddingX * 2) / (3 + row - 1)) * col;
+        const pin = Matter.Bodies.circle(colX, rowY, pinRadius, {
           isStatic: true,
-          render: { fillStyle: PEG_COLOR },
-          friction: 0.0001,
-          restitution: 0.7,
+          render: {
+            fillStyle: "#ffffff",
+          },
+          collisionFilter: {
+            category: PIN_CATEGORY,
+            mask: BALL_CATEGORY,
+          },
         });
-        pegs.push(peg);
+        pins.push(pin);
+
+        if (row === ROWS - 1) {
+          pinsLastRowXCoords.push(colX);
+        }
       }
     }
 
-    // Create bucket sensors - one for each multiplier
-    const bucketSensors = [];
-    const bucketY = canvasHeight - BUCKET_HEIGHT / 2;
-    const rowWidth = (MULTIPLIERS.length - 1) * BUCKET_WIDTH;
-    const startX = (canvasWidth - rowWidth) / 4;
-    for (let i = 0; i < MULTIPLIERS.length; i++) {
-      const x = startX + i * BUCKET_WIDTH + BUCKET_WIDTH / 1.4;
-      const sensor = Matter.Bodies.rectangle(
-        x,
-        bucketY,
-        BUCKET_WIDTH - 2,
-        BUCKET_HEIGHT,
-        {
-          isStatic: true,
-          isSensor: true,
-          render: {
-            fillStyle: BUCKET_COLORS[i],
-          },
-          label: `bucket-${i}`,
-        }
-      );
-      bucketSensors.push(sensor);
-    }
+    // Create walls
+    const firstPinX = pins[0].position.x;
+    const leftWallAngle = Math.atan2(
+      firstPinX - pinsLastRowXCoords[0],
+      canvasHeight - PADDING_TOP - PADDING_BOTTOM
+    );
+    const leftWallX =
+      firstPinX -
+      (firstPinX - pinsLastRowXCoords[0]) / 2 -
+      pinDistanceX() * 0.25;
 
-    // Add walls to keep the ball in bounds
-    // const walls = [
-    //   // Bottom
-    //   Matter.Bodies.rectangle(canvasWidth / 2, canvasHeight, canvasWidth, 10, {
-    //     isStatic: true,
-    //     render: { fillStyle: "#475569" },
-    //   }),
-    //   // Left
-    //   Matter.Bodies.rectangle(0, canvasHeight / 2, 10, canvasHeight, {
-    //     isStatic: true,
-    //     render: { fillStyle: "#475569" },
-    //   }),
-    //   // Right
-    //   Matter.Bodies.rectangle(canvasWidth, canvasHeight / 2, 10, canvasHeight, {
-    //     isStatic: true,
-    //     render: { fillStyle: "#475569" },
-    //   }),
-    // ];
+    const leftWall = Matter.Bodies.rectangle(
+      leftWallX,
+      canvasHeight / 2,
+      10,
+      canvasHeight,
+      {
+        isStatic: true,
+        angle: leftWallAngle,
+        render: { fillStyle: "#ffffff", visible: false },
+        collisionFilter: {
+          category: PIN_CATEGORY,
+          mask: BALL_CATEGORY,
+        },
+      }
+    );
+
+    const rightWall = Matter.Bodies.rectangle(
+      canvasWidth - leftWallX,
+      canvasHeight / 2,
+      10,
+      canvasHeight,
+      {
+        isStatic: true,
+        angle: -leftWallAngle,
+        render: { fillStyle: "#ffffff", visible: false },
+        collisionFilter: {
+          category: PIN_CATEGORY,
+          mask: BALL_CATEGORY,
+        },
+      }
+    );
+    walls.push(leftWall, rightWall);
+    console.log("pinsLastRowXCoords", pinsLastRowXCoords);
+    const lastPinX = pinsLastRowXCoords[pinsLastRowXCoords.length - 1];
+    setBucketWidth((lastPinX - pinsLastRowXCoords[0]) / BASE_WIDTH);
+    // return ((lastPinX - this.pinsLastRowXCoords[0]) / PlinkoEngine.WIDTH);
+
+    const sensor = Matter.Bodies.rectangle(
+      BASE_WIDTH / 2,
+      BASE_HEIGHT,
+      BASE_WIDTH,
+      10,
+      {
+        isSensor: true,
+        isStatic: true,
+        render: {
+          visible: false,
+        },
+      }
+    );
 
     // Add all bodies to the world
-    Matter.Composite.add(engine.world, [
-      // ...walls,
-      ...pegs,
-      ...bucketSensors,
-    ]);
+    Matter.Composite.add(engine.world, [...pins, ...walls, sensor]);
 
     // Start the renderer
     Matter.Render.run(render);
@@ -220,24 +266,25 @@ export default function PlinkoGame() {
 
         // Check if a ball has hit a bucket sensor
         if (
-          (pair.bodyA.label.startsWith("bucket-") &&
+          (pair.bodyA.label?.startsWith("bucket-") &&
             pair.bodyB.label === "ball") ||
-          (pair.bodyB.label.startsWith("bucket-") &&
+          (pair.bodyB.label?.startsWith("bucket-") &&
             pair.bodyA.label === "ball")
         ) {
-          const bucketBody = pair.bodyA.label.startsWith("bucket-")
+          const bucketBody = pair.bodyA.label?.startsWith("bucket-")
             ? pair.bodyA
             : pair.bodyB;
           const ballBody =
             pair.bodyA.label === "ball" ? pair.bodyA : pair.bodyB;
 
-          const bucketIndex = Number.parseInt(bucketBody.label.split("-")[1]);
+          const bucketIndex = Number.parseInt(bucketBody.label!.split("-")[1]);
 
           // Get multiplier value
           const multiplierText = MULTIPLIERS[bucketIndex];
           const multiplier = Number.parseFloat(multiplierText.replace("x", ""));
           setMultipliers((prev) => [...prev, multiplier]);
-          // Base points (adjust as needed)
+
+          // Base points
           const basePoints = 10;
           const points = Math.round(basePoints * multiplier);
 
@@ -269,17 +316,36 @@ export default function PlinkoGame() {
   const dropBall = () => {
     if (!engineRef.current) return;
 
-    // Random position at the top with slight variation
-    const x = canvasWidth / 2 + (Math.random() * 20 - 10);
+    const ballOffsetRangeX = pinDistanceX() * 0.8;
+    const ballRadius = ((24 - ROWS) / 2) * 2;
+
+    // const ballOffsetRangeX = this.pinDistanceX * 0.8;
+    // const ballRadius = this.pinRadius * 2;
 
     // Create a ball
-    const ball = Matter.Bodies.circle(x, 40, BALL_RADIUS, {
-      restitution: 0.5, // Bounciness
-      friction: 0.001,
-      density: 0.001,
-      render: { fillStyle: BALL_COLOR },
-      label: "ball",
-    });
+    const ball = Matter.Bodies.circle(
+      getRandomBetween(
+        canvasWidth / 2 - ballOffsetRangeX,
+        canvasWidth / 2 + ballOffsetRangeX
+      ),
+      0,
+      ballRadius,
+      {
+        restitution: 0.8,
+        friction: 0.5,
+        frictionAir:
+          frictionAirByRowCount[ROWS as keyof typeof frictionAirByRowCount] ||
+          0.04,
+        label: "ball",
+        collisionFilter: {
+          category: BALL_CATEGORY,
+          mask: PIN_CATEGORY | BUCKET_CATEGORY,
+        },
+        render: {
+          fillStyle: "#f43f5e",
+        },
+      }
+    );
 
     // Add the ball to the world
     Matter.Composite.add(engineRef.current.world, [ball]);
@@ -288,6 +354,7 @@ export default function PlinkoGame() {
   // Function to reset the game
   const resetGame = () => {
     setScore(0);
+    setMultipliers([]);
 
     // Remove all balls
     if (engineRef.current) {
@@ -296,9 +363,13 @@ export default function PlinkoGame() {
       Matter.Composite.remove(engineRef.current.world, balls);
     }
   };
-
+  // const lastPinX = this.pinsLastRowXCoords[this.pinsLastRowXCoords.length - 1];
+  //       return ((lastPinX - this.pinsLastRowXCoords[0]) / PlinkoEngine.WIDTH);
   return (
-    <div className="flex flex-col items-center w-full" ref={containerRef}>
+    <div
+      className="flex flex-col items-center w-full min-h-screen bg-slate-900 p-4"
+      ref={containerRef}
+    >
       <div className="mb-4 flex gap-4">
         <Button onClick={dropBall} className="bg-rose-500 hover:bg-rose-600">
           Drop Ball
@@ -313,44 +384,62 @@ export default function PlinkoGame() {
       </div>
 
       <div className="mb-4 text-xl font-bold text-white">Score: {score}</div>
-      <div className="mb-4 text-xl flex flex-wrap flex-row gap-2 font-bold text-white">
-        Multiplier:{" "}
-        {multipliers.map((multiplier) => (
-          <div key={multiplier} className="px-2 py-1 bg-rose-500 rounded">
-            {multiplier}
-          </div>
-        ))}
-      </div>
 
-      <div className="relative w-full max-w-[550px]">
+      {multipliers.length > 0 && (
+        <div className="mb-4 text-sm flex flex-wrap flex-row gap-2 font-bold text-white">
+          Recent Multipliers:{" "}
+          {multipliers.slice(-5).map((multiplier, index) => (
+            <div
+              key={`${multiplier}-${index}`}
+              className="px-2 py-1 bg-rose-500 rounded"
+            >
+              {multiplier}x
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* <div className="relative w-full max-w-[760px]">
         <canvas
           ref={canvasRef}
           width={canvasWidth}
           height={canvasHeight}
           className="border border-gray-700 rounded-lg w-full"
-        />
+        /> */}
 
-        {/* Bucket point values */}
-        <div className="absolute bottom-0 left-0 right-0 flex justify-center w-full">
-          <div
-            className={`flex justify-center px-8 w-[${
-              (14 * canvasWidth) / (ROWS + 1)
-            }px]`}
-          >
-            {MULTIPLIERS.map((multiplier, index) => (
-              <div
-                key={index}
-                className="flex items-center h-8 justify-center text-black font-bold text-[8px] sm:text-xs rounded"
-                style={{
-                  // backgroundColor: BUCKET_COLORS[index],
-                  width: `${(14 * canvasWidth) / (ROWS + 1) / 14}px`,
-                }}
-              >
-                {multiplier}
-              </div>
-            ))}
-          </div>
+      {/* Bucket point values */}
+      {/* <div className="absolute bottom-0 left-0 right-0 flex">
+          {MULTIPLIERS.map((multiplier, index) => (
+            <div
+              key={index}
+              className="flex items-center h-8 justify-center text-white font-bold text-xs border-r border-gray-600 last:border-r-0"
+              style={{
+                backgroundColor: BUCKET_COLORS[index],
+                width: `${100 / MULTIPLIERS.length}%`,
+              }}
+            >
+              {multiplier}
+            </div>
+          ))}
+        </div> */}
+      {/* <BinsRow rowCount={ROWS} riskLevel={"MEDIUM"} binsWidth={canvasWidth} />
+      </div> */}
+      <div
+        className="mx-auto flex h-full flex-col px-4 pb-4"
+        style={{ maxWidth: `${BASE_WIDTH}px` }}
+      >
+        <div
+          className="relative w-full"
+          style={{ aspectRatio: `${BASE_WIDTH} / ${BASE_HEIGHT}` }}
+        >
+          <canvas
+            ref={canvasRef}
+            width={BASE_WIDTH}
+            height={BASE_HEIGHT}
+            className="h-full w-full"
+          />
         </div>
+        <BinsRow rowCount={ROWS} riskLevel={"MEDIUM"} binsWidth={bucketWidth} />
       </div>
     </div>
   );
