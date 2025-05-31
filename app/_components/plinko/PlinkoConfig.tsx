@@ -3,7 +3,7 @@ import { useCommonStore } from "@/app/_store/commonStore";
 import { Coins } from "lucide-react";
 import React from "react";
 
-function PlinkoConfig() {
+function PlinkoConfig({ dropBall }: { dropBall: () => void }) {
   const [betAmount, setBetAmount] = React.useState<number>(0);
   const [inputValue, setInputValue] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
@@ -88,7 +88,7 @@ function PlinkoConfig() {
       </div>
       {error && <p className="text-red-500 text-sm">{error}</p>}
       <button
-        // onClick={() => onBet(betAmount)}
+        onClick={() => dropBall()}
         className="w-full py-3 rounded-md bg-success text-black hover:bg-green-700 disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
         disabled={!betAmount || betAmount <= 0 || betAmount > balance}
       >

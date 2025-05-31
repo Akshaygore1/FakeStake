@@ -18,12 +18,14 @@ const PlinkoGame = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [plinkoEngine, setPlinkoEngine] = useState<PlinkoEngine>(); // Assuming you have a store/context
   const [width, setWidth] = useState(0);
+  const [multipliers, setMultipliers] = useState<number[]>([]);
 
   useEffect(() => {
     if (canvasRef.current) {
       const engine = new PlinkoEngine(canvasRef.current);
       setPlinkoEngine(engine);
       setWidth(engine.binsWidthPercentage);
+      setMultipliers(engine.getMultipliers());
 
       engine.start();
 
@@ -68,8 +70,13 @@ const PlinkoGame = () => {
         )}
       </div>
       <div className="absolute top-1/2 right-[5%] -translate-y-1/2">
-        {/* <LastWins /> */}
-        {plinkoEngine && <div className="text-red-500"></div>}
+        <div className="text-sm text-white">
+          {multipliers.map((multiplier, index) => (
+            <div key={index} className="mb-1">
+              {multiplier}x
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
