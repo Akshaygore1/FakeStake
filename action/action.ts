@@ -17,7 +17,6 @@ const createFeedback = async (feedback: string) => {
     ID.unique(),
     { feedback }
   );
-  console.log(response);
   return response;
 };
 
