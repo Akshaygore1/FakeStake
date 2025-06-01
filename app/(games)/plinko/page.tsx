@@ -2,8 +2,7 @@
 import BinsRow from "@/app/_components/plinko/BinsRow";
 import PlinkoConfig from "@/app/_components/plinko/PlinkoConfig";
 import PlinkoEngine from "@/app/_components/plinko/plinkoEngine";
-import PlinkoGame from "@/app/_components/plinko/PlinkoGame";
-import PlinkoGames from "@/app/_components/plinko/PlinkoGames";
+import { usePlinkoStore } from "@/app/_store/plinkoStore";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -14,13 +13,11 @@ export default function Dice() {
   const canvasRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
   const [plinkoEngine, setPlinkoEngine] = useState<PlinkoEngine>(); // Assuming you have a store/context
-  const [width, setWidth] = useState(0);
-
+  const { rowCount, riskLevel, multiplier } = usePlinkoStore();
   useEffect(() => {
     if (canvasRef.current) {
       const engine = new PlinkoEngine(canvasRef.current);
       setPlinkoEngine(engine);
-      setWidth(engine.binsWidthPercentage);
 
       engine.start();
 
@@ -29,7 +26,7 @@ export default function Dice() {
         engine?.stop();
       };
     }
-  }, [setPlinkoEngine]);
+  }, [setPlinkoEngine, rowCount, riskLevel]);
   return (
     <main className="flex flex-col h-full">
       <div className="flex flex-col lg:flex-row w-full p-4 lg:p-8 flex-1">
@@ -60,15 +57,17 @@ export default function Dice() {
                 </div>
                 {plinkoEngine && (
                   <BinsRow
-                    rowCount={plinkoEngine.rowCountOfEngine}
-                    riskLevel={"MEDIUM"}
+                    rowCount={rowCount}
+                    riskLevel={riskLevel}
                     binsWidth={plinkoEngine.binsWidthPercentage}
                   />
                 )}
               </div>
               <div className="absolute top-1/2 right-[5%] -translate-y-1/2">
                 {/* <LastWins /> */}
-                {plinkoEngine && <div className="text-red-500"></div>}
+                {plinkoEngine && (
+                  <div className="text-red-500">{multiplier}</div>
+                )}
               </div>
             </div>
           </div>

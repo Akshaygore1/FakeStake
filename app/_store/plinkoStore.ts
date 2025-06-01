@@ -6,6 +6,7 @@ export interface PlinkoState {
   rowCount: RowCount;
   riskLevel: RiskLevel;
   balance: number;
+  multiplier: number;
   gameHistory: {
     betAmount: number;
     multiplier: number;
@@ -15,6 +16,7 @@ export interface PlinkoState {
   setBetAmount: (amount: number) => void;
   setRowCount: (count: RowCount) => void;
   setRiskLevel: (level: RiskLevel) => void;
+  setMultiplier: (multiplier: number) => void;
   addGameResult: (betAmount: number, multiplier: number) => void;
   updateBalance: (amount: number) => void;
 }
@@ -24,10 +26,12 @@ export const usePlinkoStore = create<PlinkoState>((set) => ({
   rowCount: 8,
   riskLevel: RiskLevel.MEDIUM,
   balance: 1000, // Starting balance
+  multiplier: 1,
   gameHistory: [],
   setBetAmount: (amount) => set({ betAmount: amount }),
   setRowCount: (count) => set({ rowCount: count }),
   setRiskLevel: (level) => set({ riskLevel: level }),
+  setMultiplier: (multiplier) => set({ multiplier }),
   addGameResult: (betAmount, multiplier) => {
     const profit = betAmount * multiplier - betAmount;
     set((state) => ({

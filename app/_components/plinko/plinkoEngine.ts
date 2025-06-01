@@ -16,6 +16,7 @@
 
 import Matter, { IBodyDefinition } from "matter-js";
 import { binPayouts, getRandomBetween, RiskLevel, RowCount } from "./utils";
+import { usePlinkoStore } from "../../_store/plinkoStore";
 
 type BallFrictionsByRowCount = {
   friction: NonNullable<IBodyDefinition["friction"]>;
@@ -108,6 +109,8 @@ class PlinkoEngine {
     },
   };
 
+  private store = usePlinkoStore.getState();
+
   /**
    * Creates the engine and the game's layout.
    *
@@ -119,12 +122,18 @@ class PlinkoEngine {
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
 
-    this.betAmount = 0;
-    this.rowCount = 8;
-    this.riskLevel = RiskLevel.HIGH;
-    // betAmount.subscribe((value) => (this.betAmount = value));
-    // rowCount.subscribe((value) => this.updateRowCount(value));
-    // riskLevel.subscribe((value) => (this.riskLevel = value));
+    this.betAmount = this.store.betAmount;
+    this.rowCount = this.store.rowCount;
+    this.riskLevel = this.store.riskLevel;
+
+    // Subscribe to store updates
+    usePlinkoStore.subscribe((state) => {
+      this.betAmount = state.betAmount;
+      if (state.rowCount !== this.rowCount) {
+        this.updateRowCount(state.rowCount);
+      }
+      this.riskLevel = state.riskLevel;
+    });
 
     this.engine = Matter.Engine.create({
       timing: {
@@ -272,11 +281,8 @@ class PlinkoEngine {
       (pinX) => pinX < ball.position.x
     );
     if (binIndex !== -1 && binIndex < this.pinsLastRowXCoords.length - 1) {
-      const betAmount = 0;
       const multiplier = binPayouts[this.rowCount][this.riskLevel][binIndex];
-      const payoutValue = betAmount * multiplier;
-      const profit = payoutValue - betAmount;
-      PlinkoEngine.multiplier = multiplier;
+      this.store.setMultiplier(multiplier);
     }
 
     Matter.Composite.remove(this.engine.world, ball);
