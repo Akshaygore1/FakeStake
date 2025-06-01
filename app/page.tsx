@@ -12,6 +12,12 @@ const games = [
     img: "/assets/mines.png",
   },
   {
+    name: "PLINKO",
+    link: "/plinko",
+    logo: <Rocket size={48} />,
+    img: "/assets/plinko.png",
+  },
+  {
     name: "DICE",
     link: "/dice",
     logo: <Rocket size={48} />,
@@ -103,7 +109,7 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <div className="text-white text-3xl">Plinko Coming Soon...</div>
+      <div className="text-white text-3xl">Blackjack Coming Soon...</div>
       <div className="max-w-md mx-auto pt-56 rounded-lg shadow-xl">
         <h2 className="text-2xl font-bold text-white mb-4">
           Leave Feedback / Request Features
