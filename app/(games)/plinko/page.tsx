@@ -63,12 +63,6 @@ export default function Dice() {
                   />
                 )}
               </div>
-              <div className="absolute top-1/2 right-[5%] -translate-y-1/2">
-                {/* <LastWins /> */}
-                {plinkoEngine && (
-                  <div className="text-red-500">{multiplier}</div>
-                )}
-              </div>
             </div>
           </div>
         </div>

@@ -17,6 +17,7 @@
 import Matter, { IBodyDefinition } from "matter-js";
 import { binPayouts, getRandomBetween, RiskLevel, RowCount } from "./utils";
 import { usePlinkoStore } from "../../_store/plinkoStore";
+import { useCommonStore } from "@/app/_store/commonStore";
 
 type BallFrictionsByRowCount = {
   friction: NonNullable<IBodyDefinition["friction"]>;
@@ -87,6 +88,8 @@ class PlinkoEngine {
   private static PIN_CATEGORY = 0x0001;
   private static BALL_CATEGORY = 0x0002;
 
+  private balance: number;
+
   /**
    * Friction parameters to be applied to the ball body.
    *
@@ -110,6 +113,7 @@ class PlinkoEngine {
   };
 
   private store = usePlinkoStore.getState();
+  private commonStore = useCommonStore.getState();
 
   /**
    * Creates the engine and the game's layout.
@@ -125,6 +129,7 @@ class PlinkoEngine {
     this.betAmount = this.store.betAmount;
     this.rowCount = this.store.rowCount;
     this.riskLevel = this.store.riskLevel;
+    this.balance = this.commonStore.balance;
 
     // Subscribe to store updates
     usePlinkoStore.subscribe((state) => {
@@ -133,6 +138,7 @@ class PlinkoEngine {
         this.updateRowCount(state.rowCount);
       }
       this.riskLevel = state.riskLevel;
+      this.balance = this.commonStore.balance;
     });
 
     this.engine = Matter.Engine.create({
@@ -202,7 +208,6 @@ class PlinkoEngine {
     const ballOffsetRangeX = this.pinDistanceX * 0.8;
     const ballRadius = this.pinRadius * 2;
     const { friction, frictionAirByRowCount } = PlinkoEngine.ballFrictions;
-
     const ball = Matter.Bodies.circle(
       getRandomBetween(
         this.canvas.width / 2 - ballOffsetRangeX,
@@ -235,7 +240,6 @@ class PlinkoEngine {
   get binsWidthPercentage(): number {
     const lastPinX =
       this.pinsLastRowXCoords[this.pinsLastRowXCoords.length - 1];
-    // console.log("====",this.pinsLastRowXCoords)
     return (lastPinX - this.pinsLastRowXCoords[0]) / PlinkoEngine.WIDTH;
   }
 
@@ -283,6 +287,9 @@ class PlinkoEngine {
     if (binIndex !== -1 && binIndex < this.pinsLastRowXCoords.length - 1) {
       const multiplier = binPayouts[this.rowCount][this.riskLevel][binIndex];
       this.store.setMultiplier(multiplier);
+      const newBalance = this.commonStore.balance - this.betAmount;
+      console.log("newBalance", newBalance, this.betAmount, multiplier);
+      this.commonStore.setBalance(newBalance + this.betAmount * multiplier);
     }
 
     Matter.Composite.remove(this.engine.world, ball);

@@ -12,15 +12,12 @@ export default function BinsRow({
   riskLevel: RiskLevel;
   binsWidth: number;
 }) {
-  console.log(rowCount, riskLevel, binsWidth);
   const payouts = binPayouts[rowCount][riskLevel];
   const colors = binColorsByRowCount?.[rowCount] || {
     background: [],
     shadow: [],
   };
-  // Fix: Access binsWidthPercentage as a property, not as a constructor
 
-  console.log("payouts", payouts);
   return (
     <div className="flex w-full justify-center lg:h-7">
       <div className="flex gap-[1%]" style={{ width: `${binsWidth * 100}%` }}>

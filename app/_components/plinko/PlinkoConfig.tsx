@@ -15,11 +15,18 @@ import React from "react";
 import { RiskLevel, RowCount } from "./utils";
 
 function PlinkoConfig({ dropBall }: { dropBall: () => void }) {
-  const [betAmount, setBetAmount] = React.useState<number>(0);
   const [inputValue, setInputValue] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
-  const { balance } = useCommonStore();
-  const { riskLevel, setRiskLevel, rowCount, setRowCount } = usePlinkoStore();
+  const { balance, setBalance } = useCommonStore();
+  const {
+    riskLevel,
+    setRiskLevel,
+    rowCount,
+    setRowCount,
+    multiplier,
+    setBetAmount,
+    betAmount,
+  } = usePlinkoStore();
 
   const handleBetAmountChange = (newValue: string) => {
     setInputValue(newValue);
@@ -56,7 +63,11 @@ function PlinkoConfig({ dropBall }: { dropBall: () => void }) {
       }
     }
   };
-  console.log(riskLevel);
+
+  const handleDropBall = () => {
+    setBalance(balance - betAmount);
+    dropBall();
+  };
 
   return (
     <div className="flex flex-col gap-6 p-4  text-white max-w-md mx-auto rounded-lg">
@@ -149,7 +160,7 @@ function PlinkoConfig({ dropBall }: { dropBall: () => void }) {
         </div>
       </div>
       <button
-        onClick={() => dropBall()}
+        onClick={handleDropBall}
         className="w-full py-3 rounded-md bg-success text-black hover:bg-green-700 disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
         disabled={!betAmount || betAmount <= 0 || betAmount > balance}
       >
