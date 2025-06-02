@@ -109,7 +109,9 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <div className="text-white text-3xl">New Games Coming Soon...</div>
+      <div className="text-white text-3xl">
+        Plinko is still in beta, new games coming soon...
+      </div>
       <div className="max-w-md mx-auto pt-56 rounded-lg shadow-xl">
         <h2 className="text-2xl font-bold text-white mb-4">
           Leave Feedback / Request Features
