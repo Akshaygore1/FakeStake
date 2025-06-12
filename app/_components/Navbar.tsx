@@ -2,11 +2,12 @@
 "use client";
 
 import { useCommonStore } from "@/app/_store/commonStore";
-import { Coffee, Coins } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Coffee, Coins, Minus, Plus } from "lucide-react";
 import Link from "next/link";
 
 export default function Navbar() {
-  const { balance, clearCommonState } = useCommonStore();
+  const { balance, clearCommonState, setBalance } = useCommonStore();
   return (
     <nav className="top-0 left-0 right-0 z-50 backdrop-blur-lg bg-black/40 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,33 +27,41 @@ export default function Navbar() {
               className="h-6 sm:h-7 w-auto"
             />
           </Link>
-          <div className="flex items-center gap-3 sm:gap-4">
-            {balance <= 1 && (
-              <button
-                onClick={() => clearCommonState()}
-                className="text-sm text-white/70 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/5"
-              >
-                Reset Credit
-              </button>
-            )}
 
-            <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/10 text-white">
-              <Coins className="w-5 h-5 text-success" />
-              <span className="text-base font-medium">
-                {balance?.toFixed(2) || "0.00"}
-              </span>
+          <div className="flex items-center">
+            <Button
+              onClick={() => {
+                setBalance(balance + 10);
+              }}
+              className="bg-white/5 rounded-l-xl rounded-r-none backdrop-blur-sm px-4 py-2 border border-white/10 text-white"
+            >
+              <Plus size={16} />
+            </Button>
+            <div className="flex h-9 text-sm items-center gap-2 bg-white/5 backdrop-blur-sm px-4 py-2 border border-white/10 text-white">
+              <Coins size={16} className=" text-success" />
+              <span>{balance?.toFixed(2) || "0.00"}</span>
             </div>
-            <a
+            <Button
+              onClick={() => {
+                setBalance(Math.max(0, balance - 10));
+              }}
+              className="bg-white/5 rounded-l-none rounded-r-xl backdrop-blur-sm px-4 py-2 border border-white/10 text-white"
+            >
+              <Minus size={16} />
+            </Button>
+          </div>
+
+          <div className="flex items-center gap-3 sm:gap-4">
+            <Link
               href="https://www.buymeacoffee.com/akshaygore"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-success hover:bg-success/90 transition-colors p-2.5 sm:p-3 rounded-xl inline-flex items-center justify-center"
             >
-              <Coffee className="w-5 h-5 text-black" />
-              <span className="hidden sm:inline text-black ml-2 font-medium">
-                Buy Me Coffee
-              </span>
-            </a>
+              <Button className="text-white">
+                <Coffee size={16} />
+                <span className="hidden sm:inline">Buy Me Coffee</span>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
