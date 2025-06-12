@@ -33,12 +33,16 @@ export const useConfigStore = create<ConfigStore>()(
       set({ isGameSetup: true });
     },
     resetGame: () =>
-      set({
+      set((state) => ({
         isGameSetup: false,
-        numberOfMines: 1,
         gameStarted: false,
-      }),
-    clearConfigStore: () => set({ isGameSetup: false }),
+        numberOfMines: state.numberOfMines,
+      })),
+    clearConfigStore: () =>
+      set((state) => ({
+        isGameSetup: false,
+        numberOfMines: state.numberOfMines,
+      })),
   })
   // { name: 'config-storage' }
   // )

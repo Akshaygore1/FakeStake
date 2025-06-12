@@ -51,7 +51,6 @@ export default function GridComponent() {
         const audio = new Audio("/assets/audio/mine-audio.mp3");
         audio.play();
         setShowModal(true);
-        setNumberOfMines(1);
         setNumberOfSuccessfulClicks(0);
         clearConfigStore();
         resetGame();
