@@ -26,6 +26,7 @@ function PlinkoConfig({ dropBall }: { dropBall: () => void }) {
     multiplier,
     setBetAmount,
     betAmount,
+    gameHistory,
   } = usePlinkoStore();
 
   const handleBetAmountChange = (newValue: string) => {
@@ -65,6 +66,13 @@ function PlinkoConfig({ dropBall }: { dropBall: () => void }) {
   };
 
   const handleDropBall = () => {
+    // Validate bet amount before proceeding
+    if (betAmount <= 0 || betAmount > balance) {
+      setError("Invalid bet amount");
+      return;
+    }
+
+    // Deduct money upfront when ball is dropped
     setBalance(balance - betAmount);
     dropBall();
   };
@@ -75,7 +83,7 @@ function PlinkoConfig({ dropBall }: { dropBall: () => void }) {
         <div className="flex justify-between mb-2">
           <span className="text-[#b0b9d2]">Bet Amount</span>
           <span className="text-white">
-            ${balance ? balance.toFixed(2) : "0.00"}
+            Balance: ${balance ? balance.toFixed(2) : "0.00"}
           </span>
         </div>
       </div>
@@ -164,7 +172,7 @@ function PlinkoConfig({ dropBall }: { dropBall: () => void }) {
         className="w-full py-3 rounded-md bg-success text-black hover:bg-green-700 disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
         disabled={!betAmount || betAmount <= 0 || betAmount > balance}
       >
-        Bet
+        {betAmount > balance ? "Insufficient Balance" : "Bet"}
       </button>
     </div>
   );

@@ -63,7 +63,7 @@ function LimboConfig({ onBet }: { onBet: (amount: number) => void }) {
         <div className="flex justify-between mb-2">
           <span className="text-[#b0b9d2]">Bet Amount</span>
           <span className="text-white">
-            ${balance ? balance.toFixed(2) : "0.00"}
+            Balance: ${balance ? balance.toFixed(2) : "0.00"}
           </span>
         </div>
       </div>
@@ -126,7 +126,7 @@ function LimboConfig({ onBet }: { onBet: (amount: number) => void }) {
           error !== ""
         }
       >
-        {isRolling ? "Rolling..." : "Bet"}
+        {isRolling ? "Rolling..." : betAmount > balance ? "Insufficient Balance" : "Bet"}
       </button>
     </div>
   );

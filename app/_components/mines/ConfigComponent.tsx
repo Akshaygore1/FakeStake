@@ -40,8 +40,7 @@ export default function ConfigComponent() {
   };
 
   const handleBet = () => {
-    if (betAmount === null || betAmount > balance!) {
-      alert("You don't have enough balance");
+    if (betAmount === null || betAmount <= 0 || betAmount > balance!) {
       return;
     }
 
@@ -82,12 +81,12 @@ export default function ConfigComponent() {
     <div className="flex flex-col gap-6 p-4 text-white max-w-md mx-auto rounded-lg">
       {/* Bet Amount */}
       <div>
-        <div className="flex justify-between mb-2">
-          <span className="text-[#b0b9d2]">Bet Amount</span>
-          <span className="text-white">
-            ${balance ? balance.toFixed(2) : "0.00"}
-          </span>
-        </div>
+                  <div className="flex justify-between mb-2">
+            <span className="text-[#b0b9d2]">Bet Amount</span>
+            <span className="text-white">
+              Balance: ${balance ? balance.toFixed(2) : "0.00"}
+            </span>
+          </div>
         <div className="flex bg-[#1e2a36] rounded-md overflow-hidden">
           <div className="flex-1 flex items-center relative">
             <input
@@ -190,7 +189,7 @@ export default function ConfigComponent() {
         }
         className="w-full bg-[#4cd964] hover:bg-[#3cc153] disabled:bg-[#2c3a47] disabled:text-gray-400 text-black font-medium py-4 rounded-md transition-colors"
       >
-        Bet
+        {betAmount! > balance ? "Insufficient Balance" : "Bet"}
       </button>
 
       {/* Cash Out Section */}

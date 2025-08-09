@@ -50,7 +50,7 @@ function ConfigForDice({ onBet }: { onBet: (amount: number) => void }) {
         <div className="flex justify-between mb-2">
           <span className="text-[#b0b9d2]">Bet Amount</span>
           <span className="text-white">
-            ${balance ? balance.toFixed(2) : "0.00"}
+            Balance: ${balance ? balance.toFixed(2) : "0.00"}
           </span>
         </div>
       </div>
@@ -87,12 +87,12 @@ function ConfigForDice({ onBet }: { onBet: (amount: number) => void }) {
       </div>
       {error && <p className="text-red-500 text-sm">{error}</p>}
       <button
-        onClick={() => onBet(betAmount)}
-        className="w-full py-3 rounded-md bg-success text-black hover:bg-green-700 disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
-        disabled={!betAmount || betAmount <= 0 || betAmount > balance}
-      >
-        Bet
-      </button>
+          onClick={() => onBet(betAmount)}
+          className="w-full py-3 rounded-md bg-success text-black hover:bg-green-700 disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
+          disabled={!betAmount || betAmount <= 0 || betAmount > balance || error !== ""}
+        >
+          {betAmount > balance ? "Insufficient Balance" : "Bet"}
+        </button>
     </div>
   );
 }

@@ -17,25 +17,35 @@ function LimboContainer() {
   const { balance, setBalance } = useCommonStore();
 
   const handleBet = (amount: number) => {
+    // Validate bet amount
+    if (amount <= 0 || amount > balance) {
+      return;
+    }
+
+    // Deduct bet amount upfront
+    const newBalanceAfterBet = balance - amount;
+    setBalance(newBalanceAfterBet);
+
     setIsRolling(true);
     const randomMultiplier = generateWeightedRandom();
-    let newBalance = balance;
 
     setDisplayMultiplier(randomMultiplier);
-    if (randomMultiplier > multiplier) {
+    if (randomMultiplier >= multiplier) {
+      // Player wins - add winnings to already reduced balance
+      const winnings = amount * randomMultiplier;
+      const finalBalance = newBalanceAfterBet + winnings;
+      setBalance(finalBalance);
       setRecentWins([
         ...recentWins,
         { isWin: true, randomNumber: randomMultiplier },
       ]);
-      newBalance = balance + amount * (randomMultiplier - 1);
     } else {
+      // Player loses - bet was already deducted
       setRecentWins([
         ...recentWins,
         { isWin: false, randomNumber: randomMultiplier },
       ]);
-      newBalance = balance - amount;
     }
-    setBalance(newBalance);
   };
 
   return (

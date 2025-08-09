@@ -19,6 +19,15 @@ function DiceGameContainer() {
   const { setBalance, balance } = useCommonStore();
 
   const handleBet = (betAmount: number) => {
+    // Validate bet amount
+    if (betAmount <= 0 || betAmount > balance) {
+      return;
+    }
+
+    // Deduct bet amount upfront
+    const newBalanceAfterBet = balance - betAmount;
+    setBalance(newBalanceAfterBet);
+
     const randomNumber = Math.floor(Math.random() * 100) + 1;
     setTargetNumber(randomNumber);
     setGameStarted(true);
@@ -26,19 +35,16 @@ function DiceGameContainer() {
     // Determine win/loss based on the random number compared to selected value
     const isWin = randomNumber > value[0];
 
-    let newBalance = balance;
-
     if (isWin) {
-      // Player wins - apply the multiplier
-      newBalance = balance + betAmount * (multiplier - 1);
+      // Player wins - add winnings to already reduced balance
+      const winnings = betAmount * multiplier;
+      const finalBalance = newBalanceAfterBet + winnings;
+      setBalance(finalBalance);
       setResult([...result, { isWin: true, randomNumber }]);
     } else {
-      // Player loses - subtract the bet amount
-      newBalance = balance - betAmount;
+      // Player loses - bet was already deducted
       setResult([...result, { isWin: false, randomNumber }]);
     }
-
-    setBalance(newBalance);
   };
 
   return (
