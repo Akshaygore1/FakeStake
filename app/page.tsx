@@ -38,8 +38,20 @@ export default function Home() {
       role="main"
       aria-label="Home page content"
     >
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+        linear-gradient(to right, rgba(26, 26, 26, 0.8) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(26, 26, 26, 0.8) 1px, transparent 1px),
+        radial-gradient(circle 500px at 20% 80%, rgba(0, 255, 42, 0.261), transparent),
+        radial-gradient(circle 500px at 80% 20%, rgba(0, 255, 42, 0.151), transparent)
+      `,
+        }}
+      />
+
       <section
-        className="w-full flex flex-col items-center text-center"
+        className="w-full flex flex-col items-center text-center relative z-10"
         aria-labelledby="welcome-heading"
       >
         <h1
@@ -59,7 +71,7 @@ export default function Home() {
         </h1>
         <p className="text-xl text-gray-500">Play Real Games with Fake Money</p>
       </section>
-      <section className="p-6" aria-labelledby="games-heading">
+      <section className="p-6 relative z-10" aria-labelledby="games-heading">
         <h3
           id="games-heading"
           className="text-xl text-white p-4 font-bold flex gap-4 items-center"
@@ -109,10 +121,10 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <div className="text-white text-3xl">
+      <div className="text-white text-3xl relative z-10">
         Plinko is still in beta, new games coming soon...
       </div>
-      <div className="max-w-md mx-auto pt-56 rounded-lg shadow-xl">
+      <div className="max-w-md mx-auto pt-56 rounded-lg shadow-xl relative z-10">
         <h2 className="text-2xl font-bold text-white mb-4">
           Leave Feedback / Request Features
         </h2>

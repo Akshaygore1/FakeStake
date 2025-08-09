@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const { WIDTH, HEIGHT } = PlinkoEngine;
 
-export default function Dice() {
+export default function Plinko() {
   const canvasRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
   const [plinkoEngine, setPlinkoEngine] = useState<PlinkoEngine>(); // Assuming you have a store/context
@@ -28,8 +28,8 @@ export default function Dice() {
     }
   }, [setPlinkoEngine, rowCount, riskLevel]);
   return (
-    <main className="flex flex-col h-full">
-      <div className="flex flex-col lg:flex-row w-full p-4 lg:p-8 flex-1">
+    <main className="flex flex-col min-h-[calc(100vh-80px)]">
+      <div className="flex flex-col lg:flex-row w-full flex-1">
         <div className="flex justify-center items-center w-full p-4">
           <div className="flex flex-col md:flex-row bg-background gap-4 md:gap-8 p-4 w-full max-w-6xl mx-auto">
             <div className="w-full md:w-1/3 bg-primary">
