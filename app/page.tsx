@@ -51,25 +51,72 @@ export default function Home() {
       />
 
       <section
-        className="w-full flex flex-col items-center text-center relative z-10"
+        className="w-full flex flex-col items-center text-center relative z-10 max-w-6xl mx-auto px-4"
         aria-labelledby="welcome-heading"
       >
-        <h1
-          id="welcome-heading"
-          className="text-4xl sm:text-6xl font-bold mb-4 flex flex-col items-center justify-center gap-2 sm:gap-3"
-        >
-          <div className="flex items-center gap-2 text-white">
-            Welcome to <span className="text-success">Fake</span>
+        <div className="mb-8 animate-fade-in">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-success/10 border border-success/20 mb-6">
+            <span className="text-success text-sm font-medium">
+              ✨ 100% Risk-Free Gaming
+            </span>
           </div>
-          <img
-            src="/assets/stake-logo.svg"
-            alt="Fake Stake Logo - Play casino games with virtual currency"
-            width={128}
-            height={32}
-            className="w-28 sm:w-32 inline-block"
-          />
-        </h1>
-        <p className="text-xl text-gray-500">Play Real Games with Fake Money</p>
+
+          <h1
+            id="welcome-heading"
+            className="text-5xl sm:text-7xl lg:text-8xl font-black mb-6 leading-tight tracking-tight"
+          >
+            <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+              Welcome to
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-success to-green-400 bg-clip-text text-transparent animate-pulse">
+              Fake
+            </span>
+            <span className="text-white ml-3">Stake</span>
+          </h1>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+            <img
+              src="/assets/stake-logo.svg"
+              alt="Fake Stake Logo - Play casino games with virtual currency"
+              width={160}
+              height={40}
+              className="w-32 sm:w-40 h-auto opacity-90"
+            />
+            <div className="hidden sm:block w-px h-8 bg-gray-600"></div>
+            <div className="text-gray-400 text-sm font-medium tracking-wide">
+              VIRTUAL CASINO
+            </div>
+          </div>
+
+          <p className="text-xl sm:text-2xl text-gray-400 mb-4 max-w-3xl mx-auto leading-relaxed">
+            Experience the{" "}
+            <span className="text-white font-semibold">
+              thrill of casino games
+            </span>{" "}
+            like
+            <span className="text-success">
+              {" "}
+              Mines, Plinko, Dice & Limbo
+            </span>{" "}
+            without risking real money
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-success rounded-full"></div>
+              <span>No Real Money Required</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-success rounded-full"></div>
+              <span>Practice Your Strategies</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-success rounded-full"></div>
+              <span>Unlimited Virtual Currency</span>
+            </div>
+          </div>
+        </div>
       </section>
       <section className="p-6 relative z-10" aria-labelledby="games-heading">
         <h3
@@ -79,7 +126,7 @@ export default function Home() {
           <Gamepad2 /> Play Now
         </h3>
         <div
-          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-4 w-full max-w-7xl mx-auto"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6 px-2 sm:px-4 w-full max-w-7xl mx-auto"
           role="list"
         >
           {games.map((game, index) => (
@@ -91,29 +138,19 @@ export default function Home() {
             >
               <Link
                 href={game.link}
-                className="group relative flex flex-col items-center justify-center rounded-xl border border-gray-700 hover:border-success/50 transition-all duration-300 overflow-hidden h-48 sm:h-56 lg:h-64 w-full"
+                className="group relative flex flex-col items-center justify-center rounded-xl border border-gray-700 hover:border-success/50 overflow-hidden h-28 sm:h-32 lg:h-36 w-full"
                 aria-label={`Play ${game.name}`}
               >
-                <div
-                  className="absolute inset-0 transition-all duration-300"
-                  aria-hidden="true"
-                />
+                <div className="absolute inset-0" aria-hidden="true" />
                 <img
                   src={game.img || "/assets/coming-soon.png"}
-                  srcSet={`${game.img || "/assets/coming-soon.png"} 200w,
-                    ${game.img || "/assets/coming-soon.png"} 400w,
-                    ${game.img || "/assets/coming-soon.png"} 600w`}
-                  sizes="(max-width: 640px) 100vw,
-                    (max-width: 768px) 50vw,
-                    (max-width: 1024px) 33vw,
-                    200px"
                   alt={`${game.name} game preview image`}
                   width={200}
                   height={200}
-                  className="w-full h-full object-cover rounded-lg transform group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover rounded-lg transform group-hover:scale-105"
                 />
                 <div
-                  className="absolute bottom-0 left-0 w-full h-1 bg-success/0 group-hover:bg-success/20 transition-all duration-300"
+                  className="absolute bottom-0 left-0 w-full h-1 bg-success/0 group-hover:bg-success/20"
                   aria-hidden="true"
                 />
               </Link>

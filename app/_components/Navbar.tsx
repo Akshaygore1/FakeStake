@@ -17,7 +17,7 @@ export default function Navbar() {
         >
           <img
             src="/assets/chatgpt.svg"
-            alt="Logo"
+            alt="FakeStake Logo"
             width={96}
             height={24}
             className="h-5 sm:h-6 lg:h-7 w-auto"
