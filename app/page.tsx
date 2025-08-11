@@ -44,8 +44,8 @@ export default function Home() {
           backgroundImage: `
         linear-gradient(to right, rgba(26, 26, 26, 0.8) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(26, 26, 26, 0.8) 1px, transparent 1px),
-        radial-gradient(circle 500px at 20% 80%, rgba(0, 255, 42, 0.261), transparent),
-        radial-gradient(circle 500px at 80% 20%, rgba(0, 255, 42, 0.151), transparent)
+        radial-gradient(circle 300px at 20% 80%, rgba(0, 255, 42, 0.261), transparent),
+        radial-gradient(circle 300px at 80% 20%, rgba(0, 255, 42, 0.151), transparent)
       `,
         }}
       />
