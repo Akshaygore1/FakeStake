@@ -4,8 +4,7 @@
 import { useCommonStore } from "@/app/_store/commonStore";
 import { CircleDollarSign, Coins, RotateCcw } from "lucide-react";
 import Link from "next/link";
-import { motion } from "motion/react";
-import { url } from "../_lib/assets";
+import { url } from "@/app/_lib/assets";
 
 export default function Navbar() {
   const { balance, clearCommonState } = useCommonStore();
@@ -17,7 +16,7 @@ export default function Navbar() {
           className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
         >
           <img
-            src={`${url}/logo.svg`}
+            src={`${url}/chatgpt.svg`}
             alt="FakeStake Logo"
             width={96}
             height={24}
