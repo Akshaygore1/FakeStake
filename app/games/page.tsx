@@ -2,47 +2,28 @@
 
 import { Gem, Rocket, Star, Zap, Clock, Play } from "lucide-react";
 import Link from "next/link";
+import { url } from "@/app/_lib/assets";
 
 const games = [
   {
     name: "MINES",
     link: "/mines",
-    logo: <Gem size={48} />,
-    img: "/assets/mines.png",
-    description: "Navigate the minefield and multiply your winnings",
-    status: "Available",
-    difficulty: "Medium",
-    players: "2.3k",
+    img: `${url}/mines.png`,
   },
   {
     name: "PLINKO",
     link: "/plinko",
-    logo: <Rocket size={48} />,
-    img: "/assets/plinko.png",
-    description: "Drop balls and watch them bounce to big wins",
-    status: "Beta",
-    difficulty: "Easy",
-    players: "1.8k",
+    img: `${url}/plinko.png`,
   },
   {
     name: "DICE",
     link: "/dice",
-    logo: <Rocket size={48} />,
-    img: "/assets/dice.png",
-    description: "Roll the dice and predict the outcome",
-    status: "Available",
-    difficulty: "Easy",
-    players: "3.1k",
+    img: `${url}/dice.png`,
   },
   {
     name: "LIMBO",
     link: "/limbo",
-    logo: <Rocket size={48} />,
-    img: "/assets/limbo.avif",
-    description: "How high can you go before the crash?",
-    status: "Available",
-    difficulty: "Hard",
-    players: "1.5k",
+    img: `${url}/limbo.avif`,
   },
 ];
 
@@ -91,8 +72,7 @@ export default function GamesPage() {
           </p>
         </div>
 
-        {/* Games Grid */}
-        <div className="flex flex-row gap-4 max-w-6xl mx-auto">
+        <div className="flex flex-row justify-center items-center gap-4 max-w-6xl flex-wrap mx-auto">
           {games.map((game, index) => (
             <Link
               key={game.name}
@@ -109,7 +89,6 @@ export default function GamesPage() {
           ))}
         </div>
 
-        {/* Coming Soon Section */}
         <div className="text-center mt-16">
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-gray-800/50 border border-gray-600 backdrop-blur-sm">
             <Rocket className="w-5 h-5 text-gray-400 mr-2" />

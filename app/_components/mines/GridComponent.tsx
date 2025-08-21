@@ -8,6 +8,7 @@ import { Gem } from "lucide-react";
 import { useCommonStore } from "@/app/_store/commonStore";
 import { addGameResult } from "@/app/_constants/data";
 import Modal from "../ui/Modal";
+import { url } from "@/app/_lib/assets";
 
 export default function GridComponent() {
   const {
@@ -48,7 +49,7 @@ export default function GridComponent() {
     if (isGameSetup) {
       if (mines.includes(index)) {
         handleSelectGrid(index);
-        const audio = new Audio("/assets/audio/mine-audio.mp3");
+        const audio = new Audio(`${url}/mine-audio.mp3`);
         audio.play();
         setShowModal(true);
         setNumberOfMines(1);
@@ -73,7 +74,7 @@ export default function GridComponent() {
         if (!selectedGrid[index]) {
           handleSelectGrid(index);
           setNumberOfSuccessfulClicks(numberOfSuccessfulClicks + 1);
-          const audio = new Audio("/assets/audio/win-audio.mp3");
+          const audio = new Audio(`${url}/win-audio.mp3`);
           audio.play();
         }
       }
@@ -100,7 +101,7 @@ export default function GridComponent() {
               {mines.includes(index) ? (
                 <div className="relative flex p-2 items-center justify-center w-full h-full bg-primary text-white font-bold rounded-md">
                   <img
-                    src="/assets/mine.svg"
+                    src={`${url}/mine.svg`}
                     alt="bomb"
                     className="w-4/5 h-4/5 animate-fade-in"
                   />
@@ -108,7 +109,7 @@ export default function GridComponent() {
               ) : (
                 <div className="relative flex p-2 items-center justify-center w-full h-full bg-primary text-white font-bold rounded-md">
                   <img
-                    src="/assets/diamond.svg"
+                    src={`${url}/diamond.svg`}
                     alt="coins"
                     className="w-4/5 h-4/5 animate-fade-in"
                   />
