@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
 import { Slider } from "@/components/ui/slider";
+import { url } from "@/app/_lib/assets";
 
 const calculateDiceMultiplier = (value: number): number => {
   const maxValue = 100;
@@ -17,9 +17,7 @@ const calculateWinChance = (value: number): number => {
 };
 
 const dragAudio =
-  typeof Audio !== "undefined"
-    ? new Audio("/assets/audio/drag-audio.mp3")
-    : null;
+  typeof Audio !== "undefined" ? new Audio(`${url}/drag-audio.mp3`) : null;
 
 interface DiceComponentProps {
   multiplier: number;

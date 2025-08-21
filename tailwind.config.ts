@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: ["var(--font-inter)", "Inter", "sans-serif"],
+      },
       backgroundImage: {
         "custom-dark-gradient": "linear-gradient(90deg, #000000, #001801)",
       },
