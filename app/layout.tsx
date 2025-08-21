@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./_components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "./_components/Footer";
+import { url } from "./_lib/assets";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
     siteName: "Fake Stake",
     images: [
       {
-        url: "/assets/stake-logo.svg",
+        url: `${url}/opengraph.png`,
         width: 1200,
         height: 630,
         alt: "Fake Stake Logo - Virtual Casino Gaming Platform",
@@ -68,7 +69,7 @@ export const metadata: Metadata = {
     title: "Fake Stake - Virtual Casino Gaming",
     description:
       "Experience risk-free casino gaming with virtual currency. Play Mines, Plinko, Dice & Limbo!",
-    images: ["/assets/stake-logo.svg"],
+    images: [`${url}/opengraph.png`],
     creator: "@fakestake",
   },
   robots: {
