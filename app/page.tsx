@@ -1,35 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
-import createFeedback from "@/action/action";
-import { Gamepad2, Gem, Rocket } from "lucide-react";
+import { ArrowRight, Gamepad2, Gem, Heart, Rocket } from "lucide-react";
 import Link from "next/link";
-
-const games = [
-  {
-    name: "MINES",
-    link: "/mines",
-    logo: <Gem size={48} />,
-    img: "/assets/mines.png",
-  },
-  {
-    name: "PLINKO",
-    link: "/plinko",
-    logo: <Rocket size={48} />,
-    img: "/assets/plinko.png",
-  },
-  {
-    name: "DICE",
-    link: "/dice",
-    logo: <Rocket size={48} />,
-    img: "/assets/dice.png",
-  },
-  {
-    name: "LIMBO",
-    link: "/limbo",
-    logo: <Rocket size={48} />,
-    img: "/assets/limbo.avif",
-  },
-];
 
 export default function Home() {
   return (
@@ -51,7 +23,7 @@ export default function Home() {
       />
 
       <section
-        className="w-full flex flex-col items-center text-center relative z-10 max-w-6xl mx-auto px-4"
+        className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto"
         aria-labelledby="welcome-heading"
       >
         <div className="mb-8 animate-fade-in">
@@ -63,7 +35,7 @@ export default function Home() {
 
           <h1
             id="welcome-heading"
-            className="text-5xl sm:text-7xl lg:text-8xl font-black mb-6 leading-tight tracking-tight"
+            className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight tracking-tight"
           >
             <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
               Welcome to
@@ -75,125 +47,28 @@ export default function Home() {
             <span className="text-white ml-3">Stake</span>
           </h1>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <img
-              src="/assets/stake-logo.svg"
-              alt="Fake Stake Logo - Play casino games with virtual currency"
-              width={160}
-              height={40}
-              className="w-32 sm:w-40 h-auto opacity-90"
-            />
-            <div className="hidden sm:block w-px h-8 bg-gray-600"></div>
-            <div className="text-gray-400 text-sm font-medium tracking-wide">
-              VIRTUAL CASINO
-            </div>
-          </div>
-
-          <p className="text-xl sm:text-2xl text-gray-400 mb-4 max-w-3xl mx-auto leading-relaxed">
-            Experience the{" "}
-            <span className="text-white font-semibold">
-              thrill of casino games
-            </span>{" "}
-            like
-            <span className="text-success">
-              {" "}
-              Mines, Plinko, Dice & Limbo
-            </span>{" "}
-            without risking real money
+          <p className="text-xl sm:text-2xl text-gray-400 mb-8 max-w-2xl mx-auto">
+            Experience the thrill of casino gaming without risking real money.
           </p>
+        </div>
 
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-success rounded-full"></div>
-              <span>No Real Money Required</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-success rounded-full"></div>
-              <span>Practice Your Strategies</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-success rounded-full"></div>
-              <span>Unlimited Virtual Currency</span>
-            </div>
-          </div>
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+          <Link
+            className="px-8 py-3 rounded-full bg-success text-black font-semibold hover:bg-green-600 transition-colors duration-200 flex items-center gap-2"
+            href="/games"
+          >
+            Explore Games <ArrowRight size={16} />
+          </Link>
+          <a
+            href="https://www.buymeacoffee.com/akshaygore"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3 rounded-full border border-success text-white font-semibold hover:bg-green-600 transition-colors duration-200 flex items-center gap-2"
+          >
+            Donate <Heart size={16} />
+          </a>
         </div>
       </section>
-      <section className="p-6 relative z-10" aria-labelledby="games-heading">
-        <h3
-          id="games-heading"
-          className="text-xl text-white p-4 font-bold flex gap-4 items-center"
-        >
-          <Gamepad2 /> Play Now
-        </h3>
-        <div
-          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6 px-2 sm:px-4 w-full max-w-7xl mx-auto"
-          role="list"
-        >
-          {games.map((game, index) => (
-            <article
-              key={index}
-              role="listitem"
-              aria-label={`${game.name} game card`}
-              className="w-full"
-            >
-              <Link
-                href={game.link}
-                className="group relative flex flex-col items-center justify-center rounded-xl border border-gray-700 hover:border-success/50 overflow-hidden h-28 sm:h-32 lg:h-36 w-full"
-                aria-label={`Play ${game.name}`}
-              >
-                <div className="absolute inset-0" aria-hidden="true" />
-                <img
-                  src={game.img || "/assets/coming-soon.png"}
-                  alt={`${game.name} game preview image`}
-                  width={200}
-                  height={200}
-                  className="w-full h-full object-cover rounded-lg transform group-hover:scale-105"
-                />
-                <div
-                  className="absolute bottom-0 left-0 w-full h-1 bg-success/0 group-hover:bg-success/20"
-                  aria-hidden="true"
-                />
-              </Link>
-            </article>
-          ))}
-        </div>
-      </section>
-      <div className="text-white text-3xl relative z-10">
-        Plinko is still in beta, new games coming soon...
-      </div>
-      <div className="max-w-md mx-auto pt-56 rounded-lg shadow-xl relative z-10">
-        <h2 className="text-2xl font-bold text-white mb-4">
-          Leave Feedback / Request Features
-        </h2>
-        <form
-          action={async (formData) => {
-            "use server";
-            createFeedback(formData.get("feedback") as string);
-          }}
-          className="space-y-4"
-        >
-          <label
-            htmlFor="feedback"
-            className="block text-sm font-medium text-gray-300"
-          >
-            Your Feedback:
-          </label>
-          <textarea
-            id="feedback"
-            name="feedback"
-            maxLength={100}
-            placeholder="Enter your feedback here..."
-            className="w-full px-4 py-2 border border-gray-600 rounded-md  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            required
-          />
-          <button
-            type="submit"
-            className="w-full bg-success text-black font-semibold py-2 rounded-md hover:bg-green-600 transition-colors duration-200"
-          >
-            Submit Feedback
-          </button>
-        </form>
-      </div>
     </main>
   );
 }
