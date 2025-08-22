@@ -65,7 +65,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="px-8 py-3 rounded-full border border-success text-white font-semibold hover:bg-green-600 transition-colors duration-200 flex items-center gap-2"
           >
-            Donate <Heart size={16} />
+            Support the Fun! <Heart size={16} />
           </a>
         </div>
       </section>
