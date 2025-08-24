@@ -32,7 +32,7 @@ function LimboContainer() {
     setDisplayMultiplier(randomMultiplier);
     if (randomMultiplier >= multiplier) {
       // Player wins - add winnings to already reduced balance
-      const winnings = amount * randomMultiplier;
+      const winnings = amount * multiplier;
       const finalBalance = newBalanceAfterBet + winnings;
       setBalance(finalBalance);
       setRecentWins([

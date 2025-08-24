@@ -44,8 +44,7 @@ export function calculateMultiplier(
   mines: number
 ): number {
   const TOTAL_TILES = 25;
-  const BASE_MULTIPLIER = 1.03;
-  const RISK_FACTOR = 1.2;
+  const HOUSE_EDGE = 0.03; // 3% house edge
 
   if (
     selectedTiles < 1 ||
@@ -56,17 +55,27 @@ export function calculateMultiplier(
     throw new Error("Invalid number of selected tiles or mines");
   }
 
-  // Calculate probability-based multiplier
-  const probability = 1 - mines / (TOTAL_TILES - selectedTiles + 1);
-  const baseMultiplier = BASE_MULTIPLIER + (1 - probability) * RISK_FACTOR;
+  // Calculate the cumulative multiplier based on probability at each step
+  let cumulativeMultiplier = 1;
 
-  // Apply exponential scaling based on selected tiles and mines
-  const multiplier =
-    Math.pow(baseMultiplier, selectedTiles) *
-    Math.pow(1 + mines / TOTAL_TILES, selectedTiles);
+  for (let i = 0; i < selectedTiles; i++) {
+    // Remaining safe tiles after i successful selections
+    const remainingSafeTiles = TOTAL_TILES - mines - i;
+    // Total remaining tiles after i selections
+    const remainingTotalTiles = TOTAL_TILES - i;
+
+    // Probability of selecting a safe tile at this step
+    const safeProbability = remainingSafeTiles / remainingTotalTiles;
+
+    // Fair multiplier is 1/probability
+    cumulativeMultiplier *= 1 / safeProbability;
+  }
+
+  // Apply overall house edge at the end
+  const finalMultiplier = cumulativeMultiplier * (1 - HOUSE_EDGE);
 
   // Round to 2 decimal places
-  return Number(multiplier.toFixed(2));
+  return Number(finalMultiplier.toFixed(2));
 }
 
 export function getMultiplier(selectedTiles: number, mines: number): number {
