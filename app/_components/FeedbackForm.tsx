@@ -1,46 +1,67 @@
 "use client";
 
-import { useTransition } from "react";
-import { Send } from "lucide-react";
-import createFeedback from "../../action/action";
+import { createFeedback } from "../../action/action";
+import { useFormStatus } from "react-dom";
+import { useState, useTransition } from "react";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+    >
+      {pending ? "Submitting..." : "Submit Feedback"}
+    </button>
+  );
+}
 
 interface FeedbackFormProps {
   onSuccess?: () => void;
-  onCancel?: () => void;
 }
 
-export default function FeedbackForm({
-  onSuccess,
-  onCancel,
-}: FeedbackFormProps) {
+export default function FeedbackForm({ onSuccess }: FeedbackFormProps) {
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = async (formData: FormData) => {
+    setError(null);
+    setSuccess(false);
+
     startTransition(async () => {
       try {
-        const result = await createFeedback(formData.get("feedback") as string);
-        if (result?.success && onSuccess) {
-          onSuccess();
-        } else if (!result?.success) {
-          console.warn("Feedback submission issue:", result?.message);
-          // Still call onSuccess to show the success message to user
-          // since the form worked, even if backend isn't configured
-          if (onSuccess) {
-            onSuccess();
-          }
-        }
-      } catch (error) {
-        console.error("Failed to submit feedback:", error);
-        // Still show success to user for better UX
-        if (onSuccess) {
-          onSuccess();
-        }
+        await createFeedback(formData);
+        setSuccess(true);
+        onSuccess?.();
+        // Reset form
+        const form = document.getElementById(
+          "feedback-form"
+        ) as HTMLFormElement;
+        form?.reset();
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
       }
     });
   };
 
+  if (success) {
+    return (
+      <div className="p-6 text-center">
+        <div className="text-green-600 dark:text-green-400 text-lg font-semibold mb-2">
+          Thank you for your feedback! 🎉
+        </div>
+        <p className="text-gray-600 dark:text-gray-400">
+          We appreciate your input and will use it to improve our service.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <form action={handleSubmit} className="space-y-4">
+    <form id="feedback-form" action={handleSubmit} className="space-y-4 p-6">
       <div>
         <label
           htmlFor="feedback"
@@ -55,39 +76,18 @@ export default function FeedbackForm({
           placeholder="Share your thoughts, suggestions, or report any issues..."
           rows={4}
           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-800 dark:text-white resize-none transition-colors placeholder-gray-400 dark:placeholder-gray-500"
-          disabled={isPending}
           required
         />
       </div>
 
+      {error && (
+        <div className="text-red-600 dark:text-red-400 text-sm bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
+          {error}
+        </div>
+      )}
+
       <div className="flex gap-3 pt-2">
-        {onCancel && (
-          <button
-            type="button"
-            onClick={onCancel}
-            className="flex-1 px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
-            disabled={isPending}
-          >
-            Cancel
-          </button>
-        )}
-        <button
-          type="submit"
-          disabled={isPending}
-          className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-        >
-          {isPending ? (
-            <>
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              Sending...
-            </>
-          ) : (
-            <>
-              <Send className="w-4 h-4" />
-              Submit Feedback
-            </>
-          )}
-        </button>
+        <SubmitButton />
       </div>
     </form>
   );

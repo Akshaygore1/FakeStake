@@ -1,4 +1,7 @@
+"use server";
+
 import { Client, Databases, ID } from "appwrite";
+import { redirect } from "next/navigation";
 
 // Check if environment variables are configured
 const ENDPOINT = process.env.ENDPOINT;
@@ -17,15 +20,23 @@ if (ENDPOINT && PROJECT_ID) {
 
 let cache = "";
 
-const createFeedback = async (feedback: string) => {
+export async function createFeedback(formData: FormData) {
+  const feedback = formData.get("feedback") as string;
+
+  if (!feedback || feedback.trim().length === 0) {
+    throw new Error("Feedback is required");
+  }
+  console.log("createFeedback", feedback);
+
   // Check if Appwrite is configured
   if (!databases || !DATABASE_ID || !COLLECTION_ID) {
     console.warn("Appwrite not configured. Feedback not saved:", feedback);
-    return { success: false, message: "Feedback service not configured" };
+    throw new Error("Feedback service not configured");
   }
 
-  if (cache === feedback)
-    return { success: true, message: "Duplicate feedback ignored" };
+  if (cache === feedback) {
+    throw new Error("Duplicate feedback - please submit different feedback");
+  }
 
   try {
     cache = feedback;
@@ -35,11 +46,11 @@ const createFeedback = async (feedback: string) => {
       ID.unique(),
       { feedback }
     );
+    console.log("Feedback saved successfully:", response);
+    // Return success - in server actions, you typically redirect or revalidate
     return { success: true, data: response };
   } catch (error) {
     console.error("Failed to save feedback:", error);
-    return { success: false, message: "Failed to save feedback" };
+    throw new Error("Failed to save feedback. Please try again.");
   }
-};
-
-export default createFeedback;
+}
