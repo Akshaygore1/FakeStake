@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./_components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "./_components/Footer";
+import FloatingFeedback from "./_components/FloatingFeedback";
 import { url } from "./_lib/assets";
 
 const inter = Inter({
@@ -102,6 +103,7 @@ export default function RootLayout({
         {children}
         <Analytics />
         <Footer />
+        <FloatingFeedback />
       </body>
     </html>
   );
