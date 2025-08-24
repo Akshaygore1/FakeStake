@@ -32,10 +32,13 @@ export default function FloatingFeedback() {
           console.log("Feedback button clicked, opening modal");
           setIsOpen(true);
         }}
-        className="fixed bottom-6 right-6 z-[9999] bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 group"
+        className="fixed bottom-6 right-6 z-[9999] bg-gradient-to-r from-green-600 to-green-600 hover:from-green-700 hover:to-green-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 group"
         aria-label="Give Feedback"
       >
-        <MessageCircle className="w-6 h-6 group-hover:animate-pulse" />
+        <div className="flex items-center gap-2">
+          <MessageCircle className="w-6 h-6 group-hover:animate-pulse" />
+          Give Feedback
+        </div>
       </button>
 
       {/* Modal Overlay */}
