@@ -192,10 +192,7 @@ export default function ConfigComponent() {
           gameStarted ||
           betAmount > balance
         }
-        className="w-full bg-[#4cd964] hover:bg-[#3cc153] disabled:bg-[#2c3a47] disabled:text-gray-400 text-black font-medium py-4 rounded-md transition-colors"
-        style={{
-          backgroundColor: betAmount! > balance ? "#2c3a47" : "#4cd964",
-        }}
+        className="w-full bg-[#4cd964] hover:bg-[#3cc153] disabled:bg-[#2c3a47] disabled:text-gray-900 text-black font-medium py-4 rounded-md transition-colors"
       >
         {betAmount! > balance ? "Insufficient Balance" : "Bet"}
       </button>
