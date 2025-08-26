@@ -81,12 +81,12 @@ export default function ConfigComponent() {
     <div className="flex flex-col gap-6 p-4 text-white max-w-md mx-auto rounded-lg">
       {/* Bet Amount */}
       <div>
-                  <div className="flex justify-between mb-2">
-            <span className="text-[#b0b9d2]">Bet Amount</span>
-            <span className="text-white">
-              Balance: ${balance ? balance.toFixed(2) : "0.00"}
-            </span>
-          </div>
+        <div className="flex justify-between mb-2">
+          <span className="text-[#b0b9d2]">Bet Amount</span>
+          <span className="text-white">
+            Balance: ${balance ? balance.toFixed(2) : "0.00"}
+          </span>
+        </div>
         <div className="flex bg-[#1e2a36] rounded-md overflow-hidden">
           <div className="flex-1 flex items-center relative">
             <input
@@ -133,6 +133,11 @@ export default function ConfigComponent() {
       <div>
         <div className="flex justify-between mb-2">
           <span className="text-[#b0b9d2]">Mines</span>
+          {numberOfMines && (
+            <span className="text-[#4cd964]">
+              Base Multiplier: {getMultiplier(1, numberOfMines)}x
+            </span>
+          )}
         </div>
         <div className="relative">
           <select
@@ -144,7 +149,7 @@ export default function ConfigComponent() {
             <option value="" disabled>
               Select number of mines
             </option>
-            {[1, 3, 5, 10].map((numMines) => (
+            {Array.from({ length: 24 }, (_, i) => i + 1).map((numMines) => (
               <option key={numMines} value={numMines}>
                 {numMines} {numMines === 1 ? "Mine" : "Mines"}
               </option>
@@ -188,6 +193,9 @@ export default function ConfigComponent() {
           betAmount > balance
         }
         className="w-full bg-[#4cd964] hover:bg-[#3cc153] disabled:bg-[#2c3a47] disabled:text-gray-400 text-black font-medium py-4 rounded-md transition-colors"
+        style={{
+          backgroundColor: betAmount! > balance ? "#2c3a47" : "#4cd964",
+        }}
       >
         {betAmount! > balance ? "Insufficient Balance" : "Bet"}
       </button>

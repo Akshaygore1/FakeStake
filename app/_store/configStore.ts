@@ -35,7 +35,6 @@ export const useConfigStore = create<ConfigStore>()(
     resetGame: () =>
       set({
         isGameSetup: false,
-        numberOfMines: 1,
         gameStarted: false,
       }),
     clearConfigStore: () => set({ isGameSetup: false }),
