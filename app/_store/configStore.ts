@@ -39,6 +39,4 @@ export const useConfigStore = create<ConfigStore>()(
       }),
     clearConfigStore: () => set({ isGameSetup: false }),
   })
-  // { name: 'config-storage' }
-  // )
 );
