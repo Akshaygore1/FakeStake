@@ -72,8 +72,7 @@ function PlinkoConfig({ dropBall }: { dropBall: () => void }) {
       return;
     }
 
-    // Deduct money upfront when ball is dropped
-    setBalance(balance - betAmount);
+    // Don't deduct balance here - let the engine handle it when the ball is dropped
     dropBall();
   };
 

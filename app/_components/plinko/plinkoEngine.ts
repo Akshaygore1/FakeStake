@@ -205,6 +205,15 @@ class PlinkoEngine {
    * Drops a new ball from the top with a random horizontal offset, and deducts the balance.
    */
   dropBall() {
+    // Deduct bet amount when ball is dropped
+    const currentBalance = useCommonStore.getState().balance;
+    if (currentBalance < this.betAmount) {
+      console.warn("Insufficient balance to place bet");
+      return;
+    }
+
+    useCommonStore.getState().setBalance(currentBalance - this.betAmount);
+
     const ballOffsetRangeX = this.pinDistanceX * 0.8;
     const ballRadius = this.pinRadius * 2;
     const { friction, frictionAirByRowCount } = PlinkoEngine.ballFrictions;
@@ -228,10 +237,11 @@ class PlinkoEngine {
         },
       }
     );
-    Matter.Composite.add(this.engine.world, ball);
 
-    // betAmountOfExistingBalls.update((value) => ({ ...value, [ball.id]: this.betAmount }));
-    // balance.update((balance) => balance - this.betAmount);
+    // Store the bet amount with the ball for payout calculation
+    (ball as any).betAmount = this.betAmount;
+
+    Matter.Composite.add(this.engine.world, ball);
   }
 
   /**
@@ -286,10 +296,20 @@ class PlinkoEngine {
     );
     if (binIndex !== -1 && binIndex < this.pinsLastRowXCoords.length - 1) {
       const multiplier = binPayouts[this.rowCount][this.riskLevel][binIndex];
-      this.store.setMultiplier(multiplier);
-      const newBalance = this.commonStore.balance - this.betAmount;
-      console.log("newBalance", newBalance, this.betAmount, multiplier);
-      this.commonStore.setBalance(newBalance + this.betAmount * multiplier);
+      const ballBetAmount = (ball as any).betAmount || this.betAmount;
+
+      // Update multiplier in store
+      usePlinkoStore.getState().setMultiplier(multiplier);
+
+      // Calculate winnings and add to current balance (bet was already deducted)
+      const currentBalance = useCommonStore.getState().balance;
+      const winnings = ballBetAmount * multiplier;
+      const newBalance = currentBalance + winnings;
+
+      useCommonStore.getState().setBalance(newBalance);
+
+      // Add to game history
+      usePlinkoStore.getState().addGameResult(ballBetAmount, multiplier);
     }
 
     Matter.Composite.remove(this.engine.world, ball);
