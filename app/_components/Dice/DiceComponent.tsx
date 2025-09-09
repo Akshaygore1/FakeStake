@@ -54,7 +54,7 @@ export default function DiceComponent({
   };
 
   return (
-    <div className="w-full aspect-square bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl p-3 md:p-6 lg:p-8 flex flex-col items-center justify-between">
+    <div className="w-full aspect-square bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-xl p-3 md:p-6 lg:p-8 flex flex-col items-center justify-between">
       <div className="w-full flex gap-4 flex-col">
         <div className="flex flex-row-reverse items-center w-full justify-end gap-2 overflow-x-auto no-scrollbar">
           {result
@@ -66,10 +66,10 @@ export default function DiceComponent({
               ) => (
                 <div key={index} className="flex-shrink-0">
                   <div
-                    className={`w-8 h-4 px-6  py-4 rounded-full flex items-center justify-center ${
+                    className={`w-8 h-4 px-6 py-4 rounded-full flex items-center justify-center ${
                       item.isWin
-                        ? "bg-success text-black"
-                        : "bg-neutral-700 text-white"
+                        ? "bg-green-600 text-black"
+                        : "bg-gray-700 text-white"
                     }`}
                   >
                     <span className="text-xs font-bold">
@@ -80,7 +80,7 @@ export default function DiceComponent({
               )
             )}
         </div>
-        <div className=" min-h-[120px] md:h-24 flex flex-row justify-between items-center text-center p-3 md:px-6 lg:px-8 py-4 bg-gray-800 rounded-lg gap-3 md:gap-4">
+        <div className="min-h-[120px] md:h-24 flex flex-row justify-between items-center text-center p-3 md:px-6 lg:px-8 py-4 bg-gray-800 rounded-lg gap-3 md:gap-4">
           <div className="flex flex-col items-center w-28 p-2">
             <span className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">
               Multiplier
@@ -107,8 +107,8 @@ export default function DiceComponent({
           </div>
         </div>
       </div>
-      <div className="w-full p-2 md:p-4 bg-gray-600 rounded-xl">
-        <div className="p-2 md:p-4 w-full bg-gray-900 rounded-lg relative">
+      <div className="w-full p-2 md:p-4 bg-gray-700 rounded-xl">
+        <div className="p-2 md:p-4 w-full bg-black rounded-lg relative">
           {gameStarted && (
             <div
               className="absolute -top-10 flex flex-col items-center transition-all duration-300 ease-in-out"

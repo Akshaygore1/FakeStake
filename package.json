@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next dev --turbopack",
+    "build": "bun run next build",
+    "start": "bun run next start",
+    "lint": "bun run next lint"
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.2.5",
@@ -16,6 +16,7 @@
     "appwrite": "^17.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.23.12",
     "lucide-react": "^0.539.0",
     "matter-js": "^0.20.0",
     "motion": "^12.11.3",
@@ -24,6 +25,7 @@
     "posthog-node": "^5.8.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "recharts": "^3.1.2",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "zustand": "^4.5.2"
@@ -39,5 +41,5 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
-  "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
+  "packageManager": "bun@1.2.21"
 }

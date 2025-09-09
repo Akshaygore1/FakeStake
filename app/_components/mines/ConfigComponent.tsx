@@ -78,16 +78,16 @@ export default function ConfigComponent() {
   };
 
   return (
-    <div className="flex flex-col gap-6 p-4 text-white max-w-md mx-auto rounded-lg">
+    <div className="flex flex-col gap-6 p-6 text-white max-w-md mx-auto bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-xl">
       {/* Bet Amount */}
       <div>
         <div className="flex justify-between mb-2">
-          <span className="text-[#b0b9d2]">Bet Amount</span>
+          <span className="text-gray-400">Bet Amount</span>
           <span className="text-white">
             Balance: ${balance ? balance.toFixed(2) : "0.00"}
           </span>
         </div>
-        <div className="flex bg-[#1e2a36] rounded-md overflow-hidden">
+        <div className="flex bg-gray-800 rounded-lg overflow-hidden">
           <div className="flex-1 flex items-center relative">
             <input
               type="number"
@@ -95,16 +95,16 @@ export default function ConfigComponent() {
               value={betAmount !== null ? betAmount : ""}
               min={10}
               onChange={handleBetAmountChange}
-              className="w-full bg-[#1e2a36] px-3 py-3 outline-none"
+              className="w-full bg-gray-800 px-3 py-3 outline-none text-white"
               disabled={gameStarted}
               onClick={(e) => e.currentTarget.select()}
             />
             <div className="absolute right-3 pointer-events-none">
-              <Coins className="w-4 h-4 text-success" />
+              <Coins className="w-4 h-4 text-green-500" />
             </div>
           </div>
           <button
-            className="bg-[#1e2a36] px-6 border-l border-[#2c3a47] hover:bg-[#2c3a47] transition-colors"
+            className="bg-gray-800 px-6 border-l border-gray-700 hover:bg-gray-700 transition-colors text-white"
             onClick={() =>
               betAmount && betAmount > 0 && setBetAmount(betAmount / 2)
             }
@@ -113,7 +113,7 @@ export default function ConfigComponent() {
             ½
           </button>
           <button
-            className="bg-[#1e2a36] px-6 border-l border-[#2c3a47] hover:bg-[#2c3a47] transition-colors"
+            className="bg-gray-800 px-6 border-l border-gray-700 hover:bg-gray-700 transition-colors text-white"
             onClick={() =>
               betAmount && betAmount > 0 && setBetAmount(betAmount * 2)
             }
@@ -132,9 +132,9 @@ export default function ConfigComponent() {
       {/* Number of Mines */}
       <div>
         <div className="flex justify-between mb-2">
-          <span className="text-[#b0b9d2]">Mines</span>
+          <span className="text-gray-400">Mines</span>
           {numberOfMines && (
-            <span className="text-[#4cd964]">
+            <span className="text-green-400">
               Base Multiplier: {getMultiplier(1, numberOfMines)}x
             </span>
           )}
@@ -144,7 +144,7 @@ export default function ConfigComponent() {
             value={numberOfMines || ""}
             onChange={(e) => handleNumMinesChange(Number(e.target.value))}
             disabled={gameStarted}
-            className="w-full p-3 border border-[#2c3a47] bg-[#1e2a36] text-white rounded-md appearance-none focus:outline-none"
+            className="w-full p-3 border border-gray-700 bg-gray-800 text-white rounded-lg appearance-none focus:outline-none focus:border-green-500"
           >
             <option value="" disabled>
               Select number of mines
@@ -192,7 +192,7 @@ export default function ConfigComponent() {
           gameStarted ||
           betAmount > balance
         }
-        className="w-full bg-[#4cd964] hover:bg-[#3cc153] disabled:bg-[#2c3a47] disabled:text-gray-900 text-black font-medium py-4 rounded-md transition-colors"
+        className="w-full bg-green-600 hover:bg-green-500 disabled:bg-gray-700 disabled:text-gray-500 text-black font-medium py-4 rounded-lg transition-colors"
       >
         {betAmount! > balance ? "Insufficient Balance" : "Bet"}
       </button>
@@ -207,7 +207,7 @@ export default function ConfigComponent() {
           </p>
           <button
             onClick={handleCashOut}
-            className="w-full p-3 mt-4 rounded-md bg-[#4cd964] text-black font-medium hover:bg-[#3cc153] transition-colors"
+            className="w-full p-3 mt-4 rounded-lg bg-green-600 text-black font-medium hover:bg-green-500 transition-colors"
           >
             Cash-Out
           </button>

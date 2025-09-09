@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    turbopack: true,
+  },
+  devIndicators: false,
   async rewrites() {
     return [
       {

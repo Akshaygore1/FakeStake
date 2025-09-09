@@ -81,16 +81,16 @@ export default function GridComponent() {
   };
 
   return (
-    <div className="grid grid-cols-5 gap-3 w-full max-w-xl mx-auto">
+    <div className="grid grid-cols-5 gap-4 w-full max-w-xl mx-auto p-6 bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-xl">
       {Array.from({ length: 25 }).map((_, index) => (
         <div
           key={index}
-          className={`aspect-square w-full min-h-18 flex justify-center items-center transition-all rounded-md duration-500 ${
+          className={`aspect-square w-full min-h-18 flex justify-center items-center transition-all rounded-lg duration-500 cursor-pointer ${
             selectedGrid[index]
               ? mines.includes(index)
-                ? "border-red-500 text-white animate-shake bg-[#071924] scale-95"
-                : "border-green-500 text-white animate-pop bg-[#071924] scale-95"
-              : "bg-[#2f4553] hover:scale-105 active:scale-95 active:bg-[#071924]"
+                ? "border-red-500 text-white animate-shake bg-red-900/50 scale-95"
+                : "border-green-500 text-white animate-pop bg-green-900/50 scale-95"
+              : "bg-gray-800 hover:bg-gray-700 hover:scale-105 active:scale-95 active:bg-gray-900"
           }`}
           onClick={() => handleGridClick(index)}
         >
@@ -98,7 +98,7 @@ export default function GridComponent() {
           {(selectedGrid[index] || showModal) && (
             <>
               {mines.includes(index) ? (
-                <div className="relative flex p-2 items-center justify-center w-full h-full bg-primary text-white font-bold rounded-md">
+                <div className="relative flex p-2 items-center justify-center w-full h-full bg-red-600 text-white font-bold rounded-lg">
                   <img
                     src={`${url}/mine.svg`}
                     alt="bomb"
@@ -106,7 +106,7 @@ export default function GridComponent() {
                   />
                 </div>
               ) : (
-                <div className="relative flex p-2 items-center justify-center w-full h-full bg-primary text-white font-bold rounded-md">
+                <div className="relative flex p-2 items-center justify-center w-full h-full bg-green-600 text-white font-bold rounded-lg">
                   <img
                     src={`${url}/diamond.svg`}
                     alt="coins"

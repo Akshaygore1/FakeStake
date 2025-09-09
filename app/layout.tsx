@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "./_components/Navbar";
+import Sidebar from "./_components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "./_components/Footer";
-import FloatingFeedback from "./_components/FloatingFeedback";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -98,11 +98,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${inter.variable} font-inter`}>
-        <Navbar />
-        {children}
-        <Analytics />
-        <Footer />
-        <FloatingFeedback />
+        <Sidebar />
+        <main className="ml-64 min-h-screen bg-black/90 backdrop-blur-lg text-white">
+          {children}
+          <Analytics />
+          <Footer />
+        </main>
       </body>
     </html>
   );

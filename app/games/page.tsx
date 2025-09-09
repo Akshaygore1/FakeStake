@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { Gem, Rocket, Star, Zap, Clock, Play } from "lucide-react";
+import { Star, Rocket } from "lucide-react";
 import Link from "next/link";
 import { url } from "@/app/_lib/assets";
 
@@ -29,35 +29,22 @@ const games = [
 
 export default function GamesPage() {
   return (
-    <main className="min-h-screen relative">
-      {/* Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(26, 26, 26, 0.8) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(26, 26, 26, 0.8) 1px, transparent 1px),
-            radial-gradient(circle 300px at 20% 80%, rgba(0, 255, 42, 0.261), transparent),
-            radial-gradient(circle 300px at 80% 20%, rgba(0, 255, 42, 0.151), transparent)
-          `,
-        }}
-      />
-
-      <div className="relative z-10 container mx-auto px-4 py-16">
+    <div className="flex-1 p-8">
+      <div className="container mx-auto">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-success/10 border border-success/20 mb-6">
-            <Star className="w-4 h-4 text-success mr-2" />
-            <span className="text-success text-sm font-medium">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-600/20 border border-green-600/30 mb-6">
+            <Star className="w-4 h-4 text-green-400 mr-2" />
+            <span className="text-green-400 text-sm font-medium">
               🎮 Choose Your Game
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight tracking-tight">
-            <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
+            <span className="text-white">
               Casino
             </span>
-            <span className="bg-gradient-to-r from-success to-green-400 bg-clip-text text-transparent ml-3">
+            <span className="text-green-400 ml-3">
               Games
             </span>
           </h1>
@@ -65,32 +52,35 @@ export default function GamesPage() {
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Experience the thrill of casino gaming with our collection of
             popular games. All games are{" "}
-            <span className="text-success font-semibold">
+            <span className="text-green-400 font-semibold">
               100% free to play
             </span>{" "}
             with virtual currency.
           </p>
         </div>
 
-        <div className="flex flex-row justify-center items-center gap-4 max-w-6xl flex-wrap mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {games.map((game, index) => (
             <Link
               key={game.name}
               href={game.link}
-              className="relative h-48 flex items-center justify-center bg-black/30"
+              className="group relative h-64 flex items-center justify-center bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-colors duration-200"
             >
               <img
                 src={game.img}
                 alt={`${game.name} game preview`}
-                className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
+                className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
                 style={{ width: "auto", height: "100%" }}
               />
+              <div className="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                <span className="text-white font-semibold text-lg">{game.name}</span>
+              </div>
             </Link>
           ))}
         </div>
 
         <div className="text-center mt-16">
-          <div className="inline-flex items-center px-6 py-3 rounded-full bg-gray-800/50 border border-gray-600 backdrop-blur-sm">
+          <div className="inline-flex items-center px-6 py-3 rounded-full bg-gray-800 border border-gray-700">
             <Rocket className="w-5 h-5 text-gray-400 mr-2" />
             <span className="text-gray-400 font-medium">
               More games coming soon...
@@ -98,6 +88,6 @@ export default function GamesPage() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -28,45 +28,43 @@ export default function Plinko() {
     }
   }, [setPlinkoEngine, rowCount, riskLevel]);
   return (
-    <main className="flex flex-col min-h-[calc(100vh-80px)]">
-      <div className="flex flex-col lg:flex-row w-full flex-1">
-        <div className="flex justify-center items-center w-full p-4">
-          <div className="flex flex-col md:flex-row bg-background gap-4 md:gap-8 p-4 w-full max-w-6xl mx-auto">
-            <div className="w-full md:w-1/3 bg-primary">
-              <PlinkoConfig
-                dropBall={() => {
-                  plinkoEngine && plinkoEngine.dropBall();
-                }}
-              />
-            </div>
-            <div className="relative bg-background">
+    <div className="flex-1 p-8">
+      <div className="flex justify-center items-center w-full">
+        <div className="flex flex-col md:flex-row bg-background gap-4 md:gap-8 p-4 w-full max-w-6xl mx-auto rounded-xl border border-gray-700">
+          <div className="w-full md:w-1/3 bg-primary rounded-lg p-4">
+            <PlinkoConfig
+              dropBall={() => {
+                plinkoEngine && plinkoEngine.dropBall();
+              }}
+            />
+          </div>
+          <div className="relative bg-background rounded-lg p-4">
+            <div
+              className="mx-auto flex h-full flex-col px-4 pb-4"
+              style={{ maxWidth: `${WIDTH}px` }}
+            >
               <div
-                className="mx-auto flex h-full flex-col px-4 pb-4"
-                style={{ maxWidth: `${WIDTH}px` }}
+                className="relative w-full"
+                style={{ aspectRatio: `${WIDTH} / ${HEIGHT}` }}
               >
-                <div
-                  className="relative w-full"
-                  style={{ aspectRatio: `${WIDTH} / ${HEIGHT}` }}
-                >
-                  <canvas
-                    ref={canvasRef}
-                    width={WIDTH}
-                    height={HEIGHT}
-                    className="h-full w-full"
-                  />
-                </div>
-                {plinkoEngine && (
-                  <BinsRow
-                    rowCount={rowCount}
-                    riskLevel={riskLevel}
-                    binsWidth={plinkoEngine.binsWidthPercentage}
-                  />
-                )}
+                <canvas
+                  ref={canvasRef}
+                  width={WIDTH}
+                  height={HEIGHT}
+                  className="h-full w-full rounded-lg"
+                />
               </div>
+              {plinkoEngine && (
+                <BinsRow
+                  rowCount={rowCount}
+                  riskLevel={riskLevel}
+                  binsWidth={plinkoEngine.binsWidthPercentage}
+                />
+              )}
             </div>
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

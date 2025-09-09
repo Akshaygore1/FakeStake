@@ -1,0 +1,3 @@
+- [x] Edit FeedbackForm.tsx to remove suggestion-related text
+- [x] Update label from "How can we improve your experience?" to "Your Feedback"
+- [x] Update placeholder to remove "suggestions,"
