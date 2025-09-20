@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 "use client";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { useRouletteStore } from "@/app/_store/rouletteStore";
 
 // European roulette wheel order - matches the actual wheel image layout
@@ -21,164 +21,13 @@ interface RouletteWheelProps {
 export default function RouletteWheel({ onSpinComplete }: RouletteWheelProps) {
   const { isSpinning, setIsSpinning, setLastWinningNumber } =
     useRouletteStore();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
 
-  const [ballAngle, setBallAngle] = useState(0);
-  const [ballRadius, setBallRadius] = useState(140);
   const [winningNumber, setWinningNumber] = useState<number | null>(null);
-  const [targetBallAngle, setTargetBallAngle] = useState(0);
-  const [spinStartTime, setSpinStartTime] = useState(0);
-
-  const CANVAS_SIZE = 250;
-  const WHEEL_RADIUS = 150;
-  const BALL_SIZE = 5;
 
   const getNumberColor = (number: number) => {
     if (number === 0) return "text-green-400";
     return redNumbers.includes(number) ? "text-red-400" : "text-white";
   };
-
-  // Function to get the winning number based on pointer ball position
-  const getWinningNumberFromBallPosition = useCallback((ballAngle: number) => {
-    // The pointer ball rotates around the wheel
-    // We need to find which number segment the pointer ball is positioned over
-
-    const degreesPerNumber = 360 / wheelNumbers.length;
-
-    // Normalize ball angle to 0-360 range
-    const normalizedBallAngle = ((ballAngle % 360) + 360) % 360;
-
-    // The ball angle represents where the pointer ball is positioned
-    // We need to find which number segment the pointer ball is over
-    // In our coordinate system, 0 degrees is to the right, 90 is down, 180 is left, 270 is up
-    // We need to map this to the wheel number positions
-    const adjustedAngle = (normalizedBallAngle + 90) % 360; // Adjust for coordinate system
-
-    // Calculate which number index the pointer ball is over
-    const numberIndex = Math.floor(adjustedAngle / degreesPerNumber);
-
-    // Get the number at this position
-    const winningNum = wheelNumbers[numberIndex];
-
-    console.log("Debug:", {
-      ballAngle,
-      normalizedBallAngle,
-      adjustedAngle,
-      numberIndex,
-      winningNum,
-      degreesPerNumber,
-    });
-
-    return winningNum;
-  }, []);
-
-  // Canvas drawing function - only draws ball and pointer, wheel is CSS background
-  const drawCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const centerX = CANVAS_SIZE / 2;
-    const centerY = CANVAS_SIZE / 2;
-
-    // Clear canvas (wheel is handled by CSS background)
-    ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-
-    // Draw rotating pointer ball
-    const pointerX =
-      centerX + Math.cos((ballAngle * Math.PI) / 180) * ballRadius;
-    const pointerY =
-      centerY + Math.sin((ballAngle * Math.PI) / 180) * ballRadius;
-
-    // Pointer ball shadow
-    ctx.beginPath();
-    ctx.arc(pointerX + 1, pointerY + 1, BALL_SIZE, 0, 2 * Math.PI);
-    ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
-    ctx.fill();
-
-    // Pointer ball
-    ctx.beginPath();
-    ctx.arc(pointerX, pointerY, BALL_SIZE, 0, 2 * Math.PI);
-    ctx.fillStyle = "#fbbf24";
-    ctx.fill();
-    ctx.strokeStyle = "#f59e0b";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-  }, [ballAngle, ballRadius]);
-
-  // Animation loop
-  const animate = useCallback(() => {
-    if (!isSpinning) return;
-
-    const now = Date.now();
-    const elapsed = now - spinStartTime;
-    const duration = 4000; // 4 seconds
-    const progress = Math.min(elapsed / duration, 1);
-
-    // Easing function for realistic deceleration
-    const easeOut = 1 - Math.pow(1 - progress, 3);
-
-    // Update ball position (wheel stays stationary)
-    const currentBallAngle =
-      ballAngle + (targetBallAngle - ballAngle) * easeOut;
-    setBallAngle(currentBallAngle);
-
-    // Move ball inward as it slows down
-    const initialRadius = 120;
-    const finalRadius = 120;
-    const currentRadius =
-      initialRadius - (initialRadius - finalRadius) * easeOut;
-    setBallRadius(currentRadius);
-
-    drawCanvas();
-
-    if (progress < 1) {
-      animationRef.current = requestAnimationFrame(animate);
-    } else {
-      // Animation complete
-      const finalWinningNumber =
-        getWinningNumberFromBallPosition(currentBallAngle);
-      setWinningNumber(finalWinningNumber);
-      setLastWinningNumber(finalWinningNumber);
-      setIsSpinning(false);
-      onSpinComplete?.(finalWinningNumber);
-    }
-  }, [
-    isSpinning,
-    spinStartTime,
-    ballAngle,
-    targetBallAngle,
-    drawCanvas,
-    getWinningNumberFromBallPosition,
-    setIsSpinning,
-    setLastWinningNumber,
-    onSpinComplete,
-  ]);
-
-  // Initial canvas draw
-  useEffect(() => {
-    drawCanvas();
-  }, [drawCanvas]);
-
-  // Animation effect
-  useEffect(() => {
-    if (isSpinning) {
-      animationRef.current = requestAnimationFrame(animate);
-    } else {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    }
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [isSpinning, animate]);
 
   const spinWheel = () => {
     if (isSpinning) return;
@@ -187,57 +36,109 @@ export default function RouletteWheel({ onSpinComplete }: RouletteWheelProps) {
     setWinningNumber(null);
     setSpinStartTime(Date.now());
 
-    // Generate random winning number
-    const randomWinningNumber =
-      wheelNumbers[Math.floor(Math.random() * wheelNumbers.length)];
-    const numberIndex = wheelNumbers.indexOf(randomWinningNumber);
-    const degreesPerNumber = 360 / wheelNumbers.length;
+    // Generate random winning number using the same array as original
+    const wheelnumbersAC = [
+      0, 26, 3, 35, 12, 28, 7, 29, 18, 22, 9, 31, 14, 20, 1, 33, 16, 24, 5, 10,
+      23, 8, 30, 11, 36, 13, 27, 6, 34, 17, 25, 2, 21, 4, 19, 15, 32,
+    ];
+    const randomWinningNumber = Math.floor(Math.random() * 37);
+
+    // Find the degree for the winning number
+    let degree = 0;
+    for (let i = 0; i < wheelnumbersAC.length; i++) {
+      if (wheelnumbersAC[i] === randomWinningNumber) {
+        degree = i * 9.73 + 362;
+        break;
+      }
+    }
 
     console.log(
       "Spinning to number:",
       randomWinningNumber,
-      "at index:",
-      numberIndex
+      "at degree:",
+      degree
     );
 
-    // Calculate target ball position
-    const ballSpins = 8 + Math.random() * 4; // 8-12 full rotations
+    // Apply CSS animations to wheel and ball track
+    const wheelElement = document.querySelector(".wheel") as HTMLElement;
+    const ballTrackElement = document.querySelector(
+      ".ballTrack"
+    ) as HTMLElement;
 
-    // Calculate where the ball should stop to land on the winning number
-    // The ball needs to end up at the position where the winning number is
-    // Since pointer is at top, we need to position ball at the winning number's location
-    const targetAngleForWinningNumber = numberIndex * degreesPerNumber - 90; // -90 to adjust for pointer at top
+    if (wheelElement && ballTrackElement) {
+      // Start wheel and ball rotation
+      wheelElement.style.cssText = "animation: wheelRotate 5s linear infinite;";
+      ballTrackElement.style.cssText =
+        "animation: ballRotate 1s linear infinite;";
 
-    // Target ball angle includes multiple spins plus the final position
-    const targetBallAng =
-      ballAngle + ballSpins * 360 + targetAngleForWinningNumber;
+      // After 2 seconds, slow down the ball
+      setTimeout(() => {
+        ballTrackElement.style.cssText =
+          "animation: ballRotate 2s linear infinite;";
 
-    console.log("Target ball angle:", targetBallAng);
-    console.log("Winning number position:", targetAngleForWinningNumber);
+        // Create dynamic keyframe for ball stop
+        const style = document.createElement("style");
+        style.type = "text/css";
+        style.innerText = `@keyframes ballStop {from {transform: rotate(0deg);}to{transform: rotate(-${degree}deg);}}`;
+        document.head.appendChild(style);
+      }, 2000);
 
-    setTargetBallAngle(targetBallAng);
+      // After 6 seconds, apply the stopping animation
+      setTimeout(() => {
+        ballTrackElement.style.cssText = "animation: ballStop 3s linear;";
+      }, 6000);
+
+      // After 9 seconds, set final position
+      setTimeout(() => {
+        ballTrackElement.style.cssText = `transform: rotate(-${degree}deg);`;
+      }, 9000);
+
+      // After 10 seconds, clean up and show result
+      setTimeout(() => {
+        wheelElement.style.cssText = "";
+        const styleElement = document.querySelector('style[type="text/css"]');
+        if (styleElement) styleElement.remove();
+
+        setWinningNumber(randomWinningNumber);
+        setLastWinningNumber(randomWinningNumber);
+        setIsSpinning(false);
+        onSpinComplete?.(randomWinningNumber);
+      }, 10000);
+    }
   };
 
   return (
     <div className="flex flex-col items-center gap-4">
       {/* Canvas Wheel Container */}
-      <div className="relative">
-        <canvas
-          ref={canvasRef}
-          width={CANVAS_SIZE}
-          height={CANVAS_SIZE}
-          className="w-64 h-64"
-          style={{
-            backgroundImage: "url('/wheelweb.webp')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            // transform: `rotate(${wheelRotation}deg)`,
-            // transition: isSpinning
-            //   ? "transform 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-            //   : "transform 0.5s ease-out",
-          }}
-        />
+
+      <div className="w-full h-full flex justify-center items-center">
+        <div className="wheel">
+          <div className="outerRim">
+            {wheelNumbers.map((number, index) => {
+              const spanClass = number < 10 ? "single" : "double";
+              return (
+                <div key={number} id={`sect${index + 1}`} className="sect">
+                  <span className={spanClass}>{number}</span>
+                  <div className="block"></div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="pocketsRim"></div>
+
+          <div className="ballTrack">
+            <div className="ball"></div>
+          </div>
+
+          <div className="pockets"></div>
+          <div className="cone"></div>
+          <div className="turret"></div>
+
+          <div className="turretHandle">
+            <div className="thendOne"></div>
+            <div className="thendTwo"></div>
+          </div>
+        </div>
       </div>
 
       {/* Winning Number Display */}
@@ -266,4 +167,7 @@ export default function RouletteWheel({ onSpinComplete }: RouletteWheelProps) {
       </button>
     </div>
   );
+}
+function setSpinStartTime(arg0: number) {
+  throw new Error("Function not implemented.");
 }

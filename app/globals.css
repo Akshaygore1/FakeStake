@@ -125,3 +125,369 @@ body {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
+
+.block {
+  transition: all 1s;
+  position: absolute;
+  width: 290px;
+  height: 290px;
+  border-radius: 100%;
+  clip: rect(0px, 145px, 280px, 0px);
+}
+
+.sect {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 100%;
+  clip: rect(0px, 280px, 280px, 145px);
+}
+
+.double,
+.single {
+  position: absolute;
+  z-index: 1;
+  color: #fff;
+  font-size: 14px;
+  transform: rotate(3deg);
+}
+
+.double {
+  left: 148px;
+  margin-top: 4.5px;
+}
+
+.single {
+  left: 152px;
+  margin-top: 4.5px;
+}
+
+#sect1 .block {
+  background-color: #016d29;
+  transform: rotate(9.73deg);
+}
+
+#sect2 .block,
+#sect4 .block,
+#sect6 .block,
+#sect8 .block,
+#sect10 .block,
+#sect12 .block,
+#sect14 .block,
+#sect16 .block,
+#sect18 .block,
+#sect20 .block,
+#sect22 .block,
+#sect24 .block,
+#sect26 .block,
+#sect28 .block,
+#sect30 .block,
+#sect32 .block,
+#sect34 .block,
+#sect36 .block {
+  background-color: #e0080b;
+  transform: rotate(9.73deg);
+}
+
+#sect3 .block,
+#sect5 .block,
+#sect7 .block,
+#sect9 .block,
+#sect11 .block,
+#sect13 .block,
+#sect15 .block,
+#sect17 .block,
+#sect19 .block,
+#sect21 .block,
+#sect23 .block,
+#sect25 .block,
+#sect27 .block,
+#sect29 .block,
+#sect31 .block,
+#sect33 .block,
+#sect35 .block,
+#sect37 .block {
+  background-color: #000;
+  transform: rotate(9.73deg);
+}
+
+#sect2 {
+  transform: rotate(9.73deg);
+}
+
+#sect3 {
+  transform: rotate(19.46deg);
+}
+
+#sect4 {
+  transform: rotate(29.19deg);
+}
+
+#sect5 {
+  transform: rotate(38.92deg);
+}
+
+#sect6 {
+  transform: rotate(48.65deg);
+}
+
+#sect7 {
+  transform: rotate(58.38deg);
+}
+
+#sect8 {
+  transform: rotate(68.11deg);
+}
+
+#sect9 {
+  transform: rotate(77.84deg);
+}
+
+#sect10 {
+  transform: rotate(87.57deg);
+}
+
+#sect11 {
+  transform: rotate(97.3deg);
+}
+
+#sect12 {
+  transform: rotate(107.03deg);
+}
+
+#sect13 {
+  transform: rotate(116.76deg);
+}
+
+#sect14 {
+  transform: rotate(126.49deg);
+}
+
+#sect15 {
+  transform: rotate(136.22deg);
+}
+
+#sect16 {
+  transform: rotate(145.95deg);
+}
+
+#sect17 {
+  transform: rotate(155.68deg);
+}
+
+#sect18 {
+  transform: rotate(165.41deg);
+}
+
+#sect19 {
+  transform: rotate(175.14deg);
+}
+
+#sect20 {
+  transform: rotate(184.87deg);
+}
+
+#sect21 {
+  transform: rotate(194.6deg);
+}
+
+#sect22 {
+  transform: rotate(204.33deg);
+}
+
+#sect23 {
+  transform: rotate(214.06deg);
+}
+
+#sect24 {
+  transform: rotate(223.79deg);
+}
+
+#sect25 {
+  transform: rotate(233.52deg);
+}
+
+#sect26 {
+  transform: rotate(243.25deg);
+}
+
+#sect27 {
+  transform: rotate(252.98deg);
+}
+
+#sect28 {
+  transform: rotate(262.71deg);
+}
+
+#sect29 {
+  transform: rotate(272.44deg);
+}
+
+#sect30 {
+  transform: rotate(282.17deg);
+}
+
+#sect31 {
+  transform: rotate(291.9deg);
+}
+
+#sect32 {
+  transform: rotate(301.63deg);
+}
+
+#sect33 {
+  transform: rotate(311.36deg);
+}
+
+#sect34 {
+  transform: rotate(321.09deg);
+}
+
+#sect35 {
+  transform: rotate(330.82deg);
+}
+
+#sect36 {
+  transform: rotate(340.55deg);
+}
+
+#sect37 {
+  transform: rotate(350.28deg);
+}
+
+/* Wheel animations */
+@keyframes wheelRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes ballRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-359deg);
+  }
+}
+
+/* Wheel container */
+.wheel {
+  height: 300px;
+  width: 290px;
+  position: relative;
+  /* left: -75px; */
+}
+
+/* Outer rim */
+.outerRim {
+  position: absolute;
+  /* left: 0; */
+  /* top: 0; */
+  width: 300px;
+  height: 300px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+  border: 10px solid #f3c620;
+}
+
+/* Ball track */
+.ballTrack {
+  width: 212px;
+  height: 207px;
+  position: absolute;
+  left: 47.5px;
+  top: 50px;
+  border-radius: 100%;
+  z-index: 2;
+}
+
+/* Ball */
+.ball {
+  background-color: #fff;
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+  position: relative;
+  left: 109px;
+  top: -7px;
+}
+
+/* Pockets rim */
+.pocketsRim {
+  position: absolute;
+  top: 34px;
+  left: 34px;
+  width: 235px;
+  height: 235px;
+  border-radius: 100%;
+  border: 3px solid silver;
+}
+
+/* Pockets */
+.pockets {
+  position: absolute;
+  top: 37px;
+  left: 37px;
+  width: 235px;
+  height: 235px;
+  background-color: #000;
+  border-radius: 100%;
+  opacity: 0.5;
+}
+
+/* Cone */
+.cone {
+  position: absolute;
+  top: 62px;
+  left: 61px;
+  height: 180px;
+  width: 180px;
+  border: 3px solid #9f9a9a;
+  border-radius: 100%;
+  background: radial-gradient(circle at 100px 100px, #892c10, #000);
+}
+
+/* Turret */
+.turret {
+  border-radius: 100%;
+  background: radial-gradient(circle at 30% 30%, #f3c620, #1a1608);
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 133px;
+  left: 134px;
+  z-index: 1;
+}
+
+/* Turret handle */
+.turretHandle {
+  background: radial-gradient(circle at 44%, #f3c620, #6a570f);
+  width: 87px;
+  height: 14px;
+  position: absolute;
+  left: 113px;
+  top: 148px;
+}
+
+.thendOne,
+.thendTwo {
+  border-radius: 100%;
+  background: radial-gradient(circle at 30% 30%, #f3c620, #1a1608);
+  width: 25px;
+  height: 25px;
+  position: absolute;
+}
+
+.thendOne {
+  top: -6px;
+  left: -20px;
+}
+
+.thendTwo {
+  top: -6px;
+  left: 83px;
+}
