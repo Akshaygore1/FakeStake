@@ -30,6 +30,11 @@ const games = [
     link: "/roulette",
     img: `${url}/roulette.webp`,
   },
+  {
+    name: "BLACKJACK",
+    link: "/blackjack",
+    img: `${url}/blackjack.png`,
+  },
 ];
 
 export default function GamesPage() {
