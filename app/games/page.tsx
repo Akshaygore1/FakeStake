@@ -25,6 +25,11 @@ const games = [
     link: "/limbo",
     img: `${url}/limbo.avif`,
   },
+  {
+    name: "ROULETTE",
+    link: "/roulette",
+    img: `${url}/roullete.avif`,
+  },
 ];
 
 export default function GamesPage() {
