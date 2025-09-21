@@ -25,6 +25,11 @@ const games = [
     link: "/limbo",
     img: `${url}/limbo.avif`,
   },
+  {
+    name: "ROULETTE",
+    link: "/roulette",
+    img: `${url}/roullete.avif`,
+  },
 ];
 
 export default function GamesPage() {
@@ -47,9 +52,8 @@ export default function GamesPage() {
         {/* Header Section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-success/10 border border-success/20 mb-6">
-            <Star className="w-4 h-4 text-success mr-2" />
             <span className="text-success text-sm font-medium">
-              🎮 Choose Your Game
+              🎰 Roulette Beta is Live
             </span>
           </div>
 
