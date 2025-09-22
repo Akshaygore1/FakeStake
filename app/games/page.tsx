@@ -28,7 +28,7 @@ const games = [
   {
     name: "ROULETTE",
     link: "/roulette",
-    img: `${url}/roullete.avif`,
+    img: `${url}/roulette.webp`,
   },
 ];
 
