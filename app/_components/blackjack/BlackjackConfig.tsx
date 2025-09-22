@@ -1,23 +1,51 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCommonStore } from "@/app/_store/commonStore";
+import { useBlackjackStore } from "@/app/_store/blackjackStore";
 
-type BlackjackConfigProps = {
-  onBet: (amount: number) => void;
-  onNewGame: () => void;
-  gameStatus: "betting" | "player-turn" | "dealer-turn" | "game-over";
-  balance: number;
-};
-
-function BlackjackConfig({ onBet, onNewGame, gameStatus, balance }: BlackjackConfigProps) {
+function BlackjackConfig() {
   const [betAmount, setBetAmount] = useState(1000);
-  const { setBalance } = useCommonStore();
+  const { balance, setBalance } = useCommonStore();
+  const {
+    gameStatus,
+    betAmount: currentBet,
+    placeBet,
+    newGame,
+    initializeDeck,
+  } = useBlackjackStore();
+
+  // Initialize deck when component mounts
+  useEffect(() => {
+    initializeDeck();
+  }, [initializeDeck]);
 
   const handleBetClick = () => {
-    if (gameStatus !== "betting") return;
-    onBet(betAmount);
+    if (gameStatus !== "betting" || betAmount <= 0 || betAmount > balance)
+      return;
+
+    // Deduct bet amount from balance
+    setBalance(balance - betAmount);
+    placeBet(betAmount);
+  };
+
+  const handleNewGame = () => {
+    // Handle winnings/losses
+    if (gameStatus === "game-over") {
+      const message = useBlackjackStore.getState().message;
+
+      if (message.includes("You win") || message.includes("Dealer busted")) {
+        // Player wins - add double the bet amount
+        setBalance(balance + currentBet * 2);
+      } else if (message.includes("Push") || message.includes("tie")) {
+        // Tie - return the bet amount
+        setBalance(balance + currentBet);
+      }
+      // For dealer wins, bet is already deducted, so no change needed
+    }
+
+    newGame();
   };
 
   const resetBalance = () => {
@@ -36,7 +64,7 @@ function BlackjackConfig({ onBet, onNewGame, gameStatus, balance }: BlackjackCon
             <span className="text-2xl font-bold text-green-400">
               {balance.toLocaleString()}
             </span>
-            <Button 
+            <Button
               onClick={resetBalance}
               className="bg-gray-700 hover:bg-gray-600 text-white"
             >
@@ -57,7 +85,7 @@ function BlackjackConfig({ onBet, onNewGame, gameStatus, balance }: BlackjackCon
                 min="1"
                 max={balance}
               />
-              <Button 
+              <Button
                 onClick={handleBetClick}
                 className="w-full bg-green-600 hover:bg-green-700 text-white"
               >
@@ -69,8 +97,8 @@ function BlackjackConfig({ onBet, onNewGame, gameStatus, balance }: BlackjackCon
 
         {gameStatus === "game-over" && (
           <div className="space-y-4">
-            <Button 
-              onClick={onNewGame}
+            <Button
+              onClick={handleNewGame}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white"
             >
               New Game

@@ -1,28 +1,20 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { useBlackjackStore } from "@/app/_store/blackjackStore";
 
-type BlackjackGameProps = {
-  playerHand: number[];
-  dealerHand: number[];
-  playerScore: number;
-  dealerScore: number;
-  gameStatus: "betting" | "player-turn" | "dealer-turn" | "game-over";
-  message: string;
-  onHit: () => void;
-  onStand: () => void;
-};
+function BlackjackGame() {
+  const {
+    playerHand,
+    dealerHand,
+    playerScore,
+    dealerScore,
+    gameStatus,
+    message,
+    playerHit,
+    playerStand,
+  } = useBlackjackStore();
 
-function BlackjackGame({
-  playerHand,
-  dealerHand,
-  playerScore,
-  dealerScore,
-  gameStatus,
-  message,
-  onHit,
-  onStand
-}: BlackjackGameProps) {
   return (
     <div className="bg-gray-800 rounded-lg p-6 h-full">
       <div className="text-center mb-6">
@@ -35,15 +27,15 @@ function BlackjackGame({
         <h3 className="text-lg font-semibold text-white mb-4">Dealer</h3>
         <div className="flex flex-wrap gap-2">
           {dealerHand.map((card, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="w-16 h-24 bg-white rounded flex items-center justify-center text-black font-bold"
             >
-              {gameStatus === "player-turn" && index === 1 ? "?" : card}
+              {gameStatus === "player-turn" && index === 1 ? "?" : card.display}
             </div>
           ))}
         </div>
-        <p className="text-white mt-2">Score: {gameStatus === "player-turn" ? dealerScore : calculateScore(dealerHand)}</p>
+        <p className="text-white mt-2">Score: {dealerScore}</p>
       </div>
 
       {/* Player's hand */}
@@ -51,11 +43,11 @@ function BlackjackGame({
         <h3 className="text-lg font-semibold text-white mb-4">Player</h3>
         <div className="flex flex-wrap gap-2">
           {playerHand.map((card, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="w-16 h-24 bg-white rounded flex items-center justify-center text-black font-bold"
             >
-              {card}
+              {card.display}
             </div>
           ))}
         </div>
@@ -66,10 +58,16 @@ function BlackjackGame({
       <div className="flex gap-4 justify-center">
         {gameStatus === "player-turn" && (
           <>
-            <Button onClick={onHit} className="bg-green-600 hover:bg-green-700">
+            <Button
+              onClick={playerHit}
+              className="bg-green-600 hover:bg-green-700"
+            >
               Hit
             </Button>
-            <Button onClick={onStand} className="bg-red-600 hover:bg-red-700">
+            <Button
+              onClick={playerStand}
+              className="bg-red-600 hover:bg-red-700"
+            >
               Stand
             </Button>
           </>
@@ -78,9 +76,5 @@ function BlackjackGame({
     </div>
   );
 }
-
-const calculateScore = (hand: number[]) => {
-  return hand.reduce((sum, card) => sum + card, 0);
-};
 
 export default BlackjackGame;
