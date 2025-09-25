@@ -8,27 +8,32 @@ const games = [
   {
     name: "MINES",
     link: "/mines",
-    img: `${url}/mines.png`,
+    img: `${url}/mine.webp`,
   },
   {
     name: "PLINKO",
     link: "/plinko",
-    img: `${url}/plinko.png`,
+    img: `${url}/plinko.webp`,
   },
   {
     name: "DICE",
     link: "/dice",
-    img: `${url}/dice.png`,
+    img: `${url}/dice.webp`,
   },
   {
     name: "LIMBO",
     link: "/limbo",
-    img: `${url}/limbo.avif`,
+    img: `${url}/limbo.webp`,
   },
   {
     name: "ROULETTE",
     link: "/roulette",
     img: `${url}/roulette.webp`,
+  },
+  {
+    name: "BLACKJACK",
+    link: "/blackjack",
+    img: `${url}/blackjack.webp`,
   },
 ];
 
