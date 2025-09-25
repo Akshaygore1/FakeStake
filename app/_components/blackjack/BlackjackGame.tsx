@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useBlackjackStore } from "@/app/_store/blackjackStore";
+import { PlayingCard } from "@/app/_components/PlayingCard";
 
 function BlackjackGame() {
   const {
@@ -26,14 +27,18 @@ function BlackjackGame() {
       <div className="mb-8">
         <h3 className="text-lg font-semibold text-white mb-4">Dealer</h3>
         <div className="flex flex-wrap gap-2">
-          {dealerHand.map((card, index) => (
-            <div
-              key={index}
-              className="w-16 h-24 bg-white rounded flex items-center justify-center text-black font-bold"
-            >
-              {gameStatus === "player-turn" && index === 1 ? "?" : card.display}
-            </div>
-          ))}
+          {dealerHand.map((card, index) =>
+            gameStatus === "player-turn" && index === 1 ? (
+              <div
+                key={index}
+                className="w-24 h-36 bg-[#1e2a36] border-2 border-[#2c3a47] rounded-lg flex items-center justify-center"
+              >
+                <span className="text-4xl text-white">?</span>
+              </div>
+            ) : (
+              <PlayingCard key={index} card={card} />
+            )
+          )}
         </div>
         <p className="text-white mt-2">Score: {dealerScore}</p>
       </div>
@@ -43,12 +48,7 @@ function BlackjackGame() {
         <h3 className="text-lg font-semibold text-white mb-4">Player</h3>
         <div className="flex flex-wrap gap-2">
           {playerHand.map((card, index) => (
-            <div
-              key={index}
-              className="w-16 h-24 bg-white rounded flex items-center justify-center text-black font-bold"
-            >
-              {card.display}
-            </div>
+            <PlayingCard key={index} card={card} />
           ))}
         </div>
         <p className="text-white mt-2">Score: {playerScore}</p>

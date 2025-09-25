@@ -33,7 +33,7 @@ const games = [
   {
     name: "BLACKJACK",
     link: "/blackjack",
-    img: `${url}/blackjack.png`,
+    img: `${url}/blackjack.webp`,
   },
 ];
 
