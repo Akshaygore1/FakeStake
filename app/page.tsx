@@ -29,7 +29,7 @@ export default function Home() {
         <div className="mb-8 animate-fade-in">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-success/10 border border-success/20 mb-6">
             <span className="text-success text-sm font-medium">
-              🎰 Roulette Beta is Live
+              🎰 Roulette & Blackjack Beta is Live
             </span>
           </div>
 
