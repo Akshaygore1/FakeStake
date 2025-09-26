@@ -16,7 +16,7 @@ export default function Navbar() {
           className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
         >
           <img
-            src={`${url}/chatgpt.svg`}
+            src={`${url}/chatgpt-svg.webp`}
             alt="FakeStake Logo"
             width={96}
             height={24}
