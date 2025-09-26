@@ -14,7 +14,7 @@ export default function Home() {
       <MeshGradient
         className="absolute inset-0 w-full h-full"
         colors={["#000000", "#5cf673", "#000000", "#000000"]}
-        speed={0.3}
+        speed={0.4}
       />
 
       <section
