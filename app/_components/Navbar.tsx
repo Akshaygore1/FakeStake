@@ -16,11 +16,11 @@ export default function Navbar() {
           className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
         >
           <img
-            src={`${url}/chatgpt-svg.webp`}
+            src={`${url}/ChatGPT.webp`}
             alt="FakeStake Logo"
             width={96}
             height={24}
-            className="h-5 sm:h-6 lg:h-7 w-auto"
+            className="h-5 sm:h-6 lg:h-7 w-auto mix-blend-multiply"
           />
         </Link>
         <div className="flex justify-center items-center gap-2 sm:gap-3 font-geist-mono text-white">
