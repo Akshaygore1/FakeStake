@@ -1,18 +1,8 @@
 "use client";
 import React from "react";
-import Link from "next/link";
-import { Coffee, Github, Twitter } from "lucide-react";
+import { Coffee, Github } from "lucide-react";
 
 export default function Footer() {
-  const handleLogoClick = () => {
-    const targetSection: HTMLElement | null = document.getElementById(
-      "Top".toLowerCase()
-    );
-    if (targetSection) {
-      targetSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <footer className="w-full py-16 px-4 sm:px-6 lg:px-8 bg-black/40 backdrop-blur-lg border-t border-white/10">
       <div className="max-w-7xl mx-auto">
@@ -23,9 +13,8 @@ export default function Footer() {
               About FakeStake
             </h3>
             <p className="text-white/70 text-sm leading-relaxed">
-              An open-source project dedicated to providing a safe and
-              educational platform for learning about crypto gambling mechanics
-              without real financial risk.
+              An open-source project dedicated to dedicate casino games without
+              real money. I help you to save money and enjoy the games.
             </p>
           </div>
 

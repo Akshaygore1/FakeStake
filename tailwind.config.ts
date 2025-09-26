@@ -11,6 +11,12 @@ const config: Config = {
     extend: {
       fontFamily: {
         inter: ["var(--font-inter)", "Inter", "sans-serif"],
+        figtree: ["var(--font-figtree)", "Figtree", "sans-serif"],
+        "instrument-serif": [
+          "var(--font-instrument-serif)",
+          "Instrument Serif",
+          "serif",
+        ],
       },
       backgroundImage: {
         "custom-dark-gradient": "linear-gradient(90deg, #000000, #001801)",

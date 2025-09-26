@@ -9,7 +9,7 @@ import { url } from "@/app/_lib/assets";
 export default function Navbar() {
   const { balance, clearCommonState } = useCommonStore();
   return (
-    <nav className="relative flex items-center mt-4 sm:mt-6 bg-white/5 backdrop-blur-sm w-full max-w-4xl sm:mx-6 lg:mx-auto rounded-lg border border-white/10 text-white px-3 sm:px-4 lg:px-6 z-20">
+    <nav className="relative flex items-center mt-4 sm:mt-6 bg-black w-full max-w-4xl sm:mx-6 lg:mx-auto rounded-lg border border-white/10 text-white px-3 sm:px-4 lg:px-6 z-20">
       <div className="flex justify-between items-center h-10 sm:h-12 w-full gap-2 sm:gap-4">
         <Link
           href="/"
@@ -20,7 +20,7 @@ export default function Navbar() {
             alt="FakeStake Logo"
             width={96}
             height={24}
-            className="h-5 sm:h-6 lg:h-7 w-auto mix-blend-multiply"
+            className="h-5 sm:h-6 lg:h-7 w-auto"
           />
         </Link>
         <div className="flex justify-center items-center gap-2 sm:gap-3 font-geist-mono text-white">

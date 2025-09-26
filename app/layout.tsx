@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Figtree, Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./_components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "./_components/Footer";
 import FloatingFeedback from "./_components/FloatingFeedback";
+
+const figtree = Figtree({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-figtree",
+  display: "swap",
+});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,6 +19,14 @@ const inter = Inter({
   preload: true,
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-inter",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -97,7 +112,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${inter.variable} font-inter`}>
+      <head>
+        <style>{`
+          :root {
+            --font-inter: ${inter.variable};
+            --font-instrument-serif: ${instrumentSerif.variable};
+            --font-figtree: ${figtree.variable};
+          }
+          html {
+            font-family: ${inter.style.fontFamily};
+          }
+        `}</style>
+      </head>
+      <body
+        className={`${inter.className} ${inter.variable} ${instrumentSerif.variable}`}
+      >
         <Navbar />
         {children}
         <Analytics />

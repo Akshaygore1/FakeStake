@@ -3,6 +3,7 @@
 import { Gem, Rocket, Star, Zap, Clock, Play } from "lucide-react";
 import Link from "next/link";
 import { url } from "@/app/_lib/assets";
+import { MeshGradient } from "@paper-design/shaders-react";
 
 const games = [
   {
@@ -40,19 +41,6 @@ const games = [
 export default function GamesPage() {
   return (
     <main className="min-h-screen relative">
-      {/* Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(26, 26, 26, 0.8) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(26, 26, 26, 0.8) 1px, transparent 1px),
-            radial-gradient(circle 300px at 20% 80%, rgba(0, 255, 42, 0.261), transparent),
-            radial-gradient(circle 300px at 80% 20%, rgba(0, 255, 42, 0.151), transparent)
-          `,
-        }}
-      />
-
       <div className="relative z-10 container mx-auto px-4 py-16">
         {/* Header Section */}
         <div className="text-center mb-16">
@@ -63,15 +51,15 @@ export default function GamesPage() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight tracking-tight">
-            <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+            <span className="text-white font-medium text-transparent font-figtree">
               Casino
             </span>
-            <span className="bg-gradient-to-r from-success to-green-400 bg-clip-text text-transparent ml-3">
+            <span className="bg-gradient-to-r from-success to-green-400 bg-clip-text text-transparent ml-3 italic font-instrument-serif">
               Games
             </span>
           </h1>
 
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-2xl text-gray-50 max-w-2xl mx-auto italic font-instrument-serif">
             Experience the thrill of casino gaming with our collection of
             popular games. All games are{" "}
             <span className="text-success font-semibold">
@@ -99,9 +87,9 @@ export default function GamesPage() {
         </div>
 
         <div className="text-center mt-16">
-          <div className="inline-flex items-center px-6 py-3 rounded-full bg-gray-800/50 border border-gray-600 backdrop-blur-sm">
+          <div className="inline-flex items-center px-6 py-3 rounded-full bg-black border border-gray-600 font-instrument-serif">
             <Rocket className="w-5 h-5 text-gray-400 mr-2" />
-            <span className="text-gray-400 font-medium">
+            <span className="text-success font-medium">
               More games coming soon...
             </span>
           </div>
