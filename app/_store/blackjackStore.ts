@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useCommonStore } from "./commonStore";
 
 export type Card = {
   value: number;
@@ -201,7 +202,7 @@ export const useBlackjackStore = create<BlackjackStore>()((set, get) => ({
   },
 
   dealerPlay: () => {
-    let { dealerHand, playerScore } = get();
+    let { dealerHand, playerScore, betAmount } = get();
     let dealerScore = get().calculateScore(dealerHand);
 
     // Dealer draws until 17 or higher
@@ -224,6 +225,18 @@ export const useBlackjackStore = create<BlackjackStore>()((set, get) => ({
     } else {
       message = "Push! It's a tie.";
     }
+
+    // Update balance immediately based on game result
+    const { balance, setBalance } = useCommonStore.getState();
+
+    if (message.includes("You win") || message.includes("Dealer busted")) {
+      // Player wins - add double the bet amount (original bet + winnings)
+      setBalance(balance + betAmount * 2);
+    } else if (message.includes("Push") || message.includes("tie")) {
+      // Tie - return the bet amount
+      setBalance(balance + betAmount);
+    }
+    // For dealer wins, bet is already deducted, so no change needed
 
     set({
       dealerHand,

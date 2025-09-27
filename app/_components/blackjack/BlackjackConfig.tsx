@@ -73,20 +73,8 @@ function BlackjackConfig() {
   };
 
   const handleNewGame = () => {
-    // Handle winnings/losses
-    if (gameStatus === "game-over") {
-      const message = useBlackjackStore.getState().message;
-
-      if (message.includes("You win") || message.includes("Dealer busted")) {
-        // Player wins - add double the bet amount
-        setBalance(balance + currentBet * 2);
-      } else if (message.includes("Push") || message.includes("tie")) {
-        // Tie - return the bet amount
-        setBalance(balance + currentBet);
-      }
-      // For dealer wins, bet is already deducted, so no change needed
-    }
-
+    // Balance is now updated automatically when the game ends
+    // No need to handle winnings/losses here anymore
     newGame();
   };
 

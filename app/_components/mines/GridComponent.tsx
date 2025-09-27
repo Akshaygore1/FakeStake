@@ -26,7 +26,7 @@ export default function GridComponent() {
     resetGame,
     clearConfigStore,
   } = useConfigStore();
-  const { balance } = useCommonStore();
+  const { balance, setBalance } = useCommonStore();
 
   const [mines, setMines] = useState<number[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -56,6 +56,15 @@ export default function GridComponent() {
         clearConfigStore();
         resetGame();
 
+        // Update balance immediately when hitting a mine (loss)
+        // Note: The bet amount was already deducted when the game started,
+        // so no additional balance change is needed for the loss itself.
+        // However, if balance is very low, restore it to minimum amount
+        const currentBalance = balance!;
+        if (currentBalance < 100) {
+          setBalance(1000); // Restore balance if too low
+        }
+
         addGameResult(
           <div className="flex items-center justify-center gap-1">
             <Gem size={20} />
@@ -63,10 +72,10 @@ export default function GridComponent() {
           </div>,
           "Loss",
           -betAmount!,
-          balance! < 100 ? (
+          currentBalance < 100 ? (
             <div className="text-green-500">1000 (Restored)</div>
           ) : (
-            balance!
+            currentBalance
           )
         );
       } else {
