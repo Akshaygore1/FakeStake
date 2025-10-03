@@ -24,7 +24,7 @@ export default function Home() {
         <div className="mb-8 animate-fade-in">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-success/10 border border-success/20 mb-6">
             <span className="text-success text-sm font-medium">
-              🎰 Roulette & Blackjack Beta is Live
+              New Games are coming soon
             </span>
           </div>
 
@@ -54,7 +54,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="px-8 py-3 rounded-xl border border-success text-white font-semibold hover:bg-green-600 transition-colors duration-200 flex items-center gap-2"
           >
-            Support the more Fun! <Heart size={16} />
+            Support the for Fun! <Heart size={16} />
           </a>
         </div>
       </section>

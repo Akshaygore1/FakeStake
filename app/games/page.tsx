@@ -46,7 +46,7 @@ export default function GamesPage() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-success/10 border border-success/20 mb-6">
             <span className="text-success text-sm font-medium">
-              🎰 Roulette & Blackjack Beta is Live
+              New Games are coming soon
             </span>
           </div>
 
