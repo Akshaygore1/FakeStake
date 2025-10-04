@@ -168,10 +168,10 @@ export default function RouletteWheel({ onSpinComplete }: RouletteWheelProps) {
       <button
         onClick={spinWheel}
         disabled={isSpinning}
-        className={`px-8 py-3 rounded-lg font-bold text-white transition-all ${
+        className={`px-8 py-3 rounded-lg font-bold text-black transition-all ${
           isSpinning
             ? "bg-gray-600 cursor-not-allowed"
-            : "bg-yellow-600 hover:bg-yellow-700 hover:scale-105"
+            : "bg-success hover:bg-green-800 hover:scale-105"
         }`}
       >
         {isSpinning ? "Spinning..." : "SPIN"}
