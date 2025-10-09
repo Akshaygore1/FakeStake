@@ -6,7 +6,7 @@ import { useGridStore } from "@/app/_store/gridStore";
 import { useCommonStore } from "@/app/_store/commonStore";
 import Modal from "../ui/Modal";
 import { addGameResult } from "@/app/_constants/data";
-import { Coins } from "lucide-react";
+import GameConfig, { ConfigField } from "../GameConfig";
 
 export default function ConfigComponent() {
   const {
@@ -29,9 +29,7 @@ export default function ConfigComponent() {
   const [showModal, setShowModal] = useState(false);
   const [activeTab, setActiveTab] = useState<"manual" | "auto">("manual");
 
-  const handleBetAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const amount = value === "" ? null : Number(value);
+  const handleBetAmountChange = (amount: number) => {
     setBetAmount(amount);
   };
 
@@ -77,142 +75,80 @@ export default function ConfigComponent() {
     }
   };
 
-  return (
-    <div className="flex flex-col gap-6 p-4 text-white max-w-md mx-auto rounded-lg">
-      {/* Bet Amount */}
-      <div>
-        <div className="flex justify-between mb-2">
-          <span className="text-[#b0b9d2]">Bet Amount</span>
-          <span className="text-white">
-            Balance: ${balance ? balance.toFixed(2) : "0.00"}
-          </span>
-        </div>
-        <div className="flex bg-[#1e2a36] rounded-md overflow-hidden">
-          <div className="flex-1 flex items-center relative">
-            <input
-              type="number"
-              id="betAmount"
-              value={betAmount !== null ? betAmount : ""}
-              min={10}
-              onChange={handleBetAmountChange}
-              className="w-full bg-[#1e2a36] px-3 py-3 outline-none"
-              disabled={gameStarted}
-              onClick={(e) => e.currentTarget.select()}
-            />
-            <div className="absolute right-3 pointer-events-none">
-              <Coins className="w-4 h-4 text-success" />
-            </div>
-          </div>
-          <button
-            className="bg-[#1e2a36] px-6 border-l border-[#2c3a47] hover:bg-[#2c3a47] transition-colors"
-            onClick={() =>
-              betAmount && betAmount > 0 && setBetAmount(betAmount / 2)
-            }
-            disabled={gameStarted}
-          >
-            ½
-          </button>
-          <button
-            className="bg-[#1e2a36] px-6 border-l border-[#2c3a47] hover:bg-[#2c3a47] transition-colors"
-            onClick={() =>
-              betAmount && betAmount > 0 && setBetAmount(betAmount * 2)
-            }
-            disabled={gameStarted}
-          >
-            2×
-          </button>
-        </div>
-        {betAmount! > balance && !gameStarted && (
-          <p className="mt-1 text-sm font-medium text-red-500">
-            Insufficient balance!
-          </p>
-        )}
-      </div>
+  // Additional fields for mines configuration
+  const additionalFields: ConfigField[] = [
+    {
+      id: "numberOfMines",
+      label: "Mines",
+      type: "select",
+      value: numberOfMines || "",
+      onChange: (value) => handleNumMinesChange(Number(value)),
+      options: Array.from({ length: 24 }, (_, i) => ({
+        label: `${i + 1} ${i + 1 === 1 ? "Mine" : "Mines"}`,
+        value: i + 1,
+      })),
+      placeholder: "Select number of mines",
+      disabled: gameStarted,
+      extraInfo: numberOfMines
+        ? `Base Multiplier: ${getMultiplier(1, numberOfMines)}x`
+        : undefined,
+    },
+  ];
 
-      {/* Number of Mines */}
-      <div>
-        <div className="flex justify-between mb-2">
-          <span className="text-[#b0b9d2]">Mines</span>
-          {numberOfMines && (
-            <span className="text-[#4cd964]">
-              Base Multiplier: {getMultiplier(1, numberOfMines)}x
-            </span>
-          )}
-        </div>
-        <div className="relative">
-          <select
-            value={numberOfMines || ""}
-            onChange={(e) => handleNumMinesChange(Number(e.target.value))}
-            disabled={gameStarted}
-            className="w-full p-3 border border-[#2c3a47] bg-[#1e2a36] text-white rounded-md appearance-none focus:outline-none"
-          >
-            <option value="" disabled>
-              Select number of mines
-            </option>
-            {Array.from({ length: 24 }, (_, i) => i + 1).map((numMines) => (
-              <option key={numMines} value={numMines}>
-                {numMines} {numMines === 1 ? "Mine" : "Mines"}
-              </option>
-            ))}
-          </select>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <svg
-              className="w-5 h-5 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 9l-7 7-7-7"
-              ></path>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      {/* Bet Button */}
-      <button
-        onClick={
+  // Primary button logic
+  const primaryButton = !gameStarted
+    ? {
+        id: "bet",
+        label: betAmount! > balance ? "Insufficient Balance" : "Bet",
+        onClick:
           betAmount === null ||
           betAmount <= 0 ||
           numberOfMines <= 0 ||
           gameStarted ||
           betAmount > balance
             ? handleDisabledBetClick
-            : handleBet
-        }
-        disabled={
+            : handleBet,
+        disabled:
           betAmount === null ||
           betAmount <= 0 ||
           numberOfMines <= 0 ||
           gameStarted ||
-          betAmount > balance
-        }
-        className="w-full bg-[#4cd964] hover:bg-[#3cc153] disabled:bg-[#2c3a47] disabled:text-gray-900 text-black font-medium py-4 rounded-md transition-colors"
-      >
-        {betAmount! > balance ? "Insufficient Balance" : "Bet"}
-      </button>
+          betAmount > balance,
+      }
+    : undefined;
 
-      {/* Cash Out Section */}
-      {gameStarted && (
-        <div className="mt-2">
-          <p className="text-sm text-gray-400">
-            {betAmount &&
-              multiplier > 0 &&
-              `Current Profit: $${currentProfit?.toFixed(2)}`}
-          </p>
-          <button
-            onClick={handleCashOut}
-            className="w-full p-3 mt-4 rounded-md bg-[#4cd964] text-black font-medium hover:bg-[#3cc153] transition-colors"
-          >
-            Cash-Out
-          </button>
-        </div>
-      )}
+  // Cash out section as additional content
+  const additionalContent = gameStarted ? (
+    <div className="mt-2">
+      <p className="text-sm text-gray-400">
+        {betAmount &&
+          multiplier > 0 &&
+          `Current Profit: $${currentProfit?.toFixed(2)}`}
+      </p>
+      <button
+        onClick={handleCashOut}
+        className="w-full p-3 mt-4 rounded-md bg-[#4cd964] text-black font-medium hover:bg-[#3cc153] transition-colors"
+      >
+        Cash-Out
+      </button>
+    </div>
+  ) : null;
+
+  // Error handling
+  const error =
+    betAmount! > balance && !gameStarted ? "Insufficient balance!" : "";
+
+  return (
+    <>
+      <GameConfig
+        betAmount={betAmount || 0}
+        onBetAmountChange={handleBetAmountChange}
+        betInputDisabled={gameStarted}
+        additionalFields={additionalFields}
+        primaryButton={primaryButton}
+        additionalContent={additionalContent}
+        error={error}
+      />
 
       {/* Win Modal */}
       <Modal
@@ -222,6 +158,6 @@ export default function ConfigComponent() {
         amount={currentProfit!}
         multiplier={multiplier}
       />
-    </div>
+    </>
   );
 }

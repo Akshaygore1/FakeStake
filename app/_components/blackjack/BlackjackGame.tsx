@@ -16,6 +16,41 @@ function BlackjackGame() {
     playerStand,
   } = useBlackjackStore();
 
+  const renderEmptyState = () => {
+    if (gameStatus === "betting") {
+      return (
+        <div className="flex items-center justify-center h-full min-h-[400px]">
+          <div className="text-center">
+            <div className="mb-6">
+              <div className="w-32 h-48 bg-[#1e2a36] border-2 border-[#2c3a47] rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <span className="text-6xl text-gray-500">♠</span>
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">
+              Ready to Play?
+            </h3>
+            <p className="text-gray-400">
+              Place your bet to start a new game of Blackjack
+            </p>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  if (gameStatus === "betting") {
+    return (
+      <div className="bg-gray-800 rounded-lg p-6 h-full">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold text-white">Blackjack</h2>
+          <p className="text-gray-300 mt-2">{message}</p>
+        </div>
+        {renderEmptyState()}
+      </div>
+    );
+  }
+
   return (
     <div className="bg-gray-800 rounded-lg p-6 h-full">
       <div className="text-center mb-6">
@@ -27,31 +62,47 @@ function BlackjackGame() {
       <div className="mb-8">
         <h3 className="text-lg font-semibold text-white mb-4">Dealer</h3>
         <div className="flex flex-wrap gap-2">
-          {dealerHand.map((card, index) =>
-            gameStatus === "player-turn" && index === 1 ? (
-              <div
-                key={index}
-                className="w-24 h-36 bg-[#1e2a36] border-2 border-[#2c3a47] rounded-lg flex items-center justify-center"
-              >
-                <span className="text-4xl text-white">?</span>
-              </div>
-            ) : (
-              <PlayingCard key={index} card={card} />
+          {dealerHand.length > 0 ? (
+            dealerHand.map((card, index) =>
+              gameStatus === "player-turn" && index === 1 ? (
+                <div
+                  key={index}
+                  className="w-24 h-36 bg-[#1e2a36] border-2 border-[#2c3a47] rounded-lg flex items-center justify-center"
+                >
+                  <span className="text-4xl text-white">?</span>
+                </div>
+              ) : (
+                <PlayingCard key={index} card={card} />
+              )
             )
+          ) : (
+            <div className="flex items-center text-gray-400">
+              <span>No cards dealt</span>
+            </div>
           )}
         </div>
-        <p className="text-white mt-2">Score: {dealerScore}</p>
+        {dealerHand.length > 0 && (
+          <p className="text-white mt-2">Score: {dealerScore}</p>
+        )}
       </div>
 
       {/* Player's hand */}
       <div className="mb-8">
         <h3 className="text-lg font-semibold text-white mb-4">Player</h3>
         <div className="flex flex-wrap gap-2">
-          {playerHand.map((card, index) => (
-            <PlayingCard key={index} card={card} />
-          ))}
+          {playerHand.length > 0 ? (
+            playerHand.map((card, index) => (
+              <PlayingCard key={index} card={card} />
+            ))
+          ) : (
+            <div className="flex items-center text-gray-400">
+              <span>No cards dealt</span>
+            </div>
+          )}
         </div>
-        <p className="text-white mt-2">Score: {playerScore}</p>
+        {playerHand.length > 0 && (
+          <p className="text-white mt-2">Score: {playerScore}</p>
+        )}
       </div>
 
       {/* Game controls */}
