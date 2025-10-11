@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Figtree, Instrument_Serif, Inter } from "next/font/google";
+import { Figtree, Instrument_Serif, Inter, Caveat } from "next/font/google";
 import "./globals.css";
 import Navbar from "./_components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
@@ -26,6 +26,13 @@ const instrumentSerif = Instrument_Serif({
   weight: ["400"],
   style: ["normal", "italic"],
   variable: "--font-instrument-serif",
+  display: "swap",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-caveat",
   display: "swap",
 });
 
@@ -118,6 +125,7 @@ export default function RootLayout({
             --font-inter: ${inter.variable};
             --font-instrument-serif: ${instrumentSerif.variable};
             --font-figtree: ${figtree.variable};
+            --font-caveat: ${caveat.variable};
           }
           html {
             font-family: ${inter.style.fontFamily};
@@ -125,7 +133,7 @@ export default function RootLayout({
         `}</style>
       </head>
       <body
-        className={`${inter.className} ${inter.variable} ${instrumentSerif.variable}`}
+        className={`${inter.className} ${inter.variable} ${instrumentSerif.variable} ${caveat.variable}`}
       >
         <Navbar />
         {children}

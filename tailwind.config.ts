@@ -10,6 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        caveat: ["var(--font-caveat)", "Caveat", "serif"],
         inter: ["var(--font-inter)", "Inter", "sans-serif"],
         figtree: ["var(--font-figtree)", "Figtree", "sans-serif"],
         "instrument-serif": [
