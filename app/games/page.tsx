@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { Gem, Rocket, Star, Zap, Clock, Play } from "lucide-react";
+import { Rocket } from "lucide-react";
 import Link from "next/link";
 import { url } from "@/app/_lib/assets";
-import { MeshGradient } from "@paper-design/shaders-react";
 
 const games = [
   {

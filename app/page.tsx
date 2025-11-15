@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { ArrowRight, Gamepad2, Gem, Heart, Rocket } from "lucide-react";
+import { ArrowRight, Heart } from "lucide-react";
 import Link from "next/link";
 import { MeshGradient } from "@paper-design/shaders-react";
 
