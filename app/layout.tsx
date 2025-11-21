@@ -38,28 +38,39 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   title: {
-    default: "Fake Stake - Play Real Games with Fake Money",
-    template: "%s | Fake Stake",
+    default:
+      "Fake Stake - Play Casino Games Free | Practice Mines, Plinko, Dice, Roulette & More",
+    template: "%s | Fake Stake - Free Casino Games",
   },
   description:
-    "Experience the thrill of casino games like Mines, Plinko, Dice, and Limbo without risking real money. Practice and perfect your strategies in a risk-free environment with virtual currency.",
+    "Play free casino games online! Experience Mines, Plinko, Dice, Limbo, Roulette, Blackjack & Flip games with virtual currency. No real money required - perfect for practice and entertainment. 100% risk-free gaming experience.",
   keywords: [
     "fake stake",
+    "free casino games",
+    "online casino games free",
     "practice casino games",
-    "free gambling games",
-    "mine game",
-    "plinko game",
-    "dice game",
+    "mines game online",
+    "plinko game free",
+    "dice game casino",
     "limbo game",
-    "risk-free gaming",
+    "roulette game free",
+    "blackjack free",
+    "flip game casino",
     "virtual currency casino",
-    "casino simulation",
+    "casino simulator",
     "gambling practice",
     "stake clone",
+    "no deposit casino games",
+    "demo casino games",
+    "risk-free gaming",
+    "play casino no money",
+    "free betting games",
   ],
   authors: [{ name: "Fake Stake Team" }],
   creator: "Fake Stake",
   publisher: "Fake Stake",
+  applicationName: "Fake Stake",
+  referrer: "origin-when-cross-origin",
   formatDetection: {
     email: false,
     address: false,
@@ -67,32 +78,39 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://fakestake.fun"),
   alternates: {
-    canonical: "/",
+    canonical: "https://fakestake.fun",
   },
+  verification: {
+    google: "your-google-verification-code",
+  },
+  category: "games",
   openGraph: {
-    title: "Fake Stake - Risk-Free Casino Gaming Experience",
+    title:
+      "Fake Stake - Play Free Casino Games Online | Mines, Plinko, Roulette & More",
     description:
-      "Play casino games with virtual currency. Perfect for learning and entertainment without financial risk. Features Mines, Plinko, Dice, and Limbo games.",
+      "Play casino games with virtual currency - 100% free! Features Mines, Plinko, Dice, Limbo, Roulette, Blackjack & Flip. Perfect for practice and entertainment without financial risk.",
     type: "website",
     locale: "en_US",
     url: "https://fakestake.fun",
     siteName: "Fake Stake",
     images: [
       {
-        url: "/opengraph.png",
+        url: "https://fakestake.fun/opengraph.png",
         width: 1200,
         height: 630,
-        alt: "Fake Stake - Risk-Free Casino Gaming Experience",
+        alt: "Fake Stake - Free Online Casino Games - Play Mines, Plinko, Roulette, Blackjack, Dice & More",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fake Stake - Virtual Casino Gaming",
+    title: "Fake Stake - Free Casino Games | Play Online Now",
     description:
-      "Experience risk-free casino gaming with virtual currency. Play Mines, Plinko, Dice & Limbo!",
-    images: ["/opengraph.png"],
+      "🎰 Play free casino games: Mines, Plinko, Dice, Limbo, Roulette, Blackjack & Flip! 100% risk-free with virtual currency. No real money needed!",
+    images: ["https://fakestake.fun/opengraph.png"],
     creator: "@fakestake",
+    site: "@fakestake",
   },
   robots: {
     index: true,
@@ -119,7 +137,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <body
+        className={`${inter.className} ${inter.variable} ${instrumentSerif.variable} ${caveat.variable}`}
+      >
         <style>{`
           :root {
             --font-inter: ${inter.variable};
@@ -131,10 +151,6 @@ export default function RootLayout({
             font-family: ${inter.style.fontFamily};
           }
         `}</style>
-      </head>
-      <body
-        className={`${inter.className} ${inter.variable} ${instrumentSerif.variable} ${caveat.variable}`}
-      >
         <Navbar />
         {children}
         <Analytics />
