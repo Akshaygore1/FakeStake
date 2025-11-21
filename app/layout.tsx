@@ -92,7 +92,7 @@ export const metadata: Metadata = {
     siteName: "Fake Stake",
     images: [
       {
-        url: "https://fakestake.fun/opengraph.png",
+        url: "/opengraph.png",
         width: 1200,
         height: 630,
         alt: "Fake Stake - Free Online Casino Games - Play Mines, Plinko, Roulette, Blackjack, Dice & More",
@@ -105,7 +105,7 @@ export const metadata: Metadata = {
     title: "Fake Stake - Free Casino Games | Play Online Now",
     description:
       "🎰 Play free casino games: Mines, Plinko, Dice, Limbo, Roulette, Blackjack & Flip! 100% risk-free with virtual currency. No real money needed!",
-    images: ["https://fakestake.fun/opengraph.png"],
+    images: ["/opengraph.png"],
     creator: "@fakestake",
     site: "@fakestake",
   },

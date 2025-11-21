@@ -10,8 +10,7 @@ export default function Footer() {
           {/* Community Section */}
           <div className="">
             <p className="text-white/70 text-sm mb-6">
-              You can contact us for any questions or feedback. also I sell
-              games also
+              Have questions, feedback, or interested in the games we offer?
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <a
@@ -19,7 +18,7 @@ export default function Footer() {
                 className="p-3 text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 border border-white/10 flex items-center gap-2"
               >
                 <Mail className="w-6 h-6" />
-                <span>Contact Us</span>
+                <span>Get in touch!</span>
               </a>
               <a
                 href="https://www.buymeacoffee.com/akshaygore"
