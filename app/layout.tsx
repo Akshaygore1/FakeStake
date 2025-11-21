@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://fakestake.vercel.app"),
+  metadataBase: new URL("https://fakestake.fun"),
   alternates: {
     canonical: "/",
   },
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
       "Play casino games with virtual currency. Perfect for learning and entertainment without financial risk. Features Mines, Plinko, Dice, and Limbo games.",
     type: "website",
     locale: "en_US",
-    url: "https://fakestake.vercel.app",
+    url: "https://fakestake.fun",
     siteName: "Fake Stake",
     images: [
       {
