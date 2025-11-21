@@ -40,6 +40,11 @@ const games = [
     link: "/flip",
     img: `${url}/flip.jpg`,
   },
+  {
+    name:"DRAGON TOWER",
+    link: "/dragon-tower",
+    img: `${url}/dragon-tower.jpg`,
+  },
 ];
 
 export default function GamesPage() {
