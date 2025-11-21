@@ -80,9 +80,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://fakestake.fun",
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
   category: "games",
   openGraph: {
     title:
