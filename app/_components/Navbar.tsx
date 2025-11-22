@@ -65,32 +65,9 @@ export default function Navbar() {
             </div>
             <div className="flex items-center gap-1" title="Current Balance">
               <CircleDollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-success" />
-              {isEditing ? (
-                <input
-                  type="number"
-                  value={editValue}
-                  onChange={(e) => setEditValue(e.target.value)}
-                  onBlur={handleSaveBalance}
-                  className="bg-transparent border border-white/20 rounded px-1 py-0.5 text-sm sm:text-base font-medium w-20 text-center focus:outline-none focus:border-success"
-                />
-              ) : (
-                <span className="text-sm sm:text-base font-medium">
-                  {balance?.toFixed(2) || "0.00"}
-                </span>
-              )}
-              <div className="cursor-pointer p-2 border border-white/20 rounded-lg hover:bg-white/5 transition-colors">
-                {isEditing ? (
-                  <Check
-                    className="w-3 h-3 sm:w-4 sm:h-4 text-success"
-                    onClick={handleSaveBalance}
-                  />
-                ) : (
-                  <PenLine
-                    className="w-3 h-3 sm:w-4 sm:h-4 text-success"
-                    onClick={handleEditClick}
-                  />
-                )}
-              </div>
+              <span className="text-sm sm:text-base font-medium">
+                {balance?.toFixed(2) || "0.00"}
+              </span>
             </div>
           </div>
         </div>
