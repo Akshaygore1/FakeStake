@@ -68,8 +68,8 @@ const games = [
     description: "Flip the coin and test your luck",
   },
   {
-    name:"DRAGON TOWER",
-    link: "/dragon-tower",
+    name: "DRAGON TOWER",
+    link: "/dragontower",
     img: `${url}/dragon-tower.jpg`,
   },
 ];

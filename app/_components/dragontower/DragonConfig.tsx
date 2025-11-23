@@ -6,13 +6,22 @@ import GameConfig from "../GameConfig";
 import { Button } from "@/components/ui/button";
 import { useDragonStore } from "@/app/_store/dragonStore";
 
+type Difficulty = "easy" | "medium" | "hard";
+
+const difficultyOptions: { value: Difficulty; label: string }[] = [
+  { value: "easy", label: "Easy" },
+  { value: "medium", label: "Medium" },
+  { value: "hard", label: "Hard" },
+];
+
 export default function DragonConfig() {
   const { balance } = useCommonStore();
-  const {
-    betAmount,
-    setBetAmount,
-  } = useDragonStore();
+  const { betAmount, setBetAmount, difficulty, setDifficulty } =
+    useDragonStore();
 
+  const handleDifficultySelect = (newDifficulty: Difficulty) => {
+    setDifficulty(newDifficulty);
+  };
 
   const [error, setError] = React.useState<string>("");
 
@@ -29,7 +38,8 @@ export default function DragonConfig() {
     id: "bet",
     label: "Bet",
     onClick: () => handleBetClick(betAmount),
-    disabled: !betAmount || betAmount <= 0 || betAmount > balance || error !== "",
+    disabled:
+      !betAmount || betAmount <= 0 || betAmount > balance || error !== "",
   };
 
   const handleBetClick = (amount: number) => {
@@ -41,14 +51,24 @@ export default function DragonConfig() {
   const additionalContent = (
     <div className="flex flex-col gap-3">
       <label className="text-sm font-medium text-gray-300">Difficulty</label>
-      <div className="grid grid-cols-2 gap-3">
-    
+      <div className="grid grid-cols-3 gap-3">
+        {difficultyOptions.map((option) => (
+          <Button
+            key={option.value}
+            variant={difficulty === option.value ? "secondary" : "outline"}
+            size="sm"
+            className="text-xs font-semibold uppercase"
+            onClick={() => handleDifficultySelect(option.value)}
+          >
+            {option.label}
+          </Button>
+        ))}
       </div>
     </div>
-  );  
+  );
 
   return (
-    <GameConfig 
+    <GameConfig
       betAmount={betAmount}
       onBetAmountChange={handleBetAmountChange}
       showBetInput={true}
@@ -58,4 +78,3 @@ export default function DragonConfig() {
     />
   );
 }
-
