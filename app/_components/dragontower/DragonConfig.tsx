@@ -15,12 +15,25 @@ const difficultyOptions: { value: Difficulty; label: string }[] = [
 ];
 
 export default function DragonConfig() {
-  const { balance } = useCommonStore();
-  const { betAmount, setBetAmount, difficulty, setDifficulty } =
-    useDragonStore();
+  const { balance, setBalance } = useCommonStore();
+  const {
+    betAmount,
+    setBetAmount,
+    difficulty,
+    setDifficulty,
+    isPlaying,
+    initGame,
+    resetGame,
+    multiplier,
+    completedRows,
+    cashout,
+    setIsPlaying,
+  } = useDragonStore();
 
   const handleDifficultySelect = (newDifficulty: Difficulty) => {
-    setDifficulty(newDifficulty);
+    if (!isPlaying) {
+      setDifficulty(newDifficulty);
+    }
   };
 
   const [error, setError] = React.useState<string>("");
@@ -34,19 +47,36 @@ export default function DragonConfig() {
     }
   };
 
-  const primaryButton = {
-    id: "bet",
-    label: "Bet",
-    onClick: () => handleBetClick(betAmount),
-    disabled:
-      !betAmount || betAmount <= 0 || betAmount > balance || error !== "",
-  };
-
   const handleBetClick = (amount: number) => {
     if (amount > 0 && amount <= balance) {
-      // TODO: Implement dragon tower logic
+      setBalance(balance - amount);
+      initGame();
+      setIsPlaying(true);
     }
   };
+
+  const handleCashout = () => {
+    cashout();
+  };
+
+  const potentialWin = Math.round(betAmount * multiplier * 100) / 100;
+
+  const primaryButton = isPlaying
+    ? {
+        id: "cashout",
+        label: `Cash Out (${multiplier.toFixed(2)}x) - $${potentialWin.toFixed(
+          2
+        )}`,
+        onClick: handleCashout,
+        disabled: completedRows === 0,
+      }
+    : {
+        id: "bet",
+        label: "Bet",
+        onClick: () => handleBetClick(betAmount),
+        disabled:
+          !betAmount || betAmount <= 0 || betAmount > balance || error !== "",
+      };
 
   const additionalContent = (
     <div className="flex flex-col gap-3">
@@ -59,6 +89,7 @@ export default function DragonConfig() {
             size="sm"
             className="text-xs font-semibold uppercase"
             onClick={() => handleDifficultySelect(option.value)}
+            disabled={isPlaying}
           >
             {option.label}
           </Button>
