@@ -67,6 +67,11 @@ const games = [
     img: `${url}/flip.jpg`,
     description: "Flip the coin and test your luck",
   },
+  {
+    name: "DRAGON TOWER",
+    link: "/dragontower",
+    img: `${url}/dragon.webp`,
+  },
 ];
 
 export default function GamesPage() {
