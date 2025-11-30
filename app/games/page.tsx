@@ -70,7 +70,7 @@ const games = [
   {
     name: "DRAGON TOWER",
     link: "/dragontower",
-    img: `${url}/dragon-tower.jpg`,
+    img: `${url}/dragon.webp`,
   },
 ];
 

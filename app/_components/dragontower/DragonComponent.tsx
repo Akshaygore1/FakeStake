@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useDragonStore } from "@/app/_store/dragonStore";
@@ -27,11 +28,23 @@ export default function DragonComponent() {
     const isCurrentRow = rowIndex === currentRow;
 
     if (isRevealed) {
-      return isSkull ? "💀" : "🥚";
+      return isSkull ? (
+        <img
+          src="/assets/skull.svg"
+          alt="skull"
+          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 animate-bounce"
+        />
+      ) : (
+        <img
+          src="/assets/egg.svg"
+          alt="egg"
+          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"
+        />
+      );
     }
 
     if (isPlaying && isCurrentRow) {
-      return "?";
+      return "";
     }
 
     return "";
@@ -41,29 +54,31 @@ export default function DragonComponent() {
     const isRevealed = revealedCells[rowIndex]?.[colIndex];
     const isSkull = skullPositions[rowIndex] === colIndex;
     const isCurrentRow = rowIndex === currentRow;
-    const isAboveCurrentRow = rowIndex < currentRow;
 
     if (isRevealed) {
       return isSkull
-        ? "bg-red-900 cursor-default"
-        : "bg-green-600 cursor-default";
+        ? "bg-red-700 cursor-default"
+        : "border-2 border-[#56687A] cursor-default";
     }
 
     if (isPlaying && isCurrentRow) {
-      return "bg-amber-600 hover:bg-amber-500 cursor-pointer";
+      return "bg-green-600 hover:bg-amber-500 cursor-pointer";
     }
 
-    if (isAboveCurrentRow) {
-      return "bg-gray-700 cursor-not-allowed";
-    }
-
-    return "bg-gray-600 cursor-not-allowed";
+    return "bg-[#213743] cursor-not-allowed";
   };
 
   return (
     <div className="flex justify-center h-full items-center px-2 sm:px-4">
-      <div className="flex justify-center items-center w-full">
-        <div className="flex flex-col w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] gap-1 sm:gap-2 p-2 sm:p-4 border border-amber-500 rounded-lg bg-gray-900">
+      <div className="flex justify-center flex-col items-center w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px]">
+        <div className="relative flex justify-center items-center w-full">
+          <img src="/assets/top.svg" className="w-full" />
+          <img
+            src="/assets/dragon.svg"
+            className="absolute top-1/2 -translate-y-1/2 w-16"
+          />
+        </div>
+        <div className="flex flex-col w-full gap-1 sm:gap-2 p-2 sm:p-4 rounded-b-lg border-8 border-[#56687A]">
           {Array.from({ length: rows }).map((_, rowIndex) => (
             <div key={rowIndex} className="flex gap-1 sm:gap-2 justify-center">
               {Array.from({ length: cols }).map((_, colIndex) => (
