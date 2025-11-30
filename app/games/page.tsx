@@ -104,7 +104,16 @@ export default function GamesPage() {
       <main className="min-h-screen relative">
         <div className="relative z-10 container mx-auto px-4 py-16">
           {/* Header Section */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 relative">
+            <span className="absolute -top-2 right-0 md:right-20 lg:right-40 bg-red-500 text-white text-sm font-bold px-3 py-2 rounded-full rotate-12 shadow-lg z-10">
+              Sorry for ads 🙏
+            </span>
+            <span className="absolute top-16 left-0 md:left-20 lg:left-40 bg-red-500 text-white text-sm font-bold px-3 py-2 rounded-full -rotate-12 shadow-lg z-10">
+              Sorry for ads 🙏
+            </span>
+            <span className="absolute top-32 right-4 md:right-32 lg:right-52 bg-red-500 text-white text-sm font-bold px-3 py-2 rounded-full rotate-6 shadow-lg z-10">
+              Sorry for ads 🙏
+            </span>
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-success/10 border border-success/20 mb-6">
               <span className="text-success text-sm font-medium">
                 New Games are coming soon
