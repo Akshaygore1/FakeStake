@@ -26,34 +26,5 @@ export default function Banner({
     }
   }, []);
 
-  return (
-    <div
-      style={{
-        height,
-
-        width,
-
-        marginLeft: "0.5rem",
-
-        marginRight: "0.5rem",
-
-        marginTop: "1.25rem",
-
-        marginBottom: "1.25rem",
-
-        color: "#ffffff",
-
-        textAlign: "center",
-
-        justifyContent: "center",
-
-        alignItems: "center",
-
-        borderWidth: "1px",
-
-        borderColor: "#E5E7EB",
-      }}
-      ref={banner}
-    ></div>
-  );
+  return <div ref={banner}></div>;
 }
