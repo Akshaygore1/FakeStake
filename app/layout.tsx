@@ -5,6 +5,7 @@ import Navbar from "./_components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "./_components/Footer";
 import FloatingFeedback from "./_components/FloatingFeedback";
+import Script from "next/script";
 
 const figtree = Figtree({
   subsets: ["latin"],
@@ -137,6 +138,10 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${inter.variable} ${instrumentSerif.variable} ${caveat.variable}`}
       >
+        <Script
+          type="text/javascript"
+          src="//pl28161075.effectivegatecpm.com/f6/3c/a2/f63ca2e0de4ec90d0880c12b7daee363.js"
+        ></Script>
         <style>{`
           :root {
             --font-inter: ${inter.variable};

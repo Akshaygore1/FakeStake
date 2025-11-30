@@ -4,6 +4,7 @@ import { Rocket } from "lucide-react";
 import Link from "next/link";
 import { url } from "@/app/_lib/assets";
 import type { Metadata } from "next";
+import Banner from "../_components/AdBanner";
 
 export const metadata: Metadata = {
   title: "All Casino Games - Free Play | Mines, Plinko, Roulette, Dice & More",
@@ -145,7 +146,9 @@ export default function GamesPage() {
               </Link>
             ))}
           </div>
-
+          <div className="flex justify-center p-4">
+            <Banner width={800} height={200} />
+          </div>
           <div className="text-center mt-16">
             <div className="inline-flex items-center px-6 py-3 rounded-full bg-black border border-gray-600 font-instrument-serif">
               <Rocket className="w-5 h-5 text-gray-400 mr-2" />

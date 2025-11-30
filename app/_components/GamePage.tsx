@@ -1,4 +1,5 @@
 import React from "react";
+import Banner from "./AdBanner";
 
 interface GamePageProps {
   children: React.ReactNode;
@@ -12,6 +13,9 @@ export default function GamePage({ children, className = "" }: GamePageProps) {
         <div className="flex justify-center items-center w-full p-4">
           {children}
         </div>
+      </div>
+      <div className="flex justify-center p-4">
+        <Banner width={800} height={200} />
       </div>
     </main>
   );
