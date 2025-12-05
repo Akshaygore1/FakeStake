@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useDragonStore } from "@/app/_store/dragonStore";
+import { useDragonStore } from "@/store/dragonStore";
 
 export default function DragonComponent() {
   const {
@@ -72,10 +72,11 @@ export default function DragonComponent() {
     <div className="flex justify-center h-full items-center px-2 sm:px-4">
       <div className="flex justify-center flex-col items-center w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px]">
         <div className="relative flex justify-center items-center w-full">
-          <img src="/assets/top.svg" className="w-full" />
+          <img src="/assets/top.svg" className="w-full" alt="top" />
           <img
             src="/assets/dragon.svg"
             className="absolute top-1/2 -translate-y-1/2 w-16"
+            alt="dragon"
           />
         </div>
         <div className="flex flex-col w-full gap-1 sm:gap-2 p-2 sm:p-4 rounded-b-lg border-8 border-[#56687A]">

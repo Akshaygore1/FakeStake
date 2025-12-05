@@ -1,23 +1,7 @@
-// import { binPayouts } from '$lib/constants/game';
-// import {
-//     rowCount,
-//     winRecords,
-//     riskLevel,
-//     betAmount,
-//     balance,
-//     betAmountOfExistingBalls,
-//     totalProfitHistory,
-// } from '$lib/stores/game';
-// import type { RiskLevel, RowCount } from '$lib/types';
-// import { getRandomBetween } from '$lib/utils/numbers';
-// import Matter, { type IBodyDefinition } from 'matter-js';
-// import { get } from 'svelte/store';
-// import { v4 as uuidv4 } from 'uuid';
-
 import Matter, { IBodyDefinition } from "matter-js";
 import { binPayouts, getRandomBetween, RiskLevel, RowCount } from "./utils";
-import { usePlinkoStore } from "../../_store/plinkoStore";
-import { useCommonStore } from "@/app/_store/commonStore";
+import { usePlinkoStore } from "@/store/plinkoStore";
+import { useCommonStore } from "@/store/commonStore";
 
 type BallFrictionsByRowCount = {
   friction: NonNullable<IBodyDefinition["friction"]>;

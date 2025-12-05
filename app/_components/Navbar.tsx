@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useCommonStore } from "@/app/_store/commonStore";
+import { useCommonStore } from "@/store/commonStore";
 import { Check, CircleDollarSign, PenLine, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { url } from "@/app/_lib/assets";
+import { url } from "@/lib/utils";
 
 export default function Navbar() {
   const { balance, clearCommonState, setBalance } = useCommonStore();

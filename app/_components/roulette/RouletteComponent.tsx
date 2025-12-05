@@ -2,11 +2,8 @@
 import React from "react";
 import RouletteTable from "./RouletteTable";
 import RouletteWheel from "./RouletteWheel";
-import {
-  useRouletteStore,
-  getPayoutMultiplier,
-} from "@/app/_store/rouletteStore";
-import { useCommonStore } from "@/app/_store/commonStore";
+import { useRouletteStore, getPayoutMultiplier } from "@/store/rouletteStore";
+import { useCommonStore } from "@/store/commonStore";
 
 // Define which numbers are red in European roulette
 const redNumbers = [

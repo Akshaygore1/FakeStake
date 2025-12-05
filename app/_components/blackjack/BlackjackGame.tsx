@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useBlackjackStore } from "@/app/_store/blackjackStore";
+import { useBlackjackStore } from "@/store/blackjackStore";
 import { PlayingCard } from "@/app/_components/PlayingCard";
 
 function BlackjackGame() {

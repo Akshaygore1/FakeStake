@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useLimboStore } from "@/app/_store/limboStore";
+import { useLimboStore } from "@/store/limboStore";
 
 function LimboComponent() {
   const { isRolling, setIsRolling, displayMultiplier, recentWins } =

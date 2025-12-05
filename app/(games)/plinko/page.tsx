@@ -2,7 +2,7 @@
 import BinsRow from "@/app/_components/plinko/BinsRow";
 import PlinkoConfig from "@/app/_components/plinko/PlinkoConfig";
 import PlinkoEngine from "@/app/_components/plinko/plinkoEngine";
-import { usePlinkoStore } from "@/app/_store/plinkoStore";
+import { usePlinkoStore } from "@/store/plinkoStore";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";

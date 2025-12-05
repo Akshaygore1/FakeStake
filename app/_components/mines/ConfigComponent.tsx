@@ -1,11 +1,11 @@
 "use client";
 import { type ChangeEvent, useEffect, useState } from "react";
-import { useConfigStore } from "@/app/_store/configStore";
-import { getMultiplier } from "@/app/_lib/utils";
-import { useGridStore } from "@/app/_store/gridStore";
-import { useCommonStore } from "@/app/_store/commonStore";
+import { useConfigStore } from "@/store/configStore";
+import { getMultiplier } from "@/lib/utils";
+import { useGridStore } from "@/store/gridStore";
+import { useCommonStore } from "@/store/commonStore";
 import Modal from "../ui/Modal";
-import { addGameResult } from "@/app/_constants/data";
+import { addGameResult } from "@/lib/utils";
 import GameConfig, { ConfigField } from "../GameConfig";
 
 export default function ConfigComponent() {
