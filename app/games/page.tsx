@@ -146,7 +146,7 @@ export default function GamesPage() {
             ))}
           </div>
           <div className="text-center mt-16">
-            <div className="inline-flex items-center px-6 py-3 rounded-full bg-black border border-gray-600 font-instrument-serif">
+            <div className="inline-flex items-center px-6 py-3  font-instrument-serif text-xl">
               <Rocket className="w-5 h-5 text-gray-400 mr-2" />
               <span className="text-success font-medium">
                 More games coming soon...
