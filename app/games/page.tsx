@@ -72,6 +72,11 @@ const games = [
     link: "/dragontower",
     img: `${url}/dragon.webp`,
   },
+  {
+    name: "SNAKE",
+    link: "/snake",
+    img: `${url}/snake.webp`,
+  },
 ];
 
 export default function GamesPage() {
