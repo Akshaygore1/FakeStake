@@ -2,7 +2,7 @@
 import React from "react";
 import ConfigForDice from "./ConfigForDice";
 import DiceComponent from "./DiceComponent";
-import { useCommonStore } from "@/app/_store/commonStore";
+import { useCommonStore } from "@/store/commonStore";
 import GameContainer from "../GameContainer";
 
 function DiceGameContainer() {

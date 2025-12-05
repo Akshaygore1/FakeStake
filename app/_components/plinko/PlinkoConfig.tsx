@@ -1,6 +1,6 @@
 "use client";
-import { useCommonStore } from "@/app/_store/commonStore";
-import { usePlinkoStore } from "@/app/_store/plinkoStore";
+import { useCommonStore } from "@/store/commonStore";
+import { usePlinkoStore } from "@/store/plinkoStore";
 import {
   Select,
   SelectContent,

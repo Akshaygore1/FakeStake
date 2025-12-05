@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { useCommonStore } from "@/app/_store/commonStore";
+import { useCommonStore } from "@/store/commonStore";
 import GameConfig from "../GameConfig";
 import { Button } from "@/components/ui/button";
-import { useDragonStore } from "@/app/_store/dragonStore";
+import { useDragonStore } from "@/store/dragonStore";
 
 type Difficulty = "easy" | "medium" | "hard";
 

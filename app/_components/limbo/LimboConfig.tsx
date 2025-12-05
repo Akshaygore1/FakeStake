@@ -1,7 +1,7 @@
 "use client";
-import { useCommonStore } from "@/app/_store/commonStore";
+import { useCommonStore } from "@/store/commonStore";
 import React from "react";
-import { useLimboStore } from "@/app/_store/limboStore";
+import { useLimboStore } from "@/store/limboStore";
 import GameConfig, { ConfigField } from "../GameConfig";
 
 function LimboConfig({ onBet }: { onBet: (amount: number) => void }) {

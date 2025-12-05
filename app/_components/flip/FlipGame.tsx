@@ -1,6 +1,6 @@
 "use client";
 
-import { useFlipStore } from "@/app/_store/flipStore";
+import { useFlipStore } from "@/store/flipStore";
 import { useEffect, useRef, useState } from "react";
 
 export default function FlipGame() {

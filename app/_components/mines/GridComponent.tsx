@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useConfigStore } from "@/app/_store/configStore";
-import { useGridStore } from "@/app/_store/gridStore";
+import { useConfigStore } from "@/store/configStore";
+import { useGridStore } from "@/store/gridStore";
 import { useEffect, useState } from "react";
 import { Gem } from "lucide-react";
-import { useCommonStore } from "@/app/_store/commonStore";
-import { addGameResult } from "@/app/_constants/data";
+import { useCommonStore } from "@/store/commonStore";
+import { addGameResult } from "@/lib/utils";
 import Modal from "../ui/Modal";
-import { url } from "@/app/_lib/assets";
+import { url } from "@/lib/utils";
 
 export default function GridComponent() {
   const {

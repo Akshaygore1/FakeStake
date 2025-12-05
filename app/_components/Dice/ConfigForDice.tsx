@@ -1,4 +1,4 @@
-import { useCommonStore } from "@/app/_store/commonStore";
+import { useCommonStore } from "@/store/commonStore";
 import React from "react";
 import GameConfig from "../GameConfig";
 

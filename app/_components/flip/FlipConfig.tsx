@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { useCommonStore } from "@/app/_store/commonStore";
-import { useFlipStore } from "@/app/_store/flipStore";
+import { useCommonStore } from "@/store/commonStore";
+import { useFlipStore } from "@/store/flipStore";
 import GameConfig from "../GameConfig";
 import { Button } from "@/components/ui/button";
 

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useCallback, useRef } from "react";
-import { useRouletteStore } from "@/app/_store/rouletteStore";
+import { useRouletteStore } from "@/store/rouletteStore";
 import "./Roulette.css";
 
 // European roulette wheel order - matches the actual wheel image layout

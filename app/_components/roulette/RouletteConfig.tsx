@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { useCommonStore } from "@/app/_store/commonStore";
-import { useRouletteStore } from "@/app/_store/rouletteStore";
+import { useCommonStore } from "@/store/commonStore";
+import { useRouletteStore } from "@/store/rouletteStore";
 import GameConfig from "../GameConfig";
 
 function RouletteConfig() {

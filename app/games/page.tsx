@@ -2,8 +2,8 @@
 
 import { Rocket } from "lucide-react";
 import Link from "next/link";
-import { url } from "@/app/_lib/assets";
 import type { Metadata } from "next";
+import { url } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "All Casino Games - Free Play | Mines, Plinko, Roulette, Dice & More",

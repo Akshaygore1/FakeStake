@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useCommonStore } from "@/app/_store/commonStore";
-import { useBlackjackStore } from "@/app/_store/blackjackStore";
+import { useCommonStore } from "@/store/commonStore";
+import { useBlackjackStore } from "@/store/blackjackStore";
 import GameConfig from "../GameConfig";
 
 function BlackjackConfig() {

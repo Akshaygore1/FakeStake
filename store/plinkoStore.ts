@@ -1,5 +1,5 @@
+import { RiskLevel, RowCount } from "@/app/_components/plinko/utils";
 import { create } from "zustand";
-import { RiskLevel, RowCount } from "../_components/plinko/utils";
 
 export interface PlinkoState {
   betAmount: number;

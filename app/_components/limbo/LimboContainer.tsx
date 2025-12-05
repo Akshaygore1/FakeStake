@@ -3,8 +3,8 @@ import { useState } from "react";
 import LimboComponent from "./LimboComponent";
 import { generateWeightedRandom } from "@/lib/utils";
 import LimboConfig from "./LimboConfig";
-import { useLimboStore } from "@/app/_store/limboStore";
-import { useCommonStore } from "@/app/_store/commonStore";
+import { useLimboStore } from "@/store/limboStore";
+import { useCommonStore } from "@/store/commonStore";
 import GameContainer from "../GameContainer";
 
 function LimboContainer() {

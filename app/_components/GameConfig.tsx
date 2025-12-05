@@ -2,7 +2,7 @@
 
 import { Coins } from "lucide-react";
 import React from "react";
-import { useCommonStore } from "@/app/_store/commonStore";
+import { useCommonStore } from "@/store/commonStore";
 
 export interface ConfigField {
   id: string;

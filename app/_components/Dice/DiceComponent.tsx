@@ -1,6 +1,6 @@
 "use client";
 import { Slider } from "@/components/ui/slider";
-import { url } from "@/app/_lib/assets";
+import { url } from "@/lib/utils";
 
 const calculateDiceMultiplier = (value: number): number => {
   const maxValue = 100;
