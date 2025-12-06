@@ -1,121 +1,151 @@
 "use client";
 import { useSnakeStore } from "@/store/snakeStore";
+import { Play, Trophy } from "lucide-react";
+import { useState } from "react";
 
-function SnakeComponent() {
-  const { isPlaying, score, gameOver, highScore, difficulty } = useSnakeStore();
+// Grid data: position -> content
+const gridData = [
+  { type: "play" },
+  { type: "multiplier", value: "2.00x", active: true },
+  { type: "multiplier", value: "1.30x" },
+  { type: "multiplier", value: "1.20x" },
+  { type: "multiplier", value: "2.00x" },
+  { type: "dice" },
+  { type: "dice" },
+  { type: "multiplier", value: "1.10x" },
+  { type: "multiplier", value: "1.30x" },
+  { type: "dice" },
+  { type: "dice" },
+  { type: "multiplier", value: "1.01x" },
+  { type: "multiplier", value: "1.20x" },
+  { type: "multiplier", value: "1.10x" },
+  { type: "multiplier", value: "1.01x" },
+  { type: "trophy" },
+];
 
-  const getDifficultyColor = () => {
-    switch (difficulty) {
-      case "easy":
-        return "text-green-400";
-      case "medium":
-        return "text-yellow-400";
-      case "hard":
-        return "text-orange-400";
-      case "expert":
-        return "text-red-400";
-      case "master":
-        return "text-purple-400";
-      default:
-        return "text-white";
-    }
+// Dice component that shows specific number of dots
+const Dice = ({ value }: { value: number }) => {
+  const dotPositions: { [key: number]: number[] } = {
+    1: [4],
+    2: [0, 8],
+    3: [0, 4, 8],
+    4: [0, 2, 6, 8],
+    5: [0, 2, 4, 6, 8],
+    6: [0, 2, 3, 5, 6, 8],
   };
 
-  // Positions for 12 squares forming a hollow square (clockwise from top-left)
-  // Top row: 4 squares, Right side: 2 squares, Bottom row: 4 squares, Left side: 2 squares
-  const squarePositions = [
-    // Top row (left to right): positions 1-4
-    { row: 0, col: 0 },
-    { row: 0, col: 1 },
-    { row: 0, col: 2 },
-    { row: 0, col: 3 },
-    // Right side (top to bottom): positions 5-6
-    { row: 1, col: 3 },
-    { row: 2, col: 3 },
-    // Bottom row (right to left): positions 7-10
-    { row: 3, col: 3 },
-    { row: 3, col: 2 },
-    { row: 3, col: 1 },
-    { row: 3, col: 0 },
-    // Left side (bottom to top): positions 11-12
-    { row: 2, col: 0 },
-    { row: 1, col: 0 },
-  ];
+  const dots = dotPositions[value] || [];
 
   return (
-    <div className="w-full aspect-square bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl p-3 md:p-6 lg:p-8 flex items-center justify-center">
-      {/* Square frame container */}
+    <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-b from-gray-100 to-gray-300 rounded-lg shadow-lg flex items-center justify-center relative">
+      {/* Inner shadow effect */}
+      <div className="absolute inset-1 rounded-md bg-gradient-to-b from-white to-gray-200"></div>
+      <div className="relative grid grid-cols-3 gap-1 p-2">
+        {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((pos) => (
+          <div
+            key={pos}
+            className={`w-2 h-2 md:w-2.5 md:h-2.5 rounded-full ${
+              dots.includes(pos) ? "bg-gray-800" : "bg-transparent"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+function SnakeComponent() {
+  const { isPlaying } = useSnakeStore();
+  const [activeIndex, setActiveIndex] = useState(1);
+  const [currentMultiplier] = useState("2.00x");
+
+  const renderTile = (item: (typeof gridData)[0], index: number) => {
+    const row = Math.floor(index / 4);
+    const col = index % 4;
+
+    // Center area for dice display
+    const isCenter = (row === 1 || row === 2) && (col === 1 || col === 2);
+
+    if (isCenter) {
+      return null;
+    }
+
+    const isActive = index === activeIndex;
+    const isPlay = item.type === "play";
+    const isTrophy = item.type === "trophy";
+
+    return (
+      <div
+        key={index}
+        className={`
+          w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24
+          rounded-xl cursor-pointer
+          transition-all duration-300
+          flex items-center justify-center
+          ${
+            isActive
+              ? isPlay
+                ? "bg-gradient-to-b from-gray-500 to-gray-600 shadow-lg shadow-gray-500/30"
+                : isTrophy
+                ? "bg-gradient-to-b from-red-500 to-red-600 shadow-lg shadow-red-500/30"
+                : "bg-gradient-to-b from-green-400 to-green-500 shadow-lg shadow-cyan-500/30"
+              : "bg-[#3d4a5c] hover:bg-[#4a5a6e]"
+          }
+        `}
+        style={{
+          gridRow: row + 1,
+          gridColumn: col + 1,
+        }}
+        onClick={() => setActiveIndex(index)}
+      >
+        {isPlay && (
+          <Play
+            className={`w-8 h-8 md:w-10 md:h-10 ${
+              isActive ? "text-white" : "text-slate-400"
+            }`}
+            fill="currentColor"
+          />
+        )}
+        {isTrophy && (
+          <div className="w-full h-full flex items-center justify-center">
+            <img src="/assets/snake.svg" alt="trophy" />
+          </div>
+        )}
+        {item.type === "multiplier" && (
+          <span
+            className={`font-bold text-lg md:text-xl ${
+              isActive ? "text-white" : "text-slate-300"
+            }`}
+          >
+            {item.value}
+          </span>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <div className="w-full aspect-square bg-[#1a2332] rounded-2xl p-4 md:p-6 lg:p-8 flex items-center justify-center">
+      {/* Grid container */}
       <div className="relative">
-        {/* Grid for hollow square */}
-        <div className="grid grid-cols-4 gap-1 md:gap-1 lg:gap-2">
-          {Array.from({ length: 16 }).map((_, index) => {
-            const row = Math.floor(index / 4);
-            const col = index % 4;
-
-            // Check if this position is part of the hollow square frame
-            const positionIndex = squarePositions.findIndex(
-              (p) => p.row === row && p.col === col
-            );
-            const isFramePosition = positionIndex !== -1;
-
-            // Check if this is the center (hollow part)
-            const isCenter =
-              (row === 1 || row === 2) && (col === 1 || col === 2);
-
-            if (isCenter) {
-              return null; // Will render dice separately
-            }
-
-            if (!isFramePosition) {
-              return null;
-            }
-
-            return (
-              <div
-                key={index}
-                className="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-gray-600 to-gray-700 rounded-lg shadow-lg border border-gray-500/30 hover:from-gray-500 hover:to-gray-600 transition-all duration-300 cursor-pointer"
-                style={{
-                  gridRow: row + 1,
-                  gridColumn: col + 1,
-                }}
-              >
-                <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold text-lg">
-                  {positionIndex + 1}
-                </div>
-              </div>
-            );
-          })}
+        {/* 4x4 Grid */}
+        <div className="grid grid-cols-4 gap-1 md:gap-2">
+          {gridData.map((item, index) => renderTile(item, index))}
         </div>
 
-        {/* Two dice in the hollow center */}
-        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-2 md:gap-3">
-          {/* Dice 1 */}
-          <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-white to-gray-200 rounded-xl shadow-2xl border-2 border-gray-300 flex items-center justify-center">
-            <div className="grid grid-cols-3 gap-0.5 md:gap-1 p-1.5 md:p-2">
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 bg-gray-800 rounded-full"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 bg-gray-800 rounded-full"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 bg-gray-800 rounded-full"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 bg-gray-800 rounded-full"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 bg-gray-800 rounded-full"></div>
+        {/* Center dice area */}
+        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="bg-[#2d3a4d] rounded-xl p-3 md:p-4 flex flex-col items-center gap-2 border border-slate-600/30">
+            {/* Dice row */}
+            <div className="flex gap-2">
+              <Dice value={5} />
+              <Dice value={1} />
             </div>
-          </div>
-
-          {/* Dice 2 */}
-          <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-white to-gray-200 rounded-xl shadow-2xl border-2 border-gray-300 flex items-center justify-center">
-            <div className="grid grid-cols-3 gap-0.5 md:gap-1 p-1.5 md:p-2">
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 bg-gray-800 rounded-full"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 bg-gray-800 rounded-full"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5 bg-gray-800 rounded-full"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 lg:w-2.5 lg:h-2.5"></div>
+            {/* Multiplier display */}
+            <div className="bg-[#1a2332] w-full text-center rounded-lg px-6 py-2 border border-slate-600/50">
+              <span className="text-green-400 font-bold text-xl md:text-2xl">
+                {currentMultiplier}
+              </span>
             </div>
           </div>
         </div>
