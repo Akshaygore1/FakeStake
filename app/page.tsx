@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { ArrowRight, Heart } from "lucide-react";
+import { ArrowRight, Heart, Coffee } from "lucide-react";
 import Link from "next/link";
 import { MeshGradient } from "@paper-design/shaders-react";
 import type { Metadata } from "next";
@@ -95,7 +95,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="px-8 py-3 rounded-xl border border-success text-white font-semibold hover:bg-green-600 transition-colors duration-200 flex items-center gap-2"
             >
-              Support the for Fun! <Heart size={16} />
+              Buy me a Coffee! <Coffee size={16} />
             </a>
           </div>
         </section>
