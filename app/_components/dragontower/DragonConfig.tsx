@@ -106,6 +106,7 @@ export default function DragonConfig() {
       error={error}
       primaryButton={primaryButton}
       additionalContent={additionalContent}
+      betInputDisabled={isPlaying}
     />
   );
 }
