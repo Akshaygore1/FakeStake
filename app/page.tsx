@@ -93,7 +93,7 @@ export default function Home() {
               href="https://www.buymeacoffee.com/akshaygore"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 rounded-xl border border-success text-white font-semibold hover:bg-green-600 transition-colors duration-200 flex items-center gap-2"
+              className="px-8 py-3 rounded-xl border bg-amber-300 border-success text-black font-semibold hover:bg-amber-400 transition-colors duration-200 flex items-center gap-2"
             >
               Buy me a Coffee! <Coffee size={16} />
             </a>
