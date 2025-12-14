@@ -20,7 +20,7 @@
     "lucide-react": "^0.539.0",
     "matter-js": "^0.20.0",
     "motion": "^12.11.3",
-    "next": "^16.0.7",
+    "next": "16.0.10",
     "posthog-js": "^1.261.0",
     "posthog-node": "^5.8.1",
     "react": "^19.2.1",
