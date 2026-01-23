@@ -1,5 +1,5 @@
 "use client";
-import SnakeContainer from "@/app/_components/snake/SnakeContainer";
+import SnakeContainer from "./_components/SnakeContainer";
 
 export default function SnakePage() {
   return (

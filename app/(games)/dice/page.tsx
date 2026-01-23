@@ -1,4 +1,4 @@
-import DiceGameContainer from "@/app/_components/Dice/DiceGameContainer";
+import DiceGameContainer from "./_components/DiceGameContainer";
 import GamePage from "@/app/_components/GamePage";
 import type { Metadata } from "next";
 

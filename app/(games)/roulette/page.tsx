@@ -1,4 +1,4 @@
-import RouletteContainer from "@/app/_components/roulette/RouletteContainer";
+import RouletteContainer from "./_components/RouletteContainer";
 import GamePage from "@/app/_components/GamePage";
 import type { Metadata } from "next";
 

@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useCommonStore } from "@/store/commonStore";
-import { Check, CircleDollarSign, PenLine, RotateCcw } from "lucide-react";
+import { useCommonStore } from "@/stores/common.store";
+import { IconCheck, IconCurrencyDollar, IconPencil, IconRefresh } from "@tabler/icons-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { url } from "@/lib/utils";
 
 export default function Navbar() {
@@ -12,19 +12,27 @@ export default function Navbar() {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState("");
 
-  const handleEditClick = () => {
+  const handleEditClick = useCallback(() => {
     setEditValue(balance.toString());
     setIsEditing(true);
-  };
+  }, [balance]);
 
-  const handleSaveBalance = () => {
+  const handleSaveBalance = useCallback(() => {
     const newBalance = parseFloat(editValue);
     if (!isNaN(newBalance)) {
       setBalance(newBalance);
     }
     setIsEditing(false);
     setEditValue("");
-  };
+  }, [editValue, setBalance]);
+
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditValue(e.target.value);
+  }, []);
+
+  const handleResetClick = useCallback(() => {
+    clearCommonState();
+  }, [clearCommonState]);
 
   return (
     <>
@@ -46,9 +54,7 @@ export default function Navbar() {
             <div className="flex items-center gap-1 sm:gap-2">
               {balance <= 1 && (
                 <button
-                  onClick={() => {
-                    clearCommonState();
-                  }}
+                  onClick={handleResetClick}
                   className="relative flex items-center gap-1 sm:gap-2 border border-success rounded-full px-2 sm:px-3 py-1
                    hover:bg-success/10 transition-colors cursor-pointer z-10"
                   type="button"
@@ -59,17 +65,17 @@ export default function Navbar() {
                   <span className="text-xs sm:text-sm font-medium whitespace-nowrap sm:hidden">
                     Reset
                   </span>
-                  <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <IconRefresh className="w-3 h-3 sm:w-4 sm:h-4" />
                 </button>
               )}
             </div>
             <div className="flex items-center gap-1" title="Current Balance">
-              <CircleDollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-success" />
+              <IconCurrencyDollar className="w-4 h-4 sm:w-5 sm:h-5 text-success" />
               {isEditing ? (
                 <input
                   type="number"
                   value={editValue}
-                  onChange={(e) => setEditValue(e.target.value)}
+                  onChange={handleInputChange}
                   onBlur={handleSaveBalance}
                   className="bg-transparent border border-white/20 rounded px-1 py-0.5 text-sm sm:text-base font-medium w-20 text-center focus:outline-none focus:border-success"
                 />
@@ -80,12 +86,12 @@ export default function Navbar() {
               )}
               <div className="cursor-pointer p-2 border border-white/20 rounded-lg hover:bg-white/5 transition-colors">
                 {isEditing ? (
-                  <Check
+                  <IconCheck
                     className="w-3 h-3 sm:w-4 sm:h-4 text-success"
                     onClick={handleSaveBalance}
                   />
                 ) : (
-                  <PenLine
+                  <IconPencil
                     className="w-3 h-3 sm:w-4 sm:h-4 text-success"
                     onClick={handleEditClick}
                   />

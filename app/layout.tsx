@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Figtree, Instrument_Serif, Inter, Caveat } from "next/font/google";
 import "./globals.css";
 import Navbar from "./_components/Navbar";
@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next";
 import Footer from "./_components/Footer";
 import FloatingFeedback from "./_components/FloatingFeedback";
 import Script from "next/script";
+import { Toaster } from "sonner";
 
 const figtree = Figtree({
   subsets: ["latin"],
@@ -121,11 +122,12 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -154,6 +156,7 @@ export default function RootLayout({
         <Analytics />
         <Footer />
         <FloatingFeedback />
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

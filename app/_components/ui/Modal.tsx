@@ -1,4 +1,4 @@
-import { Bomb, Coins, Divide, Gem } from "lucide-react";
+import { IconBomb, IconCoins, IconDivide, IconDiamond } from "@tabler/icons-react";
 import React, { useEffect, useRef } from "react";
 
 export interface ModalProps {
@@ -61,7 +61,7 @@ export default function Modal({
 
           <div className="flex justify-center items-center gap-1">
             <span className="text-success text-xl font-semibold flex flex-row gap-2">
-              <Coins className="w-6 h-6" /> {amount?.toFixed(2)}
+              <IconCoins className="w-6 h-6" /> {amount?.toFixed(2)}
             </span>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function Modal({
         >
           <div className="modal relative rounded-lg flex flex-col justify-center items-center space-y-4">
             <div className="animate-bounce">
-              <Bomb className="w-12 h-12 text-red-400" />
+              <IconBomb className="w-12 h-12 text-red-400" />
             </div>
             <div className="text-center">
               <span className="text-red-300 text-sm uppercase tracking-wider font-medium">

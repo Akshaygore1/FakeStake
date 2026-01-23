@@ -1,4 +1,4 @@
-import MineContainer from "@/app/_components/mines/MineContainer";
+import MineContainer from "./_components/MineContainer";
 import GamePage from "@/app/_components/GamePage";
 import type { Metadata } from "next";
 

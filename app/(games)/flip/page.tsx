@@ -1,5 +1,5 @@
 import GamePage from "@/app/_components/GamePage";
-import FlipGameContainer from "@/app/_components/flip/FlipContainer";
+import FlipGameContainer from "./_components/FlipContainer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,4 +1,4 @@
-import LimboContainer from "@/app/_components/limbo/LimboContainer";
+import LimboContainer from "./_components/LimboContainer";
 import GamePage from "@/app/_components/GamePage";
 import type { Metadata } from "next";
 

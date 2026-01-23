@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Coffee, Github, Mail } from "lucide-react";
+import { IconCoffee, IconBrandGithub, IconMail } from "@tabler/icons-react";
 
 export default function Footer() {
   return (
@@ -17,7 +17,7 @@ export default function Footer() {
                 href="mailto:akshaygore789@gmail.com"
                 className="p-3 text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 border border-white/10 flex items-center gap-2"
               >
-                <Mail className="w-6 h-6" />
+                <IconMail className="w-6 h-6" />
                 <span>Get in touch!</span>
               </a>
               <a
@@ -26,7 +26,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="p-3 text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 border border-white/10 flex items-center gap-2"
               >
-                <Coffee className="w-6 h-6" />
+                <IconCoffee className="w-6 h-6" />
                 <span>Buy Me Coffee</span>
               </a>
             </div>
