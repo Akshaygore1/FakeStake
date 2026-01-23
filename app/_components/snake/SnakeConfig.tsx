@@ -4,6 +4,15 @@ import React, { useCallback } from "react";
 import { useSnakeStore, Difficulty } from "@/store/snakeStore";
 import GameConfig, { ConfigField } from "../GameConfig";
 import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   difficultyOptions,
   calculateNextPathIndex,
   getTileAtPathIndex,
@@ -113,7 +122,7 @@ function SnakeConfig() {
 
     // Calculate new position
     const newPathIndex = calculateNextPathIndex(currentPathIndex, diceSum);
-
+    console.log("newPathIndex", newPathIndex);
     // Start animation
     setIsAnimating(true);
 
@@ -124,18 +133,16 @@ function SnakeConfig() {
     );
     console.log("intermediateIndices", intermediateIndices);
     // Animate through each position
-    let hitSnake = false;
     for (const pathIdx of intermediateIndices) {
       await new Promise((resolve) => setTimeout(resolve, 200)); // Animation delay per tile
 
       // Check if this tile is a snake
+      console.log("======", isSnakeTile(difficulty, pathIdx));
       if (isSnakeTile(difficulty, pathIdx)) {
-        hitSnake = true;
         setCurrentPathIndex(pathIdx);
         addToPathHistory(pathIdx);
-        break;
+        // break;
       }
-
       // Update position
       setCurrentPathIndex(pathIdx);
       addToPathHistory(pathIdx);
@@ -150,10 +157,12 @@ function SnakeConfig() {
     }
 
     setIsAnimating(false);
-
+    const hitSnake = isSnakeTile(
+      difficulty,
+      intermediateIndices[intermediateIndices.length - 1]
+    );
     // Check game result
     if (hitSnake) {
-      // Player loses
       setGameOver(true);
       setHasWon(false);
       setWinnings(0);
@@ -211,11 +220,30 @@ function SnakeConfig() {
     {
       id: "difficulty",
       label: "Difficulty",
-      type: "select",
+      type: "custom",
       value: difficulty,
       onChange: handleDifficultyChange,
-      options: difficultyOptions,
-      disabled: isPlaying,
+      customComponent: (
+        <Select
+          value={difficulty}
+          onValueChange={handleDifficultyChange}
+          disabled={isPlaying}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Select difficulty" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Difficulty</SelectLabel>
+              {difficultyOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      ),
     },
   ];
 
@@ -284,32 +312,6 @@ function SnakeConfig() {
 
   const { primaryButton, secondaryButtons } = getButtonConfig();
 
-  // Custom status display for winnings
-  const statusDisplay = isPlaying ? (
-    <div className="bg-[#1e2a36] rounded-lg p-4 mb-2">
-      <div className="flex justify-between items-center">
-        <span className="text-[#b0b9d2]">Current Multiplier</span>
-        <span className="text-green-400 font-bold text-xl">
-          {currentMultiplier.toFixed(2)}x
-        </span>
-      </div>
-      <div className="flex justify-between items-center mt-2">
-        <span className="text-[#b0b9d2]">Potential Win</span>
-        <span className="text-white font-bold">
-          ${(betAmount * currentMultiplier).toFixed(2)}
-        </span>
-      </div>
-      {diceValues[0] + diceValues[1] > 0 && (
-        <div className="flex justify-between items-center mt-2">
-          <span className="text-[#b0b9d2]">Last Roll</span>
-          <span className="text-amber-400 font-bold">
-            {diceValues[0]} + {diceValues[1]} = {diceValues[0] + diceValues[1]}
-          </span>
-        </div>
-      )}
-    </div>
-  ) : null;
-
   return (
     <GameConfig
       betAmount={betAmount}
@@ -319,7 +321,6 @@ function SnakeConfig() {
       primaryButton={primaryButton}
       secondaryButtons={secondaryButtons}
       betInputDisabled={isPlaying}
-      customStatusDisplay={statusDisplay}
     />
   );
 }
