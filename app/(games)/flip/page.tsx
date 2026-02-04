@@ -2,6 +2,9 @@ import GamePage from "@/app/_components/GamePage";
 import FlipGameContainer from "./_components/FlipContainer";
 import type { Metadata } from "next";
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export const metadata: Metadata = {
   title: "Flip Game Free - Play Online Casino Coin Flip",
   description:

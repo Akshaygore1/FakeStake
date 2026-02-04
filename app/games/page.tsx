@@ -5,6 +5,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { url } from "@/lib/utils";
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export const metadata: Metadata = {
   title: "All Casino Games - Free Play | Mines, Plinko, Roulette, Dice & More",
   description:

@@ -2,6 +2,9 @@ import MineContainer from "./_components/MineContainer";
 import GamePage from "@/app/_components/GamePage";
 import type { Metadata } from "next";
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export const metadata: Metadata = {
   title: "Mines Game Free - Play Online Casino Mines",
   description:
