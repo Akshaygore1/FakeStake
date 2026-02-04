@@ -1,8 +1,8 @@
 "use client";
 
-import { Coins } from "lucide-react";
+import { IconCoins } from "@tabler/icons-react";
 import React from "react";
-import { useCommonStore } from "@/store/commonStore";
+import { useCommonStore } from "@/stores/common.store";
 
 export interface ConfigField {
   id: string;
@@ -244,7 +244,7 @@ export default function GameConfig({
               onClick={(e) => e.currentTarget.select()}
             />
             <div className="absolute right-3 pointer-events-none">
-              <Coins className="w-4 h-4 text-success" />
+              <IconCoins className="w-4 h-4 text-success" />
             </div>
           </div>
           <button

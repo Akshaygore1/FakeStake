@@ -97,30 +97,3 @@ export function calculateMultiplier(
 export function getMultiplier(selectedTiles: number, mines: number): number {
   return calculateMultiplier(selectedTiles, mines);
 }
-
-export const gameHistory: GameResult[] = [];
-
-export const addGameResult = (
-  gameName: React.ReactNode | string,
-  result: string,
-  amount: number,
-  finalBalance: React.ReactNode | number
-): GameResult => {
-  if (typeof amount !== "number" || isNaN(amount)) {
-    throw new Error("Amount isn't a valid number");
-  }
-
-  if (gameHistory.length >= 5) {
-    gameHistory.shift();
-  }
-
-  const newResult: GameResult = {
-    gameName,
-    result,
-    amount: Number(amount.toFixed(2)),
-    finalBalance,
-  };
-
-  gameHistory.push(newResult);
-  return newResult;
-};

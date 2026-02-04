@@ -1,6 +1,9 @@
-import BlackjackContainer from "@/app/_components/blackjack/BlackjackContainer";
+import BlackjackContainer from "./_components/BlackjackContainer";
 import GamePage from "@/app/_components/GamePage";
 import type { Metadata } from "next";
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export const metadata: Metadata = {
   title: "Blackjack Game Free - Play Online Casino Blackjack",

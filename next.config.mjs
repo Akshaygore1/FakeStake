@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+
   // async rewrites() {
   //   return [
   //     {
@@ -21,7 +23,6 @@ const nextConfig = {
 
   // Performance optimizations
   reactStrictMode: true,
-  swcMinify: true,
 
   // Image optimization
   images: {

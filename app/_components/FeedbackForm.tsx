@@ -1,10 +1,10 @@
 "use client";
 
-import { createFeedback } from "../../action/action";
+import { createFeedback } from "@/actions/action";
 import { useFormStatus } from "react-dom";
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
-import { Coffee } from "lucide-react";
+import { IconCoffee } from "@tabler/icons-react";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -96,7 +96,7 @@ export default function FeedbackForm({ onSuccess }: FeedbackFormProps) {
           rel="noopener noreferrer"
           className="px-8 py-3 rounded-xl bg-amber-300 flex items-center gap-2"
         >
-          Buy me a Coffee! <Coffee size={16} />
+          Buy me a Coffee! <IconCoffee size={16} />
         </a>
       </div>
     </form>

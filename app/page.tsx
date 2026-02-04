@@ -1,9 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { ArrowRight, Heart, Coffee } from "lucide-react";
+import { IconArrowRight, IconCoffee } from "@tabler/icons-react";
 import Link from "next/link";
-import { MeshGradient } from "@paper-design/shaders-react";
 import type { Metadata } from "next";
+import MeshGradientBackground from "./_components/MeshGradientBackground";
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export const metadata: Metadata = {
   title:
@@ -52,7 +55,7 @@ export default function Home() {
         role="main"
         aria-label="Home page content"
       >
-        <MeshGradient
+        <MeshGradientBackground
           className="absolute inset-0 w-full h-full"
           colors={["#000000", "#5cf673", "#000000", "#000000"]}
           speed={1}
@@ -87,7 +90,7 @@ export default function Home() {
               className="px-8 py-3 rounded-xl bg-success text-black font-semibold hover:bg-green-600 transition-colors duration-200 flex items-center gap-2"
               href="/games"
             >
-              Explore Games <ArrowRight size={16} />
+              Explore Games <IconArrowRight size={16} />
             </Link>
             <a
               href="https://www.buymeacoffee.com/akshaygore"
@@ -95,7 +98,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="px-8 py-3 rounded-xl border bg-amber-300 border-success text-black font-semibold hover:bg-amber-400 transition-colors duration-200 flex items-center gap-2"
             >
-              Buy me a Coffee! <Coffee size={16} />
+              Buy me a Coffee! <IconCoffee size={16} />
             </a>
           </div>
         </section>

@@ -1,5 +1,8 @@
 import { MetadataRoute } from "next";
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Fake Stake - Free Online Casino Games",

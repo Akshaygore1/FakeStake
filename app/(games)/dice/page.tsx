@@ -1,6 +1,9 @@
-import DiceGameContainer from "@/app/_components/Dice/DiceGameContainer";
+import DiceGameContainer from "./_components/DiceGameContainer";
 import GamePage from "@/app/_components/GamePage";
 import type { Metadata } from "next";
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export const metadata: Metadata = {
   title: "Dice Game Free - Play Online Casino Dice",
