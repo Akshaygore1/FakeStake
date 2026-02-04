@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import MeshGradientBackground from "./_components/MeshGradientBackground";
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 export const revalidate = false;
 
 export const metadata: Metadata = {
@@ -66,9 +66,9 @@ export default function Home() {
           aria-labelledby="welcome-heading"
         >
           <div className="mb-8 animate-fade-in">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-success/10 border border-success/20 mb-6">
+            <div className="inline-flex items-center px-4 py-2 rounded-sm bg-success/10 border border-success/20 mb-6">
               <span className="text-success text-sm font-medium">
-                🎉 New Dragon Tower Game added 🐉
+                🎉 New Snake Game added 🐉
               </span>
             </div>
 
