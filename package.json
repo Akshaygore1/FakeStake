@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --max-warnings 0"
   },
   "dependencies": {
     "@paper-design/shaders-react": "^0.0.55",
@@ -14,17 +14,14 @@
     "@radix-ui/react-slider": "^1.2.3",
     "@radix-ui/react-slot": "^1.1.2",
     "@tabler/icons-react": "^3.36.1",
-    "@vercel/analytics": "^1.5.0",
     "appwrite": "^17.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "matter-js": "^0.20.0",
     "motion": "^12.11.3",
-    "next": "16.0.10",
-    "posthog-js": "^1.261.0",
-    "posthog-node": "^5.8.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "react-router-dom": "^7.9.5",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
@@ -33,14 +30,18 @@
   "devDependencies": {
     "@types/matter-js": "^0.19.8",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "baseline-browser-mapping": "^2.10.0",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "@vitejs/plugin-react": "^5.0.4",
     "eslint": "^8",
-    "eslint-config-next": "14.2.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite": "^7.1.7"
   },
   "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
 }

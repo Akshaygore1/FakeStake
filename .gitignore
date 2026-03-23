@@ -9,12 +9,13 @@
 # testing
 /coverage
 
-# next.js
+# legacy Next.js build output
 /.next/
 /out/
 .env
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -33,7 +34,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+
+# vite
+vite.config.d.ts
 
 .agents
 .opencode
