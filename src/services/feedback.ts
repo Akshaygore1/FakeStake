@@ -15,7 +15,7 @@ if (ENDPOINT && PROJECT_ID) {
 }
 
 export async function submitFeedback(
-  feedback: string
+  feedback: string,
 ): Promise<{ success: true; data: Models.Document }> {
   const trimmedFeedback = feedback.trim();
 
@@ -38,7 +38,7 @@ export async function submitFeedback(
       DATABASE_ID,
       COLLECTION_ID,
       ID.unique(),
-      { feedback: trimmedFeedback }
+      { feedback: trimmedFeedback },
     );
 
     return { success: true, data: response };

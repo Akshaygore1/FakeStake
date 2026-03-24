@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
+import FloatingFeedback from "@/components/feedback/FloatingFeedback";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { SITE_URL } from "@/config/site";
@@ -26,7 +27,9 @@ function NotFoundPage() {
       />
       <div>
         <h1 className="text-4xl font-semibold">Page not found</h1>
-        <p className="mt-3 text-white/70">Try heading back to the games list.</p>
+        <p className="mt-3 text-white/70">
+          Try heading back to the games list.
+        </p>
       </div>
     </main>
   );
@@ -51,6 +54,7 @@ export default function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
+      <FloatingFeedback />
       <Toaster richColors position="top-right" />
     </div>
   );
